@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Camera IP</string>
+    <string name="no_internet">No internet Connection</string>
+    <string name="internet_msg">Please turn on internet connection to continue</string>
+    <string name="close">close</string>
+    <string name="enter_username">Username</string>
+    <string name="enter_password">Password</string>
+    <string name="login">Login</string>
+
+    <string name="pls_enter_unm">Please enter username.</string>
+    <string name="pls_enter_pwd">Please enter password.</string>
+    <string name="pls_enter_dns">Please enter DNS.</string>
+    <string name="pls_enter_tnm">Please enter trailer name.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_group">Select Group</string>
+    <string name="select_camera">Select Cameras</string>
+    <string name="_2019_packettalk_all_right_reserved">\u00A9 2019 Packetalk All Right Reserved</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="trailer">Trailer</string>
+    <string name="auto_focus">Auto focus</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="create_user">Create User</string>
+    <string name="user_log">User Log</string>
+    <string name="update_user">Update User</string>
+    <string name="search">Search</string>
+    <string name="trailer_name">Trailer Name</string>
+    <string name="dns">DNS</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="group_name">Group Name</string>
+    <string name="delete_group">Delete Group</string>
+    <string name="save">Save</string>
+    <string name="colon">:</string>
+    <string name="ip">IP</string>
+    <string name="community">Community</string>
+    <string name="oid">OID</string>
+    <string name="type">TYPE</string>
+    <string name="add_camera">Add Camera</string>
+    <string name="public_camera">Public Camera</string>
+    <string name="selected_user">Selected user :</string>
+    <string name="update">Update</string>
+    <string name="click_here_to_add_all_group_camera">Click here to add all group camera</string>
+    <string name="select_all">SELECT ALL</string>
+    <string name="default_group">Default Group</string>
+    <string name="my_camera">My Camera</string>
+    <string name="no_camera_found">No Camera Found</string>
+    <string name="are_you_sure_you_want_to_delete">Are you sure you want to logout?</string>
+    <string name="yes">yes</string>
+    <string name="no">No</string>
+
+    <string name="delete">DELETE</string>
+    <string name="delete_msg">Are you sure you want to delete?</string>
+    <string name="ok">OK</string>
+    <string name="reset">Reset</string>
+    <string name="delete_all">Delete All</string>
+
+    <string-array name="test_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:background="@drawable/card_border"
+        android:orientation="vertical"
+        android:padding="@dimen/sixteen_dp">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMapCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RelativeLayout
+            android:id="@+id/relWeb"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewMapCamera">
+
+        <com.packetalk.utility.MyWebView
+                android:id="@+id/webCamera"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+                android:clickable="false"
+                android:scrollbars="none" />
+
+        <ImageView
+                android:id="@+id/imgZoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/sixteen_dp"
+                android:src="@drawable/ic_zoom"
+                tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+
+    <com.packetalk.utility.MyTextViewBold
+            android:id="@+id/myTextViewBold2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Trailer Name: "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relWeb" />
+
+    <com.packetalk.utility.MyTextView
+            android:id="@+id/tvTrailerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/myTextViewBold2"
+            app:layout_constraintTop_toBottomOf="@+id/relWeb" />
+
+    <com.packetalk.utility.MyTextViewBold
+            android:id="@+id/myTextViewBold3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Router Id: "
+            app:layout_constraintStart_toStartOf="@+id/myTextViewBold2"
+            app:layout_constraintTop_toBottomOf="@+id/myTextViewBold2" />
+
+    <com.packetalk.utility.MyTextView
+            android:id="@+id/tvRouterId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTrailerName"
+            app:layout_constraintStart_toEndOf="@+id/myTextViewBold3"
+            app:layout_constraintTop_toBottomOf="@+id/tvTrailerName" />
+
+    <com.packetalk.utility.MyTextViewBold
+            android:id="@+id/myTextViewBold4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Latitude: "
+            app:layout_constraintStart_toStartOf="@+id/myTextViewBold3"
+            app:layout_constraintTop_toBottomOf="@+id/myTextViewBold3" />
+
+    <com.packetalk.utility.MyTextView
+            android:id="@+id/tvLat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvRouterId"
+            app:layout_constraintStart_toEndOf="@+id/myTextViewBold4"
+            app:layout_constraintTop_toBottomOf="@+id/tvRouterId" />
+
+    <com.packetalk.utility.MyTextViewBold
+            android:id="@+id/myTextViewBold6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Last Updated: "
+            app:layout_constraintStart_toStartOf="@+id/myTextViewBold5"
+            app:layout_constraintTop_toBottomOf="@+id/myTextViewBold5" />
+
+    <com.packetalk.utility.MyTextView
+            android:id="@+id/tvUpdated"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTrailerName"
+            app:layout_constraintStart_toEndOf="@+id/myTextViewBold6"
+            app:layout_constraintTop_toBottomOf="@+id/tvLng" />
+
+    <com.packetalk.utility.MyTextViewBold
+            android:id="@+id/myTextViewBold5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Longitude: "
+            app:layout_constraintStart_toStartOf="@+id/myTextViewBold4"
+            app:layout_constraintTop_toBottomOf="@+id/myTextViewBold4" />
+
+    <com.packetalk.utility.MyTextView
+            android:id="@+id/tvLng"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTrailerName"
+            app:layout_constraintStart_toEndOf="@+id/myTextViewBold5"
+            app:layout_constraintTop_toBottomOf="@+id/tvLat" />
+</androidx.constraintlayout.widget.ConstraintLayout>

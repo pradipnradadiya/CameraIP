@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F59C48</color>
+    <color name="colorPrimaryDark">#be6d17</color>
+    <color name="colorAccent">#ffcd77</color>
+
+    <color name="setting_img_color">#be6d17</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="green">#43A047</color>
+    <color name="red">#aa0000</color>
+
+
+    <!--Bottom Bar-->
+    <color name="bottom_navigation_background_color">#2B2B2B</color>
+    <color name="ripple_color">#2f424242</color>
+    <color name="selected_icon_color">#be6d17</color>
+    <color name="default_icon_color">#FFFFFF</color>
+    <color name="shadow_color">#1f212121</color>
+
+    <!--    using for button select unselect-->
+    <color name="selected">#a8cf45</color>
+    <color name="unselected">#ff8cae3b</color>
+    <color name="tranparent_camera_text_color">#80000000</color>
+    <color name="delete_popup_background">#FDE3CA</color>
+
+</resources>

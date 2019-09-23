@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".home.activity.CameraDetailAct">
+
+    <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="@dimen/zero_dp"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/zero_dp"
+                app:cardCornerRadius="@dimen/eight_dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <com.packetalk.utility.MyWebView
+                        android:id="@+id/webFull"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                <com.packetalk.utility.MyTextView
+                        android:id="@+id/tvCameraName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/tranparent_camera_text_color"
+                        android:padding="@dimen/camera_title_padding"
+                        android:textAlignment="center"
+                        android:layout_marginStart="@dimen/eight_dp"
+                        android:layout_marginEnd="@dimen/eight_dp"
+                        android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="@dimen/zero_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.7"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                   <!-- <LinearLayout
+                            android:layout_width="@dimen/zero_dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:orientation="vertical"
+                            >
+
+                        <com.packetalk.utility.MyTextView
+                                style="@style/detail_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/from_date" />
+
+                        <LinearLayout
+                                android:id="@+id/linSelectDate"
+                                style="@style/detail_lin_style_parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                    style="@style/detail_lin_style_child"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_calendar" />
+
+                                <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/eight_dp"
+                                        android:orientation="vertical">
+
+                                    <com.packetalk.utility.MyTextView
+                                            android:id="@+id/tvFromTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="16:20"
+                                            android:textSize="@dimen/eight_dp" />
+
+                                    <com.packetalk.utility.MyTextView
+                                            android:id="@+id/tvFromDate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="2019/08/06"
+                                            android:textSize="@dimen/eight_dp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:orientation="vertical"
+
+                            >
+
+                        <com.packetalk.utility.MyTextView
+                                style="@style/detail_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/to_date" />
+
+                        <LinearLayout
+                                android:id="@+id/linToDate"
+                                style="@style/detail_lin_style_parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                    style="@style/detail_lin_style_child"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_calendar" />
+
+                                <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/eight_dp"
+                                        android:orientation="vertical">
+
+                                    <com.packetalk.utility.MyTextView
+                                            android:id="@+id/tvToTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="16:20"
+                                            android:textSize="@dimen/eight_dp" />
+
+                                    <com.packetalk.utility.MyTextView
+                                            android:id="@+id/tvToDate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="2019/08/06"
+                                            android:textSize="@dimen/eight_dp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>-->
+
+                    <!--<LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                        <com.packetalk.utility.MyTextView
+                                style="@style/detail_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/trailer" />
+
+                        <LinearLayout
+                                android:id="@+id/linTrailer"
+                                style="@style/detail_lin_style_parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            <ImageView
+                                    style="@style/detail_lin_style_child"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_trailer" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>-->
+
+                </LinearLayout>
+
+                <com.packetalk.utility.MyTextView
+                        style="@style/detail_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Zoom" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/eight_dp"
+                        android:background="@drawable/card_border"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+
+                    <ImageView
+                            android:id="@+id/imgMinus"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/detail_plus_minus"
+                            android:src="@drawable/ic_remove_circle" />
+
+                    <SeekBar
+                            android:id="@+id/seekBarZoom"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.AppCompat.SeekBar.Discrete"
+                            android:layout_weight="3"
+                            android:max="10"
+                            android:padding="8dp" />
+
+                    <ImageView
+                            android:id="@+id/imgPlus"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/detail_plus_minus"
+                            android:src="@drawable/ic_add_circle" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <LinearLayout
+                            android:id="@+id/linearLayout"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_gravity="center|center_horizontal"
+                            android:background="@drawable/click_effect"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                                android:id="@+id/imgAutoFocus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_auto_focus" />
+
+                        <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/auto_focus"
+                                android:textSize="@dimen/eight_dp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                            android:id="@+id/imgBottom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                            app:srcCompat="@drawable/ic_arrow_downward"
+                            style="@style/detail_img_arrow_background"
+                            tools:ignore="ContentDescription" />
+
+                    <ImageView
+                            android:id="@+id/imgLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+                            app:srcCompat="@drawable/ic_arrow_back"
+                            style="@style/detail_img_arrow_background"
+                            tools:ignore="ContentDescription" />
+
+                    <ImageView
+                            android:id="@+id/imgTop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+                            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                            app:srcCompat="@drawable/ic_arrow_upward"
+                            style="@style/detail_img_arrow_background"
+                            tools:ignore="ContentDescription" />
+
+                    <ImageView
+                            android:id="@+id/imgRight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+                            app:srcCompat="@drawable/ic_arrow_forward"
+                            style="@style/detail_img_arrow_background"
+                            tools:ignore="ContentDescription" />
+
+                    <LinearLayout
+                            android:id="@+id/linTrailer"
+                            style="@style/detail_lin_style_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                        <ImageView
+                                style="@style/detail_lin_style_child"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_trailer"
+                                android:padding="@dimen/eight_dp"
+                                />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                            android:id="@+id/linCalender"
+                            style="@style/detail_lin_style_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginBottom="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                                style="@style/detail_lin_style_child"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_calendar"
+                                android:padding="@dimen/eight_dp"/>
+
+                    </LinearLayout>
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.packetalk.utility.MyWebView
+            android:id="@+id/webHidden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
