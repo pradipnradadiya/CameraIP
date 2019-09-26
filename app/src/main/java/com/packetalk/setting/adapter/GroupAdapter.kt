@@ -131,7 +131,6 @@ class GroupAdapter(
             callApi!!.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     AppLogger.e(response.body().toString())
-
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -142,18 +141,16 @@ class GroupAdapter(
 
         private fun deleteGroup(groupId: String) {
             val map = HashMap<String, String>()
-            map.put("GroupID", groupId)
+            map["GroupID"] = groupId
 
             val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
             val callApi = apiInterface?.deleteGroup(map)
             callApi!!.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     AppLogger.e(response.body().toString())
-
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-
                 }
             })
         }
@@ -185,12 +182,6 @@ class GroupAdapter(
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             dialog.show()
-
-
         }
-
-
     }
-
-
 }

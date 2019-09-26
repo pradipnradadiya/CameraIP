@@ -8,7 +8,6 @@ import com.packetalk.R
 
 class SimpleDividerItemDecoration(resources: Resources) : RecyclerView.ItemDecoration() {
     private val mDivider: Drawable = resources.getDrawable(R.drawable.line_divider)
-
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val left = parent.paddingLeft
         val right = parent.width - parent.paddingRight

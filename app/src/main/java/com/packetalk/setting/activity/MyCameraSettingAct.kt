@@ -91,7 +91,7 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                             showErrorToast("There are No camera selected.")
                         }else{
                             AppLogger.e("delete all")
-//                            deleteCameraSetting()
+                            deleteCameraSetting()
                         }
 
                     }
@@ -174,7 +174,6 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                     spinnerGroupCamera?.onItemSelectedListener =
                         object : AdapterView.OnItemSelectedListener {
                             override fun onNothingSelected(parent: AdapterView<*>?) {
-
                             }
 
                             override fun onItemSelected(
@@ -187,6 +186,7 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                                     tvNoData.visibility = View.VISIBLE
                                     recycleviewCameraSettingList.visibility = View.INVISIBLE
                                     btnDeleteall.visibility = View.GONE
+                                    groupId = myGroupList?.get(position)!!.groupID.toString()
                                 } else {
                                     btnDeleteall.visibility = View.VISIBLE
                                     tvNoData.visibility = View.INVISIBLE
@@ -214,16 +214,19 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
             override fun onFailure(call: Call<GroupCameraItem>, t: Throwable) {
                 hideProgressDialog()
             }
+
         })
 
     }
 
     private fun deleteGroup(groupId: String) {
         val map = HashMap<String, String>()
-        map.put("GroupID", groupId)
+        map["GroupID"] = groupId
+        AppLogger.e("group id $groupId")
 
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.deleteGroup(map)
+
         callApi!!.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 AppLogger.e(response.body().toString())

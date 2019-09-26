@@ -64,7 +64,6 @@ fun parseJsonArray(data: String): String {
     val obj = JSONArray(json)
     AppLogger.e("obj-------------$obj")
     return obj.toString()
-
 }
 
 fun Activity.getDisplayWidth(): Int {
@@ -82,10 +81,9 @@ fun Activity.getDisplayHeight(): Int {
 fun setLoader(): AbstractDraweeController<*, *>? {
     //progress loader
     val imageRequest = ImageRequestBuilder.newBuilderWithResourceId(R.raw.spinner_icon).build()
-    val controller = Fresco.newDraweeControllerBuilder()
+    return Fresco.newDraweeControllerBuilder()
         .setUri(imageRequest.sourceUri)
         .setAutoPlayAnimations(true)
         .build()
-    return controller
 }
 

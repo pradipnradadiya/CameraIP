@@ -9,14 +9,14 @@
         android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout12"
+            android:id="@+id/constraintFromDate"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/card_border"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout11"
+            app:layout_constraintEnd_toStartOf="@+id/constraintToDate"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/myTextView20"
+                app:layout_constraintBottom_toBottomOf="@+id/tvFromDate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/myTextView17"
                 app:srcCompat="@drawable/ic_calendar"
@@ -39,14 +39,14 @@
                 android:layout_marginStart="16dp"
                 android:text="@string/from_date"
                 android:textSize="@dimen/eight_dp"
-                app:layout_constraintBottom_toTopOf="@+id/myTextView20"
+                app:layout_constraintBottom_toTopOf="@+id/tvFromDate"
                 app:layout_constraintStart_toEndOf="@+id/imageView11"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:ignore="SpUsage" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView20"
+                android:id="@+id/tvFromDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -58,17 +58,17 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout11"
+            android:id="@+id/constraintToDate"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/card_border"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout12"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintFromDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout12"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout12"
+            app:layout_constraintStart_toEndOf="@+id/constraintFromDate"
+            app:layout_constraintTop_toTopOf="@+id/constraintFromDate"
             app:layout_constraintVertical_bias="0.0">
 
         <ImageView
@@ -76,14 +76,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/myTextView23"
+                app:layout_constraintBottom_toBottomOf="@+id/tvToDate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/myTextView26"
                 app:srcCompat="@drawable/ic_calendar"
                 tools:ignore="ContentDescription" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView23"
+                android:id="@+id/tvToDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -100,7 +100,7 @@
                 android:layout_marginStart="16dp"
                 android:text="@string/to_date"
                 android:textSize="@dimen/eight_dp"
-                app:layout_constraintBottom_toTopOf="@+id/myTextView23"
+                app:layout_constraintBottom_toTopOf="@+id/tvToDate"
                 app:layout_constraintStart_toEndOf="@+id/imageView12"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
@@ -108,30 +108,30 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.packetalk.utility.MyButton
-            android:id="@+id/myButton"
+            android:id="@+id/btnSubmit"
             style="@style/btnStyle"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/btn_height"
             android:layout_marginTop="32dp"
             android:text="@string/submit"
-            app:layout_constraintEnd_toStartOf="@+id/myButton2"
+            app:layout_constraintEnd_toStartOf="@+id/btnReset"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout12" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintFromDate" />
 
     <com.packetalk.utility.MyButton
-            android:id="@+id/myButton2"
+            android:id="@+id/btnReset"
             style="@style/btnStyle"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/btn_height"
             android:layout_marginStart="16dp"
             android:text="@string/reset"
-            app:layout_constraintBottom_toBottomOf="@+id/myButton"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSubmit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/myButton"
-            app:layout_constraintTop_toTopOf="@+id/myButton" />
+            app:layout_constraintStart_toEndOf="@+id/btnSubmit"
+            app:layout_constraintTop_toTopOf="@+id/btnSubmit" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -144,7 +144,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myButton">
+            app:layout_constraintTop_toBottomOf="@+id/btnSubmit">
 
         <LinearLayout
                 android:id="@+id/linearLayout5"
@@ -156,25 +156,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <com.packetalk.utility.MyTextViewBold
-                    android:id="@+id/myTextView29"
+            <com.packetalk.utility.MyTextView
+                    android:visibility="gone"
+                    android:id="@+id/tvCamNameDateTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/eight_dp"
-                    android:text="Willingboro-Trailer1-Cam2 Time: 2019/09/19 00:10 - 2019/09/19 00:20" />
+                    android:padding="@dimen/eight_dp" />
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleViewStoredVideo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
-                />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/loader"
+                android:layout_width="@dimen/loader_height_width"
+                android:layout_height="@dimen/loader_height_width"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

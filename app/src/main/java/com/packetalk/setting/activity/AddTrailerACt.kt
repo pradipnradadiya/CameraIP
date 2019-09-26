@@ -134,6 +134,7 @@ class AddTrailerACt : BaseActivity(), View.OnClickListener {
             edTrailerName.text.toString(),
             ""
         )
+
         trailerArr.add(obj)
         val postData = TrailerRequest(trailerArr)
         AppLogger.e(postData.toString())

@@ -12,12 +12,15 @@ import com.packetalk.setting.adapter.GroupAdapter
 import com.packetalk.util.AppLogger
 import com.packetalk.util.SharedPreferenceSession
 import com.packetalk.util.Validator
+import com.packetalk.util.parseJsonObject
 import kotlinx.android.synthetic.main.act_add_group.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class AddGroupAct : BaseActivity() {
+
+    var session : SharedPreferenceSession? = null
     override fun getLayoutResourceId(): Int {
         return R.layout.act_add_group
     }
@@ -28,6 +31,7 @@ class AddGroupAct : BaseActivity() {
 
 
     override fun initView() {
+        session = SharedPreferenceSession(this@AddGroupAct)
     }
 
     override fun postInitView() {
@@ -44,8 +48,7 @@ class AddGroupAct : BaseActivity() {
     }
 
     override fun loadData() {
-        val session = SharedPreferenceSession(this)
-        getGroupList(session.memberType.toString(), session.memberId.toString())
+        getGroupList(session?.memberType.toString(), session?.memberId.toString())
     }
 
     private fun getGroupList(memberType: String, memberId: String) {
@@ -99,7 +102,12 @@ class AddGroupAct : BaseActivity() {
                 AppLogger.e(response.body().toString())
                 hideProgressDialog()
 
-
+                if (response.isSuccessful){
+                    var jsonObject = parseJsonObject(response.body().toString())
+                    if (jsonObject.getBoolean("ResponseResult")){
+                        getGroupList(session?.memberType.toString(), session?.memberId.toString())
+                    }
+                }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

@@ -264,6 +264,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             style="@style/detail_plus_minus"
+                            android:layout_marginStart="@dimen/one_dp"
                             android:src="@drawable/ic_remove_circle" />
 
                     <SeekBar
@@ -281,6 +282,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             style="@style/detail_plus_minus"
+                            android:layout_marginEnd="@dimen/one_dp"
                             android:src="@drawable/ic_add_circle" />
 
                 </LinearLayout>

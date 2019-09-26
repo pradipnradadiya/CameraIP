@@ -2,6 +2,7 @@ package com.packetalk.retrofit
 
 import com.google.gson.JsonObject
 import com.packetalk.home.model.group_camera_model.GroupCameraItem
+import com.packetalk.home.model.group_camera_model.strored_video.StoredVideoItem
 import com.packetalk.map.fragment.model.MapItem
 import com.packetalk.setting.model.add_camera.DefaultCameraItem
 import com.packetalk.setting.model.modem_setting.ModemItem
@@ -172,6 +173,12 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST("api/SettingAdmin/SaveAssignGroupUser")
     fun saveAssignUserToGroup(@Body body: AssignUserToGroupRequest): Call<JsonObject>
+
+    @Headers("Content-Type: application/json")
+    @POST("api/VideoDetail/StoredVideos")
+    fun storedVideo(@Body body: Map<String, String>): Call<StoredVideoItem>
+
+
 
 
 }
