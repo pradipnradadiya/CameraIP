@@ -5,14 +5,10 @@ import com.google.gson.JsonObject
 import com.packetalk.BaseActivity
 import com.packetalk.R
 import com.packetalk.home.model.group_camera_model.GroupCameraItem
-import com.packetalk.retrofit.APIClient
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.adapter.GroupAdapter
-import com.packetalk.util.AppLogger
-import com.packetalk.util.SharedPreferenceSession
-import com.packetalk.util.Validator
-import com.packetalk.util.parseJsonObject
+import com.packetalk.util.*
 import kotlinx.android.synthetic.main.act_add_group.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,7 +16,7 @@ import retrofit2.Response
 
 class AddGroupAct : BaseActivity() {
 
-    var session : SharedPreferenceSession? = null
+    var session: SharedPreferenceSession? = null
     override fun getLayoutResourceId(): Int {
         return R.layout.act_add_group
     }
@@ -40,7 +36,7 @@ class AddGroupAct : BaseActivity() {
     override fun addListener() {
         btnSubmit.setOnClickListener {
             val check = validateGroup()
-            if (check){
+            if (check) {
                 addGroup(edGroupName.text.toString())
             }
 
@@ -89,22 +85,19 @@ class AddGroupAct : BaseActivity() {
         showProgressDialog("Camera", "Please wait..")
         val map = HashMap<String, String>()
         map["Groupname"] = groupName
-
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.addGroup(map)
-
         callApi!!.enqueue(object : Callback<JsonObject> {
-
             override fun onResponse(
                 call: Call<JsonObject>,
                 response: Response<JsonObject>
             ) {
                 AppLogger.e(response.body().toString())
                 hideProgressDialog()
-
-                if (response.isSuccessful){
-                    var jsonObject = parseJsonObject(response.body().toString())
-                    if (jsonObject.getBoolean("ResponseResult")){
+                if (response.isSuccessful) {
+                    val jsonObject = parseJsonObject(response.body().toString())
+                    if (jsonObject.getBoolean("ResponseResult")) {
+                        showSuccessToast("Group added successfully")
                         getGroupList(session?.memberType.toString(), session?.memberId.toString())
                     }
                 }
@@ -114,7 +107,6 @@ class AddGroupAct : BaseActivity() {
                 hideProgressDialog()
             }
         })
-
     }
 
     private fun validateGroup(): Boolean {

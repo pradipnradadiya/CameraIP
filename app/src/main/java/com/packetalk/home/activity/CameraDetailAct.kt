@@ -27,7 +27,6 @@ import retrofit2.Response
 import java.util.*
 
 class CameraDetailAct : BaseActivity(), View.OnClickListener {
-
     private var date_time = ""
     var mYear: Int = 0
     var mMonth: Int = 0

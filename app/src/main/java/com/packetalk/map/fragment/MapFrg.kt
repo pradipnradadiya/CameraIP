@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,17 +25,16 @@ import com.packetalk.BaseFragment
 import com.packetalk.R
 import com.packetalk.home.activity.CameraDetailAct
 import com.packetalk.home.model.group_camera_model.CameraDetailsFull
+import com.packetalk.map.fragment.activity.MapCameraViewAct
+import com.packetalk.map.fragment.adapter.CameraViewListAdapter
 import com.packetalk.map.fragment.adapter.VideoCameraListAdapter
 import com.packetalk.map.fragment.adapter.VideoCameraListAdapter.Companion.camPosition
 import com.packetalk.map.fragment.model.MapItem
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
-import com.packetalk.util.AppConstants
-import com.packetalk.util.AppLogger
-import com.packetalk.util.SharedPreferenceSession
-import com.packetalk.util.getDisplayWidth
-import com.packetalk.utility.MyWebView
+import com.packetalk.util.*
 import kotlinx.android.synthetic.main.dialog_map_camera_list.*
+import kotlinx.android.synthetic.main.frg_map.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,8 +44,10 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
     private lateinit var rootView: View
     private var marker: Marker? = null
     var mapData: MapItem? = null
-    var webCam: MyWebView? = null
     private lateinit var dialog: Dialog
+
+    var adapter: CameraViewListAdapter? = null
+
     override fun myFragmentView(
         inflater: LayoutInflater,
         parent: ViewGroup?,
@@ -71,6 +71,26 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
     }
 
     override fun addListener() {
+        rootView.btnCameraView.setOnClickListener {
+
+            if (rootView.linCamera.visibility == View.VISIBLE) {
+                rootView.linCamera.visibility = View.GONE
+            } else {
+                rootView.linCamera.visibility = View.VISIBLE
+            }
+        }
+
+        rootView.btnView.setOnClickListener {
+            if (adapter?.itemArrayList.isNullOrEmpty()){
+                activity?.showWarningToast("Camera not available")
+            }else{
+                val intent = Intent(activity, MapCameraViewAct::class.java)
+                intent.putExtra(AppConstants.CAMERA_DETAIL_KEY, adapter?.itemArrayList)
+                startNewActivityWithIntent(intent)
+            }
+
+
+        }
     }
 
     override fun loadData() {
@@ -86,7 +106,22 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(gir))
         */
         mMap.setOnMarkerClickListener { marker ->
-            showDialog(marker.title)
+
+            if (rootView.linCamera.visibility == View.VISIBLE) {
+                val trailerData = marker.title.split("|")
+                val position: Int = trailerData[0].toInt()
+                val layoutManager = LinearLayoutManager(activity)
+                adapter = CameraViewListAdapter(
+                    activity,
+                    mapData?.objectX?.gPSLocations?.get(position)?.camdetails
+                )
+                rootView.recycleViewCameraView.layoutManager = layoutManager
+                val divider = SimpleDividerItemDecoration(resources)
+                rootView.recycleViewCameraView.adapter = adapter
+                rootView.recycleViewCameraView.addItemDecoration(divider)
+            } else {
+                showDialog(marker.title)
+            }
             true
         }
     }
@@ -114,7 +149,7 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
                                 ).title("$i|${value.trailerNo.trim()}|${value.router.trim()}|${value.latitude}|${value.longitude}|${value.updatedAt.trim()}")
                             )
                             if (onlyOnce) {
-                                val zoomLevel: Float = 16.0f; //This goes up to 21
+                                val zoomLevel: Float = 18.0f; //This goes up to 21
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(data, zoomLevel))
                                 onlyOnce = false
                             }

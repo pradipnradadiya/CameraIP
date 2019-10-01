@@ -56,6 +56,11 @@
     <string name="ok">OK</string>
     <string name="reset">Reset</string>
     <string name="delete_all">Delete All</string>
+    <string name="assign_camera">Assign Camera</string>
+    <string name="camera_view">Camera View</string>
+    <string name="critical">Critical</string>
+    <string name="warning">Warning</string>
+    <string name="normal">Normal</string>
 
     <string-array name="test_array">
         <item>1</item>

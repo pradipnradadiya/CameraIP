@@ -8,9 +8,9 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="green">#43A047</color>
-    <color name="red">#aa0000</color>
-
+    <color name="green">#008000</color>
+    <color name="yellow">#FDD835</color>
+    <color name="red">#FF0000</color>
 
     <!--Bottom Bar-->
     <color name="bottom_navigation_background_color">#2B2B2B</color>

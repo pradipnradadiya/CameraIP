@@ -22,7 +22,8 @@
             android:usesCleartextTraffic="true"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning"
             tools:targetApi="m">
-        <activity android:name=".setting.activity.AssignGroupToUserAct"></activity>
+        <activity android:name=".map.fragment.activity.MapCameraViewAct"></activity>
+        <activity android:name=".setting.activity.AssignGroupToUserAct" />
         <activity
                 android:name=".user.activity.AssignCameraAct"
                 android:windowSoftInputMode="stateHidden" />

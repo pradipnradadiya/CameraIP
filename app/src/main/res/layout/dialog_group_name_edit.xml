@@ -31,6 +31,8 @@
                     android:focusableInTouchMode="true"
                     android:hint="@string/group_name"
                     android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/colorAccent" />
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -38,9 +38,7 @@ class AddTrailerACt : BaseActivity(), View.OnClickListener {
                 }
             }
             R.id.btnCancel -> {
-                btnSubmit.text = getString(R.string.submit)
-                edTrailerName.setText("")
-                edDns.setText("")
+                clearField()
             }
         }
     }
@@ -82,6 +80,11 @@ class AddTrailerACt : BaseActivity(), View.OnClickListener {
         return true
     }
 
+    private fun clearField(){
+        btnSubmit.text = getString(R.string.submit)
+        edTrailerName.setText("")
+        edDns.setText("")
+    }
     //using getting a list of trailer
     private fun getTrailerList() {
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
@@ -105,9 +108,7 @@ class AddTrailerACt : BaseActivity(), View.OnClickListener {
         })
     }
 
-    fun updateTrailer(
-        data: Object
-    ) {
+    fun updateTrailer(data: Object) {
         btnSubmit.text = getString(R.string.update)
         edDns.setText(data.dNS)
         edTrailerName.setText(data.trailerName)
@@ -148,6 +149,7 @@ class AddTrailerACt : BaseActivity(), View.OnClickListener {
                 val json = parseJsonObject(response.body().toString())
                 if (json.getBoolean("ResponseResult")) {
                     showSuccessToast("Trailer added successfully")
+                    clearField()
                     getTrailerList()
                 }
             }

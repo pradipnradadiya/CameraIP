@@ -36,6 +36,10 @@ object CommonUtils {
 
     private val ALLOWED_CHARACTERS = AppConstants.RANDOM_STR
 
+    @SuppressLint("DefaultLocale")
+    fun upperCaseFirstLetter(str: String): String {
+        return str.substring(0, 1).toUpperCase() + str.substring(1)
+    }
 
     fun rupeeFormat(value: String): String {
         var value = value
@@ -64,7 +68,7 @@ object CommonUtils {
         //        return formatter.format(amount);
     }
 
-    fun Logout(from: Activity) {
+    fun logout(from: Activity) {
         val i = Intent(from, SplashACt::class.java)
         from.startActivity(i)
         from.finishAffinity()
@@ -72,13 +76,13 @@ object CommonUtils {
 
     //String encode
     fun encodeEmoji(message: String): String {
-        try {
-            return URLEncoder.encode(
+        return try {
+            URLEncoder.encode(
                 message,
                 "UTF-8"
             )
         } catch (e: UnsupportedEncodingException) {
-            return message
+            message
         }
 
     }
@@ -86,12 +90,12 @@ object CommonUtils {
     //String decode
     fun decodeEmoji(message: String): String {
         val myString: String? = null
-        try {
-            return URLDecoder.decode(
+        return try {
+            URLDecoder.decode(
                 message, "UTF-8"
             )
         } catch (e: UnsupportedEncodingException) {
-            return message
+            message
         }
 
     }
@@ -103,7 +107,6 @@ object CommonUtils {
         } catch (e: ParseException) {
             e.printStackTrace()
         }
-
         return mDate
     }
 
@@ -179,7 +182,8 @@ object CommonUtils {
 
         val state_pressed = ContextCompat.getDrawable(context, selected)
 
-        val state_normal_bitmap = (Objects.requireNonNull<Drawable>(state_normal) as BitmapDrawable).bitmap
+        val state_normal_bitmap =
+            (Objects.requireNonNull<Drawable>(state_normal) as BitmapDrawable).bitmap
 
         // Setting alpha directly just didn't work, so we draw a new bitmap!
         val disabledBitmap = Bitmap.createBitmap(
@@ -209,7 +213,11 @@ object CommonUtils {
         return drawable
     }
 
-    fun selectorRadioImage(context: Context, normal: Drawable, pressed: Drawable): StateListDrawable {
+    fun selectorRadioImage(
+        context: Context,
+        normal: Drawable,
+        pressed: Drawable
+    ): StateListDrawable {
         val states = StateListDrawable()
         states.addState(intArrayOf(android.R.attr.state_checked), pressed)
         states.addState(intArrayOf(), normal)

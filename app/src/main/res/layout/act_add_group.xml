@@ -39,7 +39,9 @@
                     android:layout_height="wrap_content"
                     android:focusableInTouchMode="true"
                     android:hint="@string/group_name"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

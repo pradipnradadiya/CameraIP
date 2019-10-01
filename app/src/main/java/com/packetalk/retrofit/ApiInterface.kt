@@ -1,6 +1,7 @@
 package com.packetalk.retrofit
 
 import com.google.gson.JsonObject
+import com.packetalk.Trailer.fragment.model.trailer.TrailerGaugeItem
 import com.packetalk.home.model.group_camera_model.GroupCameraItem
 import com.packetalk.home.model.group_camera_model.strored_video.StoredVideoItem
 import com.packetalk.map.fragment.model.MapItem
@@ -178,6 +179,11 @@ interface ApiInterface {
     @POST("api/VideoDetail/StoredVideos")
     fun storedVideo(@Body body: Map<String, String>): Call<StoredVideoItem>
 
+
+    /************************************Trailer****************************************/
+    //Trailer List
+    @GET("api/Trailers/GetTrailerList")
+    fun getTrailerGaugeList(): Call<TrailerGaugeItem>
 
 
 

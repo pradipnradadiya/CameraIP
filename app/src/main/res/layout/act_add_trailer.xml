@@ -38,8 +38,8 @@
                     android:id="@+id/edDns"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="true"
                     android:hint="@string/dns"
+                    android:maxLines="1"
                     android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -55,9 +55,10 @@
                     android:id="@+id/edTrailerName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="true"
                     android:hint="@string/trailer_name"
-                    android:inputType="text" />
+                    android:maxLines="1"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

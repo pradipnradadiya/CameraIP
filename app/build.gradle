@@ -59,7 +59,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.itlgl:iosdialog:1.0.1'
-
     implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
-
+    implementation 'com.github.anastr:speedviewlib:1.4.0'
+    implementation 'com.github.angads25:toggle:1.0.0'
 }

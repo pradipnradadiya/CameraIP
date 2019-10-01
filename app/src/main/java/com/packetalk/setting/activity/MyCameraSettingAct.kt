@@ -44,39 +44,43 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
 
             }
             R.id.btnSave -> {
-                val arrayCameraIDPK = ArrayList<Int>()
-                val arrayPriority = ArrayList<Int>()
-                val length = adapter?.itemArrayList?.size
-                var flag = false
-                for (i in 0 until length!!) {
-                    var j = i + 1
-                    while (j < length) {
-                        if (adapter?.itemArrayList?.get(i)?.priority?.equals(
-                                adapter?.itemArrayList?.get(
-                                    j
-                                )!!.priority
-                            )!!
-                        ) {
-                            showErrorToast("Repeated priority ${i + 1},${j + 1} It should be unique for each camera.")
-                            flag = true
+                if (!adapter?.itemArrayList.isNullOrEmpty()) {
+                    val arrayCameraIDPK = ArrayList<Int>()
+                    val arrayPriority = ArrayList<Int>()
+                    val length = adapter?.itemArrayList?.size
+                    var flag = false
+                    for (i in 0 until length!!) {
+                        var j = i + 1
+                        while (j < length) {
+                            if (adapter?.itemArrayList?.get(i)?.priority?.equals(
+                                    adapter?.itemArrayList?.get(
+                                        j
+                                    )!!.priority
+                                )!!
+                            ) {
+                                showErrorToast("Repeated priority ${i + 1},${j + 1} It should be unique for each camera.")
+                                flag = true
+                            }
+                            j++
                         }
-                        j++
+                        if (flag) {
+                            break
+                        } else {
+                            arrayCameraIDPK.add(adapter?.itemArrayList?.get(i)?.adminCameraIDPK!!)
+                            arrayPriority.add(adapter?.itemArrayList?.get(i)?.priority!!)
+                        }
                     }
-                    if (flag) {
-                        break
-                    } else {
-                        arrayCameraIDPK.add(adapter?.itemArrayList?.get(i)?.adminCameraIDPK!!)
-                        arrayPriority.add(adapter?.itemArrayList?.get(i)?.priority!!)
+
+                    if (!flag) {
+                        val data = MyCameraSettingPriorityRequest(arrayCameraIDPK, arrayPriority)
+                        AppLogger.e(data.toString())
+                        saveCameraSetting(data)
                     }
+                } else {
+                    btnSave.isEnabled = false
                 }
-
-                if (!flag) {
-                    val data = MyCameraSettingPriorityRequest(arrayCameraIDPK, arrayPriority)
-                    AppLogger.e(data.toString())
-                    saveCameraSetting(data)
-                }
-
             }
+
             R.id.btnDeleteall -> {
                 IOSDialog.Builder(this@MyCameraSettingAct)
                     .setTitle(getString(R.string.delete))
@@ -87,9 +91,9 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                         dialog.dismiss()
                         // continue with delete
                         AppLogger.e(arrayAdminCameraIDPK.toString())
-                        if (arrayAdminCameraIDPK.isNullOrEmpty()){
+                        if (arrayAdminCameraIDPK.isNullOrEmpty()) {
                             showErrorToast("There are No camera selected.")
-                        }else{
+                        } else {
                             AppLogger.e("delete all")
                             deleteCameraSetting()
                         }
@@ -293,5 +297,4 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
             }
         })
     }
-
 }

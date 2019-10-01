@@ -1,5 +1,6 @@
 package com.packetalk.home.activity
 
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.packetalk.BaseActivity
@@ -11,6 +12,7 @@ import com.packetalk.setting.fragment.SettingFrg
 import com.packetalk.user.fragment.UserFrg
 import com.packetalk.util.AppLogger
 import com.packetalk.util.SharedPreferenceSession
+import com.packetalk.util.showInfoToast
 import kotlinx.android.synthetic.main.act_home.*
 
 class HomeAct : BaseActivity() {
@@ -46,7 +48,7 @@ class HomeAct : BaseActivity() {
     }
 
     override fun postInitView() {
-        if (!session?.memberId.equals("") || session?.memberId.isNullOrBlank()){
+        if (!session?.memberId.equals("") || session?.memberId.isNullOrBlank()) {
             userId = session?.memberId.toString()
         }
     }
@@ -158,7 +160,7 @@ class HomeAct : BaseActivity() {
         }
     }
 
-    /*override fun onBackPressed() {
+    override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
             return
@@ -167,7 +169,7 @@ class HomeAct : BaseActivity() {
         showInfoToast("Please click BACK again to exit")
 
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
-    }*/
+    }
 
 
     override fun onResume() {

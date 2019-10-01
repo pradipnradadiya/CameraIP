@@ -49,9 +49,8 @@
                         android:id="@+id/edUserName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_user"
+                        android:drawableStart="@drawable/ic_user"
                         android:drawablePadding="@dimen/eight_dp"
-                        android:focusableInTouchMode="true"
                         android:hint="@string/enter_username"
                         android:inputType="text" />
 
@@ -71,8 +70,9 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_lock"
                         android:drawablePadding="@dimen/eight_dp"
-                        android:focusableInTouchMode="true"
                         android:hint="@string/enter_password"
+                        android:maxLines="1"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
