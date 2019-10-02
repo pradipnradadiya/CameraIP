@@ -22,7 +22,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {

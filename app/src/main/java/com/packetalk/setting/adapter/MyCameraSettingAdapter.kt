@@ -91,6 +91,7 @@ class MyCameraSettingAdapter(
             arrayList.clear()
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
+
             if (!itemArrayList.isNullOrEmpty()) {
                 for ((index, value) in itemArrayList?.withIndex()!!) {
                     arrayList.add((index + 1).toString())
@@ -116,8 +117,6 @@ class MyCameraSettingAdapter(
                     .setNegativeButton(
                         activity?.getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
-
-
             }
 
             itemView.checkBox.setOnClickListener {

@@ -1,24 +1,21 @@
 package com.packetalk.Trailer.fragment
-
-
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.packetalk.BaseFragment
+import com.packetalk.R
 import com.packetalk.Trailer.fragment.adapter.TrailerGaugeAdapter
 import com.packetalk.Trailer.fragment.model.trailer.TrailerGaugeItem
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
+import com.packetalk.setting.activity.AddTrailerACt
 import com.packetalk.util.AppLogger
 import com.packetalk.util.SimpleDividerItemDecoration
 import kotlinx.android.synthetic.main.frg_trailer.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class TrailerFrg : BaseFragment() {
     lateinit var rootView: View
@@ -32,6 +29,11 @@ class TrailerFrg : BaseFragment() {
     ): View {
         rootView = inflater.inflate(com.packetalk.R.layout.frg_trailer, parent, false)
         return rootView
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun init() {
@@ -85,8 +87,8 @@ class TrailerFrg : BaseFragment() {
                     if (response.body()?.responseResult!!) {
                         adapter = TrailerGaugeAdapter(activity, response.body()?.objectX)
                         rootView.recycleViewTrailer.adapter = adapter
-                        val divider = SimpleDividerItemDecoration(resources)
-                        rootView.recycleViewTrailer.addItemDecoration(divider)
+//                        val divider = SimpleDividerItemDecoration(resources)
+//                        rootView.recycleViewTrailer.addItemDecoration(divider)
                     }
                 }
             }
@@ -96,6 +98,26 @@ class TrailerFrg : BaseFragment() {
             }
 
         })
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+//        menu.clear()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // TODO Add your menu entries here
+//        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.trailer_menu, menu)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_trailer -> {
+                startNewActivity(AddTrailerACt::class.java)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

@@ -19,4 +19,5 @@ data class Object(
     @SerializedName("usertype")
     val usertype: Int,
     var isNew:Boolean = false
+
 )

@@ -24,5 +24,6 @@
     <color name="unselected">#ff8cae3b</color>
     <color name="tranparent_camera_text_color">#80000000</color>
     <color name="delete_popup_background">#FDE3CA</color>
+    <color name="trailer_guage_background">#FEF4EA</color>
 
 </resources>

@@ -61,6 +61,8 @@
     <string name="critical">Critical</string>
     <string name="warning">Warning</string>
     <string name="normal">Normal</string>
+    <string name="edit">Edit</string>
+    <string name="no_record_found">No Record Found.</string>
 
     <string-array name="test_array">
         <item>1</item>

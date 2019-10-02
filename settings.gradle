@@ -1,1 +1,1 @@
-include ':app', ':SpeedometerView'
+include ':app'

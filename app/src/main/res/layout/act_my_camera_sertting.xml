@@ -100,14 +100,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="No Record Found."
+            android:text="@string/no_record_found"
             android:textSize="24sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/btnSave"
             app:layout_constraintEnd_toEndOf="@+id/recycleviewCameraSettingList"
             app:layout_constraintStart_toStartOf="@+id/recycleviewCameraSettingList"
             app:layout_constraintTop_toBottomOf="@+id/spinnerGroupCamera" />
-
 
     <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/loader"
