@@ -92,7 +92,6 @@ class AssignGroupToUserAct : BaseActivity(), View.OnClickListener {
         val callApi = apiInterface?.getUserList()
 
         callApi!!.enqueue(object : Callback<UserListItem> {
-
             override fun onResponse(call: Call<UserListItem>, response: Response<UserListItem>) {
                 AppLogger.e(response.body().toString())
                 if (response.isSuccessful) {
@@ -108,7 +107,6 @@ class AssignGroupToUserAct : BaseActivity(), View.OnClickListener {
             override fun onFailure(call: Call<UserListItem>, t: Throwable) {
                 hideProgressDialog()
             }
-
         })
 
     }

@@ -1,6 +1,5 @@
 package com.packetalk.user.model.users
 
-
 import com.google.gson.annotations.SerializedName
 
 data class Object(

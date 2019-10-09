@@ -1,5 +1,6 @@
 package com.packetalk.Trailer.fragment.adapter
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.github.angads25.toggle.interfaces.OnToggledListener
 import com.packetalk.R
+import com.packetalk.Trailer.fragment.activity.TrailerAct
 import com.packetalk.Trailer.fragment.model.trailer.Object
 import com.packetalk.util.AppLogger
 import kotlinx.android.synthetic.main.frg_trailer_item.view.*
@@ -91,6 +93,11 @@ class TrailerGaugeAdapter(
                     itemArrayList?.get(adapterPosition)!!.isOn = false
                     notifyItemChanged(adapterPosition)
                 }
+            }
+
+            itemView.linSubBorder.setOnClickListener {
+                val intent = Intent(activity,TrailerAct::class.java)
+                activity?.startActivity(intent)
             }
         }
 

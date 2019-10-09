@@ -27,7 +27,7 @@ class TrailerFrg : BaseFragment() {
         parent: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        rootView = inflater.inflate(com.packetalk.R.layout.frg_trailer, parent, false)
+        rootView = inflater.inflate(R.layout.frg_trailer, parent, false)
         return rootView
     }
 

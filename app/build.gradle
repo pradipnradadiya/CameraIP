@@ -62,4 +62,22 @@ dependencies {
     implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
     implementation 'com.github.anastr:speedviewlib:1.4.0'
     implementation 'com.github.angads25:toggle:1.0.0'
+
+    def lifecycle_version = "2.1.0"
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
+
+
+//    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+//    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+
+
+    def room_version = "2.2.0-rc01"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
 }

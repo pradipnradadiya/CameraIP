@@ -166,7 +166,6 @@ interface ApiInterface {
     @POST("api/SettingAdmin/GetGroupAssignedUsers")
     fun getGroupAssignedUsers(@Body body: Map<String, String>): Call<UserListItem>
 
-
     @Headers("Content-Type: application/json")
     @POST("api/SettingAdmin/DeleteGroupCamera")
     fun deleteGroupAssignedUsers(@Body body: Map<String, String>): Call<JsonObject>
@@ -184,7 +183,6 @@ interface ApiInterface {
     //Trailer List
     @GET("api/Trailers/GetTrailerList")
     fun getTrailerGaugeList(): Call<TrailerGaugeItem>
-
 
 
 }

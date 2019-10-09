@@ -7,7 +7,6 @@ import android.app.TimePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
-import android.view.Window
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,16 +26,16 @@ import retrofit2.Response
 import java.util.*
 
 class CameraDetailAct : BaseActivity(), View.OnClickListener {
-    private var date_time = ""
-    var mYear: Int = 0
-    var mMonth: Int = 0
-    var mDay: Int = 0
-    var mHour: Int = 0
-    var mMinute: Int = 0
-    var mSecond: Int = 0
-    var mMilliSecond: Int = 0
-    var timeFlag: Int = 0
-    lateinit var direction: String
+    private var dateTime = ""
+    private var mYear: Int = 0
+    private var mMonth: Int = 0
+    private var mDay: Int = 0
+    private var mHour: Int = 0
+    private var mMinute: Int = 0
+    private var mSecond: Int = 0
+    private var mMilliSecond: Int = 0
+    private var timeFlag: Int = 0
+    private lateinit var direction: String
     var zoomCount: Int = 0
     lateinit var dialog: Dialog
 
@@ -127,14 +126,12 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
         val height = (getDisplayHeight() / 2) - 356
         AppLogger.e("height $height")
         val url =
-            "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/viewpanel/${cameraDetail?.cameraIDOnServer}/viewpanel&imagewidth=$width&imageheight=$height"
+            "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}${AppConstants.VIEW_PANEL}${cameraDetail?.cameraIDOnServer}${AppConstants.VIEW_PANEL_FIRSTSLASH}${AppConstants.AND_IMAGE_WIDTH}$width${AppConstants.AND_IMAGE_HEIGHT}$height"
         webFull.load(url, this)
         tvCameraName.text = cameraDetail?.cameraName ?: "null"
     }
 
     override fun addListener() {
-//        linSelectDate.setOnClickListener(this)
-//        linToDate.setOnClickListener(this)
         linTrailer.setOnClickListener(this)
         linCalender.setOnClickListener(this)
         imgPlus.setOnClickListener(this)
@@ -190,13 +187,19 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
         }
         dialog.btnSubmit.setOnClickListener {
             dialog.loader.visibility = View.VISIBLE
-            dialog.loader.controller = setLoader()
-            if (dialog.tvFromDate.text.isNullOrBlank()) {
-                showErrorToast("Please select from date & time.")
-            } else if (dialog.tvToDate.text.isNullOrBlank()) {
-                showErrorToast("Please select to date & time.")
-            } else {
-                getDownloadVideo()
+
+            when {
+                dialog.tvFromDate.text.isNullOrBlank() -> {
+                    showErrorToast("Please select from date & time.")
+
+                }
+                dialog.tvToDate.text.isNullOrBlank() -> {
+                    showErrorToast("Please select to date & time.")
+                }
+                else -> {
+                    dialog.loader.controller = setLoader()
+                    getDownloadVideo()
+                }
             }
         }
         dialog.btnReset.setOnClickListener {
@@ -222,8 +225,8 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
 
         val datePickerDialog = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                date_time = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                dateTime = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
                 if (timeFlag == 0) {
                     startFullDateTime = ("$year-${(monthOfYear + 1)}-$dayOfMonth")
                 } else {
@@ -248,33 +251,34 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
         // Launch Time Picker Dialog
         val timePickerDialog = TimePickerDialog(
             this,
-            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 mHour = hourOfDay
                 mMinute = minute
 
                 if (timeFlag == 0) {
-                    dialog.tvFromDate.text = "$date_time | $hourOfDay:$minute"
+                    dialog.tvFromDate.text = "$dateTime | $hourOfDay:$minute"
                     startFullDateTime =
                         "$startFullDateTime-$hourOfDay-$minute-$mSecond-$mMilliSecond"
 //                    tvFromTime.text = "$hourOfDay:$minute"
-//                    tvFromDate.text = date_time
+//                    tvFromDate.text = dateTime
                 } else if (timeFlag == 1) {
-                    dialog.tvToDate.text = "$date_time | $hourOfDay:$minute"
+                    dialog.tvToDate.text = "$dateTime | $hourOfDay:$minute"
                     endFullDateTime = "$endFullDateTime-$hourOfDay-$minute-$mSecond-$mMilliSecond"
 //                    tvToTime.text = "$hourOfDay:$minute"
-//                    tvToDate.text = date_time
+//                    tvToDate.text = dateTime
                 }
             }, mHour, mMinute, true
         )
         timePickerDialog.show()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getDownloadVideo() {
         dialog.tvCamNameDateTime.visibility = View.VISIBLE
         dialog.tvCamNameDateTime.text =
             "${cameraDetail?.cameraName} Time: ${dialog.tvFromDate.text} - ${dialog.tvToDate.text}"
-        AppLogger.e(startFullDateTime.toString())
-        AppLogger.e(endFullDateTime.toString())
+        AppLogger.e(startFullDateTime)
+        AppLogger.e(endFullDateTime)
         fullUrlCalender =
             "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/info/${cameraDetail?.cameraIDOnServer}/getvar&ivccacheinventory&snapshotfiles=false&starttime=$startFullDateTime&endtime=$endFullDateTime"
         AppLogger.e(fullUrlCalender)

@@ -22,7 +22,10 @@
             android:usesCleartextTraffic="true"
             tools:ignore="AllowBackup,GoogleAppIndexingWarning"
             tools:targetApi="m">
-        <activity android:name=".map.fragment.activity.MapCameraViewAct"></activity>
+
+        <activity android:name=".Trailer.fragment.activity.TrailerAct"/>
+
+        <activity android:name=".map.fragment.activity.MapCameraViewAct" />
         <activity android:name=".setting.activity.AssignGroupToUserAct" />
         <activity
                 android:name=".user.activity.AssignCameraAct"
