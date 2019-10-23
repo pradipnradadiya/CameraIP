@@ -1,4 +1,5 @@
 package com.packetalk.Trailer.fragment
+
 import android.os.Bundle
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,11 +12,11 @@ import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.activity.AddTrailerACt
 import com.packetalk.util.AppLogger
-import com.packetalk.util.SimpleDividerItemDecoration
 import kotlinx.android.synthetic.main.frg_trailer.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class TrailerFrg : BaseFragment() {
     lateinit var rootView: View
@@ -47,6 +48,26 @@ class TrailerFrg : BaseFragment() {
     }
 
     override fun postInitView() {
+        /* var name = ArrayList<String>()
+         name.add("1")
+         name.add("2")
+         name.add("2")
+         name.add("3")
+
+         for (i in 0 until name.size) {
+             var j = i + 1
+             while (j < name.size) {
+                 // j needs to start at i + 1 not 1.
+                 if (name[i] == name[j]) {
+                     name.removeAt(j)                     // You need to remove at the higher index
+                   // name.removeAt(i)                     // first, because items are shifted left.
+                     j -= 1
+                 }
+                 j++
+             }
+         }
+
+         AppLogger.e(name.toString())*/
     }
 
     override fun addListener() {
@@ -56,7 +77,6 @@ class TrailerFrg : BaseFragment() {
             SpeedometerView.LabelConverter { progress, maxProgress ->
                 Math.round(progress).toInt().toString()
             }*/
-
     }
 
     override fun loadData() {

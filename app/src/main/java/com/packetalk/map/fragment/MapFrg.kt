@@ -64,7 +64,7 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
     }
 
     override fun initView() {
-        dialog = Dialog(activity)
+        dialog = activity?.let { Dialog(it) }!!
     }
 
     override fun postInitView() {
@@ -149,7 +149,7 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
                                 ).title("$i|${value.trailerNo.trim()}|${value.router.trim()}|${value.latitude}|${value.longitude}|${value.updatedAt.trim()}")
                             )
                             if (onlyOnce) {
-                                val zoomLevel: Float = 18.0f; //This goes up to 21
+                                val zoomLevel = 18.0f //This goes up to 21
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(data, zoomLevel))
                                 onlyOnce = false
                             }
@@ -198,7 +198,7 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
 
         if (!mapData?.objectX?.gPSLocations?.get(position)?.camdetails?.isEmpty()!!) {
             recyclerViewMapCamera.adapter = adapter
-            var cam = mapData?.objectX?.gPSLocations?.get(position)?.camdetails?.get(0)
+            val cam = mapData?.objectX?.gPSLocations?.get(position)?.camdetails?.get(0)
             val url =
                 "${AppConstants.HTTP_BIND}${cam?.serverURL}:${cam?.serverPort}/viewpanel/${cam?.cameraIDOnServer}/viewpanel&imagewidth=$width&imageheight=150"
             AppLogger.e(url)

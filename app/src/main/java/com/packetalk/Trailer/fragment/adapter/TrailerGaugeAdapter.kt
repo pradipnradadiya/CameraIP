@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.angads25.toggle.interfaces.OnToggledListener
 import com.packetalk.R
 import com.packetalk.Trailer.fragment.activity.TrailerAct
+import com.packetalk.Trailer.fragment.activity.TrailerGaugeAct
 import com.packetalk.Trailer.fragment.model.trailer.Object
 import com.packetalk.util.AppLogger
 import kotlinx.android.synthetic.main.frg_trailer_item.view.*
@@ -96,7 +97,7 @@ class TrailerGaugeAdapter(
             }
 
             itemView.linSubBorder.setOnClickListener {
-                val intent = Intent(activity,TrailerAct::class.java)
+                val intent = Intent(activity, TrailerGaugeAct::class.java)
                 activity?.startActivity(intent)
             }
         }

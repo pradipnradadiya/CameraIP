@@ -63,6 +63,8 @@
     <string name="normal">Normal</string>
     <string name="edit">Edit</string>
     <string name="no_record_found">No Record Found.</string>
+    <string name="clear_log">Clear Log</string>
+    <string name="assign_camera_to_user">Assign camera to user</string>
 
     <string-array name="test_array">
         <item>1</item>

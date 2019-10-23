@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SpeedGaugeTest">
+
+   <!-- <com.github.anastr.speedviewlib.SpeedView
+            android:id="@+id/speedView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sv_tickTextFormat="INTEGER"
+            app:sv_maxGaugeValue="100"
+            app:sv_tickNumber="5"
+            app:sv_tickPadding="@dimen/thirty_sp"
+            app:sv_highSpeedColor="@color/red"
+            app:sv_tickRotation="true"
+
+            />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

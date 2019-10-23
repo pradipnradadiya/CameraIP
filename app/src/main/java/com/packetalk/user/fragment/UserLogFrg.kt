@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.packetalk.BaseFragment
 import com.packetalk.R
@@ -23,6 +24,7 @@ import com.packetalk.util.AppLogger
 import com.packetalk.util.setLoader
 import com.packetalk.util.showErrorToast
 import com.packetalk.util.showSuccessToast
+import kotlinx.android.synthetic.main.frg_user_log.*
 import kotlinx.android.synthetic.main.frg_user_log.view.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -36,6 +38,8 @@ class UserLogFrg : BaseFragment(), Filterable {
     private var list: ArrayList<Object>? = null
     var layoutManager: LinearLayoutManager? = null
     var adapter: LogAdapter? = null
+
+
     override fun myFragmentView(
         inflater: LayoutInflater,
         parent: ViewGroup?,
@@ -44,6 +48,7 @@ class UserLogFrg : BaseFragment(), Filterable {
         rootView = inflater.inflate(R.layout.frg_user_log, parent, false)
         return rootView
     }
+
 
     override fun init() {
         layoutManager = LinearLayoutManager(activity)
@@ -57,8 +62,27 @@ class UserLogFrg : BaseFragment(), Filterable {
     }
 
     override fun addListener() {
+
+        rootView.recycleViewUsersLogs.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0 || dy < 0 && fab.isShown)
+                    fab.hide()
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                    fab.show()
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
+
+
         rootView.btnClearLog.setOnClickListener {
             clearLog()
+        }
+        rootView.fab.setOnClickListener {
+            clearLog()
+//            showDatePickerDialog(it)
         }
 
         rootView.edSearchLog.addTextChangedListener(object : TextWatcher {
@@ -124,7 +148,6 @@ class UserLogFrg : BaseFragment(), Filterable {
                         adapter = LogAdapter(activity, response.body()?.objectX)
                         rootView.recycleViewUsersLogs.adapter = adapter
                     }
-
                 }
             }
 
@@ -172,4 +195,14 @@ class UserLogFrg : BaseFragment(), Filterable {
             }
         }
     }
+/*
+    private fun showDatePickerDialog(v: View) {
+        val newFragment = DatePickerFragment()
+        fragmentManager?.let { newFragment.show(it, "datePicker") }
+    }
+
+    private fun showTimePickerDialog(v: View) {
+        fragmentManager?.let { TimePickerFragment().show(it, "timePicker") }
+    }
+    */
 }

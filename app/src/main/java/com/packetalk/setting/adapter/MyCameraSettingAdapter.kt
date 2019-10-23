@@ -62,11 +62,13 @@ class MyCameraSettingAdapter(
                 "${AppConstants.HTTP_BIND}${data.serverURL}:${data.serverPort}/viewpanel/${data.cameraIDOnServer}/viewpanel&imagewidth=90&imageheight=100"
             activity?.let { itemView.webCamera.load(url, it) }
             val arrayAdapter =
-                ArrayAdapter<String>(
-                    activity,
-                    android.R.layout.simple_spinner_dropdown_item,
-                    arrayList
-                )
+                activity?.let {
+                    ArrayAdapter<String>(
+                        it,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        arrayList
+                    )
+                }
             itemView.spinnerPriority.adapter = arrayAdapter
             AppLogger.e((data.priority - 1).toString())
             itemView.spinnerPriority.setSelection((data.priority) - 1)

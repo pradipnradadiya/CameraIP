@@ -168,11 +168,13 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                         btnDeleteGroup.isEnabled = false
                     }
                     val arrayAdapter =
-                        ArrayAdapter<Groups>(
-                            this@MyCameraSettingAct,
-                            android.R.layout.simple_spinner_dropdown_item,
-                            myGroupList
-                        )
+                        myGroupList?.let {
+                            ArrayAdapter<Groups>(
+                                this@MyCameraSettingAct,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                it
+                            )
+                        }
                     spinnerGroupCamera.adapter = arrayAdapter
                     spinnerGroupCamera?.onItemSelectedListener =
                         object : AdapterView.OnItemSelectedListener {

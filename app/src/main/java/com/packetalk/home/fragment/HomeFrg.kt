@@ -39,7 +39,8 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
     private var mBottomSheetDialog: BottomSheetDialog? = null
     private var mBottomSheetDialogCamera: BottomSheetDialog? = null
     private lateinit var rootView: View
-
+    var cameraAdapter : CameraListAdapter? = null
+    private var linearLayoutManager2 : LinearLayoutManager? = null
     @SuppressLint("InflateParams")
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -64,9 +65,7 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
                     } else {
                         tvNodata.visibility = View.INVISIBLE
                         recycleViewCameras.visibility = View.VISIBLE
-                        val linearLayoutManager2 = LinearLayoutManager(activity)
-                        recycleViewCameras?.layoutManager = linearLayoutManager2
-                        val cameraAdapter =
+                        cameraAdapter =
                             CameraListAdapter(activity, HomeFrg(), groups.cameraDetailsFull)
                         recycleViewCameras?.adapter = cameraAdapter
                     }
@@ -114,6 +113,8 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
     override fun init() {
         tvSelectGroup = rootView.findViewById(R.id.tvSelectGroup)
         tvSelectCamera = rootView.findViewById(R.id.tvSelectCamera)
+        linearLayoutManager2 = LinearLayoutManager(activity)
+        recycleViewCameras?.layoutManager = linearLayoutManager2
     }
 
     override fun initView() {
@@ -168,6 +169,9 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
                         tvNodata.visibility = View.INVISIBLE
                         recycleViewCameras.visibility = View.VISIBLE
                         myCameraList = myGroupList!![0].cameraDetailsFull
+                        cameraAdapter =
+                            CameraListAdapter(activity, HomeFrg(), myCameraList)
+                        recycleViewCameras?.adapter = cameraAdapter
                     }
 
                 }

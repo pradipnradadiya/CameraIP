@@ -24,7 +24,7 @@ import retrofit2.Response
 
 class GroupCameraAdapter(
     private val activity: FragmentActivity?,
-    private var itemArrayList: ArrayList<CameraDetailsFull>?
+    public var itemArrayList: ArrayList<CameraDetailsFull>?
 ) :
     RecyclerView.Adapter<GroupCameraAdapter.ViewHolder>() {
 
@@ -106,7 +106,6 @@ class GroupCameraAdapter(
                     ) { dialog, _ -> dialog.dismiss() }.show()
 
             } else {
-
                 IOSDialog.Builder(activity)
                     .setTitle(activity?.getString(R.string.delete))
                     .setMessage(activity?.getString(R.string.delete_msg))
@@ -123,17 +122,13 @@ class GroupCameraAdapter(
                     .setNegativeButton(
                         activity?.getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
-
-
-
-
             }
+
         }
 
         override fun onLongClick(v: View): Boolean {
             return false
         }
-
     }
 
     private fun deleteCamera(adminCameraId: Int) {

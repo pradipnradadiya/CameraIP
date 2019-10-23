@@ -157,11 +157,11 @@ class GroupAdapter(
 
 
         private fun showDialog(title: String) {
-            val dialog = Dialog(activity)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            val dialog = activity?.let { Dialog(it) }
+            dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
 //            dialog.setCancelable(false)
-            dialog.setContentView(R.layout.dialog_group_name_edit)
-            val name = dialog.findViewById(R.id.edGroupNames) as TextInputEditText
+            dialog?.setContentView(R.layout.dialog_group_name_edit)
+            val name = dialog?.findViewById(R.id.edGroupNames) as TextInputEditText
             name.setText(title)
             val update = dialog.findViewById(R.id.btnUpdate) as Button
             update.setOnClickListener {

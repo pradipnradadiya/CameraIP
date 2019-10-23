@@ -1,8 +1,14 @@
 package com.packetalk.user.activity
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.View
 import android.widget.ExpandableListView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.packetalk.BaseActivity
@@ -10,15 +16,17 @@ import com.packetalk.R
 import com.packetalk.home.model.group_camera_model.CameraDetailsFull
 import com.packetalk.home.model.group_camera_model.GroupCameraItem
 import com.packetalk.home.model.group_camera_model.Groups
-import com.packetalk.retrofit.APIClient
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
+import com.packetalk.setting.activity.AddCameraAct
 import com.packetalk.user.adapter.AssignCameraAdapter
+import com.packetalk.user.adapter.AssignGroupListAdapter
 import com.packetalk.user.adapter.ExpandableGroupListAdapter
 import com.packetalk.user.model.assign_camera_user.AssignCameraItem
 import com.packetalk.user.model.assign_camera_user.PostAssignCamera
 import com.packetalk.util.*
 import kotlinx.android.synthetic.main.act_assign_camera.*
+import kotlinx.android.synthetic.main.dialog_assign_camera_act.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +41,9 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
             R.id.btnCancel -> {
 
             }
+            R.id.tvAddAllGroupCam -> {
+                showDialog()
+            }
         }
     }
 
@@ -41,7 +52,7 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
     private lateinit var memberName: String
     var layoutManager: LinearLayoutManager? = null
     var adapter: AssignCameraAdapter? = null
-
+    lateinit var dialog: Dialog
     var groupList: ArrayList<Groups> = ArrayList()
     var userCameraList: ArrayList<CameraDetailsFull> = ArrayList()
     var flag: Boolean = false
@@ -53,6 +64,7 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
 
     override fun init() {
         layoutManager = LinearLayoutManager(this@AssignCameraAct)
+        dialog = Dialog(this@AssignCameraAct)
         memberId = intent.getStringExtra(AppConstants.MemberID)
         memberName = intent.getStringExtra(AppConstants.MEMBERNAME)
         AppLogger.e("member id $memberId")
@@ -69,6 +81,7 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
     override fun addListener() {
         btnSave.setOnClickListener(this)
         btnCancel.setOnClickListener(this)
+        tvAddAllGroupCam.setOnClickListener(this)
     }
 
     override fun loadData() {
@@ -82,12 +95,9 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
         val map = HashMap<String, String>()
         map["memberTypes"] = memberType
         map["MemberID"] = memberId
-
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.getGroupList(map)
-
         callApi!!.enqueue(object : Callback<GroupCameraItem> {
-
             override fun onResponse(
                 call: Call<GroupCameraItem>,
                 response: Response<GroupCameraItem>
@@ -196,7 +206,7 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
                 AppLogger.e(response.body().toString())
                 hideProgressDialog()
                 val json = parseJsonObject(response.body().toString())
-                if (json.getBoolean("ResponseResult")){
+                if (json.getBoolean("ResponseResult")) {
                     showSuccessToast("Camera assign successfully")
                     finish()
                 }
@@ -213,4 +223,58 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
 //        userCameraList?.removeAt(position)
     }
 
+    private fun showDialog() {
+        val camArray: ArrayList<CameraDetailsFull> = ArrayList()
+        dialog.setContentView(R.layout.dialog_assign_camera_act)
+
+        val recyclerViewGroup = dialog.findViewById(R.id.recyclerViewGroup) as RecyclerView
+        val layoutManager = LinearLayoutManager(this@AssignCameraAct)
+//        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerViewGroup.layoutManager = layoutManager
+        val adapter = AssignGroupListAdapter(
+            this@AssignCameraAct,
+            groupList
+        )
+        recyclerViewGroup.adapter = adapter
+
+        dialog.btnOk.setOnClickListener {
+            checkAndAddCamera(camArray)
+            dialog.dismiss()
+        }
+
+        dialog.imgClosePop.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        adapter.onItemClick = { groupData, position ->
+            AppLogger.e("position------" + position)
+            camArray.clear()
+            camArray.addAll(groupData.cameraDetailsFull)
+            AppLogger.e("size------" + camArray.size)
+
+        }
+
+        dialog.window?.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
+    private fun checkAndAddCamera(data: ArrayList<CameraDetailsFull>) {
+
+        for ((index, value) in data.withIndex()) {
+            value.choice = true
+            userCameraList.add(value)
+        }
+
+        val set = HashSet(userCameraList)
+        userCameraList.clear()
+        userCameraList.addAll(set)
+        adapter = AssignCameraAdapter(this@AssignCameraAct, userCameraList)
+        recycleViewUserCamera.adapter = adapter
+
+    }
 }

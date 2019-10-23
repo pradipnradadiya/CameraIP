@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Groups(
     @SerializedName("CameraDetailsFull")
-    val cameraDetailsFull: ArrayList<CameraDetailsFull>,
+    var cameraDetailsFull: ArrayList<CameraDetailsFull>,
     @SerializedName("GroupID")
     val groupID: Int,
     @SerializedName("GroupName")

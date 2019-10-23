@@ -71,7 +71,6 @@ class DefaultGroupAdapter(
         override fun onClick(v: View) {
             AppLogger.e("on click")
 
-
             val cameraId =
                 itemArrayList!![adapterPosition].adminCameraIDPK
 
@@ -87,7 +86,6 @@ class DefaultGroupAdapter(
                     break
                 } else {
                     (activity as AddCameraAct).flag = false
-
                 }
             }
 
@@ -99,7 +97,8 @@ class DefaultGroupAdapter(
                         itemArrayList!![0]
                     )
                     myGroupList?.get(groupPosition)
-                        ?.cameraDetailsFull?.get(myGroupList?.get(groupPosition)?.cameraDetailsFull!!.size - 1)!!.choice = true
+                        ?.cameraDetailsFull?.get(myGroupList?.get(groupPosition)?.cameraDetailsFull!!.size - 1)!!.choice =
+                        true
 
                 } else {
                     myGroupList?.get(groupPosition)

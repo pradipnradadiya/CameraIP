@@ -9,7 +9,6 @@ import com.packetalk.R
 import com.packetalk.home.model.group_camera_model.CameraDetailsFull
 import com.packetalk.home.model.group_camera_model.GroupCameraItem
 import com.packetalk.home.model.group_camera_model.Groups
-import com.packetalk.retrofit.APIClient
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.adapter.DefaultGroupAdapter
@@ -23,9 +22,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class AddCameraAct : BaseActivity(), View.OnClickListener {
 
     var myCameraList: ArrayList<CameraDetailsFull>? = null
+    var defaultCameraList: ArrayList<CameraDetailsFull>? = null
     var layoutManager: LinearLayoutManager? = null
     var layoutManager1: LinearLayoutManager? = null
     var adapter: GroupCameraAdapter? = null
@@ -42,6 +43,69 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 saveCam()
             }
             R.id.btnCancel -> {
+
+            }
+            R.id.tvSelectAll -> {
+
+                if (myGroupList?.get(groupPosition)!!.cameraDetailsFull.isNullOrEmpty()) {
+                    for ((pos, data) in defaultCameraList?.withIndex()!!) {
+                        data.choice = true
+                        myGroupList?.get(groupPosition)?.cameraDetailsFull?.add(data)
+                    }
+                } else {
+                    AppLogger.e(defaultCameraList!!.size.toString())
+                    AppLogger.e(myGroupList?.get(groupPosition)!!.cameraDetailsFull.size.toString())
+
+                    for ((j, defaultList) in defaultCameraList?.withIndex()!!) {
+                        defaultList.choice = true
+                        myGroupList?.get(groupPosition)?.cameraDetailsFull?.add(defaultList)
+                    }
+
+                    val set = HashSet(myGroupList!![groupPosition].cameraDetailsFull)
+                    AppLogger.e("size------${myGroupList!![groupPosition].cameraDetailsFull.size}")
+                    myGroupList!![groupPosition].cameraDetailsFull.clear()
+                    myGroupList!![groupPosition].cameraDetailsFull.addAll(set)
+
+                    AppLogger.e("size------${myGroupList!![groupPosition].cameraDetailsFull.size}")
+
+                    /*
+                    for (i in 0 until defaultCameraList!!.size) {
+
+                        for (j in 0 until myGroupList?.get(groupPosition)!!.cameraDetailsFull.size) {
+
+                            AppLogger.e(myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(j)?.cameraName.toString())
+                            AppLogger.e(defaultCameraList!![j].cameraName.toString())
+
+                            if (!myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(j)?.cameraName?.trim().equals(
+                                    defaultCameraList!![j].cameraName.trim()
+                                )
+                            ) {
+                                //do something for not equals
+                                AppLogger.e("false")
+                            } else {
+                                //do something for equals
+                                AppLogger.e("true")
+                                AppLogger.e(myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(j)?.cameraName.toString())
+                            }
+                        }
+                    }*/
+
+/*
+                    for ((i, cameraList) in myGroupList?.get(groupPosition)!!.cameraDetailsFull.withIndex()) {
+                        AppLogger.e("i loop-----$i")
+
+                        for ((j, defaultList) in defaultCameraList?.withIndex()!!) {
+                            AppLogger.e("j loop-----$j")
+
+                            if (defaultCameraList!![j].cameraName.trim() != myGroupList?.get(groupPosition)!!.cameraDetailsFull[i].cameraName.trim()) {
+                                myGroupList?.get(groupPosition)?.cameraDetailsFull?.add(defaultList)
+                            }
+
+                        }
+                    }*/
+                }
+
+                refreshAdapter()
 
             }
         }
@@ -96,11 +160,13 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                     loader.visibility = View.INVISIBLE
                     myGroupList = response.body()?.groups
                     val arrayAdapter =
-                        ArrayAdapter<Groups>(
-                            this@AddCameraAct,
-                            android.R.layout.simple_spinner_dropdown_item,
-                            myGroupList
-                        )
+                        myGroupList?.let {
+                            ArrayAdapter<Groups>(
+                                this@AddCameraAct,
+                                android.R.layout.simple_spinner_dropdown_item,
+                                it
+                            )
+                        }
                     spinnerGroup.adapter = arrayAdapter
                     spinnerGroup?.onItemSelectedListener =
                         object : AdapterView.OnItemSelectedListener {
@@ -152,7 +218,8 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 hideProgressDialog()
                 if (response.body()!!.responseResult) {
                     recycleViewDefaultGroup.layoutManager = layoutManager1
-                    val adapter = DefaultGroupAdapter(this@AddCameraAct, response.body()!!.objectX)
+                    defaultCameraList = response.body()!!.objectX
+                    val adapter = DefaultGroupAdapter(this@AddCameraAct, defaultCameraList)
                     recycleViewDefaultGroup.adapter = adapter
                 }
             }
@@ -161,7 +228,6 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 hideProgressDialog()
             }
         })
-
     }
 
     fun refreshAdapter() {
@@ -176,7 +242,17 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
     }
 
     fun checkSpinnerEnableDisable(position: Int) {
-        spinnerGroup.isEnabled = position != 1
+        //  spinnerGroup.isEnabled = position != 1
+        var flag = false
+        for ((index, value) in adapter?.itemArrayList?.withIndex()!!) {
+            if (value.choice) {
+                flag = true
+                break
+            } else {
+                flag = false
+            }
+        }
+        spinnerGroup.isEnabled = !flag
 
         /*
   //        myGroupList?.get(groupPosition)?.cameraDetailsFull?.removeAt(position)
@@ -186,10 +262,8 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
           }*/
     }
 
-
-    private fun saveCam(){
+    private fun saveCam() {
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
 //        val callApi = apiInterface?.saveCameraPriority()
     }
-
 }

@@ -2,6 +2,7 @@ package com.packetalk.setting.activity
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.packetalk.BaseActivity
 import com.packetalk.R
