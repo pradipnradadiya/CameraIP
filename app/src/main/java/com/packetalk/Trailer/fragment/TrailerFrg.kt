@@ -30,8 +30,9 @@ class TrailerFrg : BaseFragment() {
     ): View {
         rootView = inflater.inflate(R.layout.frg_trailer, parent, false)
         return rootView
-    }
 
+    }
+ 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
