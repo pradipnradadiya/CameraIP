@@ -44,8 +44,8 @@ object AppLogger {
     fun response(message: String) {
         Log.e(RESPONSE, message)
     }
+
     fun error(message: String) {
         Log.e(ERROR, message)
     }
-
 }

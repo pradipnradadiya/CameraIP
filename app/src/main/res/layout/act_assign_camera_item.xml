@@ -31,5 +31,6 @@
                 android:layout_height="wrap_content"
                 android:tint="@color/black"
                 app:srcCompat="@drawable/ic_close" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

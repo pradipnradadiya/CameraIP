@@ -45,43 +45,50 @@ class TrailerSubGaugeAdapter(
 //            itemView.tvTrailerGaugeName.text = data!!.trailerName
 //            itemView.tvSolarType.text = data.type
 
-            val minspeed = -20F
-            val maxsspedd = 180F
-            val list = ArrayList<Float>()
-            list.add(-20.0f)
+            val minspeed = 0F
+            val maxsspedd = 120F
+           /* val list = ArrayList<Float>()
             list.add(0.0f)
-            list.add(20.0f)
-            list.add(40.0f)
-            list.add(60.0f)
-            list.add(80.0f)
-            list.add(100.0f)
-            list.add(120.0f)
-            list.add(140.0f)
-            list.add(160.0f)
-            list.add(180.0f)
+            list.add(13.0f)
+            list.add(26.0f)
+            list.add(39.0f)
+            list.add(52.0f)
+            list.add(65.0f)
+            list.add(78.0f)
+            list.add(91.0f)
+            list.add(104.0f)
+            list.add(108.0f)
+            list.add(120.0f)*/
 
             // change MAX speed to 320
             itemView.speedViewTrailer.setMinSpeed(minspeed)
             itemView.speedViewTrailer.setMaxSpeed(maxsspedd)
 //        speedView.maxGaugeValue = 200.0f
             itemView.speedViewTrailer.setGaugeMaxSpeed(maxsspedd)
-            itemView.speedViewTrailer.setTicks(list)
+            itemView.speedViewTrailer.speedTextColor
+//            itemView.speedViewTrailer.setTicks(10f)
+
+//            itemView.speedViewTrailer.setTicks(list)
 
             // change speed to 140 Km/h
             itemView.speedViewTrailer.speedTo(50f)
-            itemView.speedViewTrailer.setLowSpeedPercent(6.15f)
+            itemView.speedViewTrailer.cancelSpeedAnimator()
+            itemView.speedViewTrailer.setLowSpeedPercent(8.33f)
+
             itemView.speedViewTrailer.setLowSpeedColor(Color.MAGENTA)
-            itemView.speedViewTrailer.setMediumSpeedPercent(15.2f)
-            itemView.speedViewTrailer.setAverageSpeedPercent(35.0f)
-            itemView.speedViewTrailer.setAverageHighSpeedPercent(46.0f)
+
+            itemView.speedViewTrailer.setMediumSpeedPercent(12.5f)
+
+            itemView.speedViewTrailer.setAverageSpeedPercent(12.5f)
+
+            itemView.speedViewTrailer.setAverageHighSpeedPercent(12.5f)
+
         }
 
         init {
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
-
             itemView.linSubBorder.setOnClickListener {
-
             }
         }
 

@@ -81,8 +81,11 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
      * to rotate indicator
      * @return current degree where indicator must be.
      */
+
+
     protected var degree = startDegree.toFloat()
         private set
+
 
     /** array to contain all notes that will be draw  */
     private val notes = ArrayList<Note<*>>()
@@ -280,8 +283,6 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
     private fun initAttributeSet(context: Context, attrs: AttributeSet?) {
         if (attrs == null)
             return
-
-
 
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.Speedometer, 0, 0)
 
@@ -687,7 +688,6 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
         c.restore()
     }
 
-
     /**
      * draw speed value at each tick point.
      * @param c canvas to draw.
@@ -695,7 +695,6 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
     protected fun drawTicks(c: Canvas) {
         if (ticks.size == 0)
             return
-
         try {
             textPaint.textAlign = Paint.Align.LEFT
 
@@ -861,6 +860,6 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
 
         val isQuarter: Boolean
             get() = !isHalf && this != NORMAL
+
     }
 }
-

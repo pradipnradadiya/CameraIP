@@ -17,13 +17,15 @@ class TrailerGaugeAct : BaseActivity() {
     var adapter : TrailerSubGaugeAdapter? = null
     var layoutManager : LinearLayoutManager? = null
     private var arrSubGaugeList = ArrayList<Object>()
-    lateinit var trailerId:String
+    var vitalType: String? = null
+    var trailerName: String? = null
     override fun getLayoutResourceId(): Int {
         return R.layout.act_trailer_gauge
     }
 
     override fun init() {
-        trailerId = "1003"
+        vitalType = intent.getStringExtra("vitalType")
+        trailerName = intent.getStringExtra("trailerName")
         layoutManager = LinearLayoutManager(this@TrailerGaugeAct)
     }
 
@@ -47,7 +49,7 @@ class TrailerGaugeAct : BaseActivity() {
 
     override fun loadData() {
         val data = ViewModelProviders.of(this@TrailerGaugeAct).get(TrailerGaugeDataModel::class.java)
-        data.getTrailer(trailerId).observe(this,
+        data.getTrailer("","").observe(this,
             Observer<TrailerGaugeItem> { gaugeData ->
                 AppLogger.e("data is----------"+gaugeData.objectX.toString())
                 arrSubGaugeList.addAll(gaugeData.objectX!!)

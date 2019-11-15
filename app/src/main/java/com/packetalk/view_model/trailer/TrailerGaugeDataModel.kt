@@ -19,12 +19,12 @@ class TrailerGaugeDataModel : ViewModel() {
     private var gaugeList: MutableLiveData<TrailerGaugeItem>? = null
 
     //we will call this method to get the data
-    fun getTrailer(trailerID:String): LiveData<TrailerGaugeItem> {
+    fun getTrailer(vitalType: String, trailerName: String): LiveData<TrailerGaugeItem> {
         //if the list is null
         if (gaugeList == null) {
             gaugeList = MutableLiveData()
             //we will load it asynchronously from server in this method
-            getTrailerGaugeList(trailerID)
+            getTrailerGaugeList(vitalType, trailerName)
         }
         //finally we will return the list
         return gaugeList as MutableLiveData<TrailerGaugeItem>
@@ -35,7 +35,7 @@ class TrailerGaugeDataModel : ViewModel() {
         Log.e("model", "------------cleared")
     }
 
-    private fun getTrailerGaugeList(trailerID: String) {
+    private fun getTrailerGaugeList(vitalType: String, trailerName: String) {
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.getTrailerGaugeList()
         callApi?.enqueue(object : Callback<TrailerGaugeItem> {

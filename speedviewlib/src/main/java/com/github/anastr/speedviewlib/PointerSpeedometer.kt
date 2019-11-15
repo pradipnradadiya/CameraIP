@@ -3,12 +3,9 @@ package com.github.anastr.speedviewlib
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import com.github.anastr.speedviewlib.components.indicators.SpindleIndicator
 
-/**
- * this Library build By Anas Altair
- * see it on [GitHub](https://github.com/anastr/SpeedView)
- */
 class PointerSpeedometer @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : Speedometer(context, attrs, defStyleAttr) {
 
     private val markPath = Path()
@@ -107,10 +104,8 @@ class PointerSpeedometer @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
         super.onSizeChanged(w, h, oldW, oldH)
-
         val risk = getSpeedometerWidth() * .5f + dpTOpx(8f) + padding.toFloat()
         speedometerRect.set(risk, risk, size - risk, size - risk)
-
         updateRadial()
         updateBackgroundBitmap()
     }
@@ -170,6 +165,7 @@ class PointerSpeedometer @JvmOverloads constructor(context: Context, attrs: Attr
             drawTicks(c)
         else
             drawDefMinMaxSpeedPosition(c)
+
     }
 
     private fun updateSweep(): SweepGradient {

@@ -1,140 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        tools:context=".Trailer.fragment.TrailerFrg">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    tools:context=".Trailer.fragment.TrailerFrg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/trailer_gauge__border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <RelativeLayout
+            android:id="@+id/relGauge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/trailer_gauge__border"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.github.anastr.speedviewlib.SpeedView
+            <com.github.anastr.speedviewlib.SpeedView
                 android:id="@+id/speedViewTrailer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:sv_tickTextFormat="INTEGER"
-                app:sv_maxGaugeValue="100"
+                app:sv_centerCircleColor="@color/trailer_guage_background"
+                app:sv_highSpeedColor="@color/red"
+                app:sv_indicator="HalfLineIndicator"
+                app:sv_indicatorWidth="3dp"
+                app:sv_maxGaugeValue="120"
                 app:sv_tickNumber="10"
                 app:sv_tickPadding="@dimen/thirty_sp"
-                app:sv_highSpeedColor="@color/red"
                 app:sv_tickRotation="true"
-
+                app:sv_speedTextSize="@dimen/twenty_dp"
+                app:sv_markColor="@color/white"
+                app:sv_speedometerMode="NORMAL"
                 />
+<!--            app:sv_tickTextFormat="INTEGER"-->
+
+            <com.packetalk.utility.MyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Willing Boro"
+                android:textSize="@dimen/twenty_dp" />
+
+        </RelativeLayout>
 
         <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/sixteen_dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/speedViewTrailer">
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/sixteen_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relGauge">
 
             <LinearLayout
-                    android:id="@+id/linMainBorder"
-                    android:layout_width="match_parent"
+                android:id="@+id/linMainBorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:background="@drawable/trailer_border"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/sixteen_dp"
+                android:paddingTop="40dp"
+                android:paddingEnd="@dimen/sixteen_dp"
+                android:paddingBottom="@dimen/sixteen_dp">
+
+                <View
+                    android:layout_width="@dimen/twenty_dp"
+                    android:layout_height="@dimen/twenty_dp"
+                    android:background="@color/red" />
+
+                <com.packetalk.utility.MyTextView
+                    android:id="@+id/myTextView13"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen_dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="@dimen/sixteen_dp"
-                    android:background="@drawable/trailer_border"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/sixteen_dp"
-                    android:paddingTop="40dp"
-                    android:paddingEnd="@dimen/sixteen_dp"
-                    android:paddingBottom="@dimen/sixteen_dp">
+                    android:layout_marginStart="@dimen/eight_dp"
+                    android:layout_weight="1"
+                    android:text="@string/critical" />
 
                 <View
-                        android:layout_width="@dimen/twenty_dp"
-                        android:layout_height="@dimen/twenty_dp"
-                        android:background="@color/red" />
+                    android:layout_width="@dimen/twenty_dp"
+                    android:layout_height="@dimen/twenty_dp"
+                    android:background="@color/yellow" />
 
                 <com.packetalk.utility.MyTextView
-                        android:id="@+id/myTextView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/eight_dp"
-                        android:layout_weight="1"
-                        android:text="@string/critical" />
+                    android:id="@+id/myTextView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/eight_dp"
+                    android:layout_weight="1"
+                    android:text="@string/warning" />
 
                 <View
-                        android:layout_width="@dimen/twenty_dp"
-                        android:layout_height="@dimen/twenty_dp"
-                        android:background="@color/yellow" />
+                    android:layout_width="@dimen/twenty_dp"
+                    android:layout_height="@dimen/twenty_dp"
+                    android:background="@color/green" />
 
                 <com.packetalk.utility.MyTextView
-                        android:id="@+id/myTextView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/eight_dp"
-                        android:layout_weight="1"
-                        android:text="@string/warning" />
-
-                <View
-                        android:layout_width="@dimen/twenty_dp"
-                        android:layout_height="@dimen/twenty_dp"
-                        android:background="@color/green" />
-
-                <com.packetalk.utility.MyTextView
-                        android:id="@+id/myTextView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/eight_dp"
-                        android:layout_weight="1"
-                        android:text="@string/normal" />
+                    android:id="@+id/myTextView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/eight_dp"
+                    android:layout_weight="1"
+                    android:text="@string/normal" />
 
             </LinearLayout>
 
             <LinearLayout
-                    android:id="@+id/linSubBorder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/trailer_border"
-                    android:padding="@dimen/ten_dp">
+                android:id="@+id/linSubBorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/trailer_border"
+                android:padding="@dimen/ten_dp">
 
                 <com.packetalk.utility.MyTextView
-                        android:id="@+id/tvSolarType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="true" />
+                    android:id="@+id/tvSolarType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Historical"
+                    android:textAllCaps="true" />
 
             </LinearLayout>
 
         </RelativeLayout>
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvTrailerGaugeName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/twenty_dp"
-                app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-                app:layout_constraintEnd_toEndOf="@+id/speedViewTrailer"
-                app:layout_constraintHorizontal_bias="0.512"
-                app:layout_constraintStart_toStartOf="@+id/speedViewTrailer"
-                app:layout_constraintTop_toTopOf="@+id/speedViewTrailer"
-                tools:ignore="SpUsage" />
-
+            android:id="@+id/tvTrailerGaugeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/twenty_dp"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+            app:layout_constraintEnd_toEndOf="@+id/relGauge"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="@+id/relGauge"
+            app:layout_constraintTop_toTopOf="@+id/relGauge"
+            tools:ignore="SpUsage" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

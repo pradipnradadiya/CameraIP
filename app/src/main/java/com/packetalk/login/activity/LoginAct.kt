@@ -70,8 +70,10 @@ class LoginAct : BaseActivity() {
                 val gson = Gson()
                 val user = gson.fromJson<LoginItem>(json, LoginItem::class.java)
                 val session = SharedPreferenceSession(this@LoginAct)
+
                 if (user.status == AppConstants.STATUS_CODE_SUCCESS) {
-                    session.saveUserType(user.userName.toString())
+                    session.saveUserName(user.userName)
+                    session.saveUserType(user.userName)
                     session.saveMemberType(user.memberTypes.toString())
                     session.saveMemberId(user.memberID.toString())
                     startNewActivity(HomeAct::class.java)

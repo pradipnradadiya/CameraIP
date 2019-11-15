@@ -127,9 +127,13 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun getMapData() {
-        val session = activity?.let { SharedPreferenceSession(it) }
+        val session= activity?.let { SharedPreferenceSession(it) }
         val map = HashMap<String, String>()
-        map["UserName"] = session!!.userName!!
+        val unm = session!!.userName!!
+        val id = session!!.userType!!
+        AppLogger.e("username $unm")
+        map["UserName"] = session.userName!!
+
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.getMapData(map)
         callApi?.enqueue(object : Callback<MapItem> {
@@ -149,7 +153,7 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
                                 ).title("$i|${value.trailerNo.trim()}|${value.router.trim()}|${value.latitude}|${value.longitude}|${value.updatedAt.trim()}")
                             )
                             if (onlyOnce) {
-                                val zoomLevel = 18.0f //This goes up to 21
+                                val zoomLevel = 7.2f //This goes up to 21
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(data, zoomLevel))
                                 onlyOnce = false
                             }
@@ -179,7 +183,6 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
 //        webCam = dialog.findViewById(R.id.webCamera) as MyWebView
 
         val tvUpdated = dialog.findViewById(R.id.tvUpdated) as TextView
-
         tvTrailerName.text = trailerData[1]
         tvRouterId.text = trailerData[2]
         tvLat.text = trailerData[3]

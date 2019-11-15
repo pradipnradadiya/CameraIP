@@ -16,16 +16,22 @@ class LineIndicator(context: Context, private val mode: Float) : Indicator<LineI
 
     override val defaultIndicatorWidth: Float
         get() = dpTOpx(8f)
+//        get() = dpTOpx(16f)
 
     init {
         updateIndicator()
     }
 
     override fun getBottom(): Float {
+//        return getViewSize() * .18f + padding
         return getCenterY() * mode
     }
 
     override fun draw(canvas: Canvas, degree: Float) {
+//        canvas.save()
+//        canvas.rotate(90f + degree, getCenterX(), getCenterY())
+//        canvas.drawPath(indicatorPath, indicatorPaint)
+//        canvas.restore()
         canvas.save()
         canvas.rotate(90f + degree, getCenterX(), getCenterY())
         canvas.drawPath(indicatorPath, indicatorPaint)
@@ -52,7 +58,7 @@ class LineIndicator(context: Context, private val mode: Float) : Indicator<LineI
 
     companion object {
         const val LINE = 1f
-        const val HALF_LINE = .5f
+        const val HALF_LINE = .3f
         const val QUARTER_LINE = .25f
     }
 }

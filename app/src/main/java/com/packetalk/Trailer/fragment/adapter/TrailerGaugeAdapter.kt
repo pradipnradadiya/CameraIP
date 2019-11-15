@@ -98,6 +98,8 @@ class TrailerGaugeAdapter(
 
             itemView.linSubBorder.setOnClickListener {
                 val intent = Intent(activity, TrailerGaugeAct::class.java)
+                intent.putExtra("vitalType", itemArrayList?.get(adapterPosition)?.type)
+                intent.putExtra("trailerName", itemArrayList?.get(adapterPosition)?.trailerName)
                 activity?.startActivity(intent)
             }
         }

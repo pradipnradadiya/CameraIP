@@ -1,9 +1,14 @@
 package com.packetalk.setting.activity
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonObject
 import com.packetalk.BaseActivity
 import com.packetalk.R
 import com.packetalk.home.model.group_camera_model.CameraDetailsFull
@@ -14,14 +19,12 @@ import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.adapter.DefaultGroupAdapter
 import com.packetalk.setting.adapter.GroupCameraAdapter
 import com.packetalk.setting.model.add_camera.DefaultCameraItem
-import com.packetalk.util.AppLogger
-import com.packetalk.util.SharedPreferenceSession
-import com.packetalk.util.setLoader
+import com.packetalk.util.*
 import kotlinx.android.synthetic.main.act_add_camera.*
+import kotlinx.android.synthetic.main.dialog_add_camera.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class AddCameraAct : BaseActivity(), View.OnClickListener {
 
@@ -31,6 +34,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
     var layoutManager1: LinearLayoutManager? = null
     var adapter: GroupCameraAdapter? = null
     var flag: Boolean = false
+    lateinit var dialog: Dialog
 
     companion object {
         var groupPosition: Int = 0
@@ -43,7 +47,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 saveCam()
             }
             R.id.btnCancel -> {
-
+                showDialog()
             }
             R.id.tvSelectAll -> {
 
@@ -123,6 +127,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
         layoutManager = LinearLayoutManager(this@AddCameraAct)
         layoutManager1 = LinearLayoutManager(this@AddCameraAct)
         loader.controller = setLoader()
+        dialog = Dialog(this@AddCameraAct)
     }
 
     override fun postInitView() {
@@ -265,5 +270,50 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
     private fun saveCam() {
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
 //        val callApi = apiInterface?.saveCameraPriority()
+    }
+
+    private fun showDialog() {
+        dialog.setContentView(R.layout.dialog_add_camera)
+//        val name = dialog.findViewById(R.id.edGroupNames) as TextInputEditText
+//        name.setText(title)
+        dialog.btnUpdateCamera.setOnClickListener {
+            //            addCamera("https://bcpo.packetalk.net/grapesxml/bcpo1.packetalk.net:5350.php")
+            addCamera("https://willingboro.packetalk.net/grapesxml/willingboro1.packetalk.net:5350.php")
+        }
+        dialog.window?.setLayout(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+    }
+
+    private fun addCamera(url: String) {
+        showProgressDialog("Update Camera", "Please wait camera is updated..")
+        val map = HashMap<String, String>()
+        map["url"] = url
+        val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
+        val callApi = apiInterface?.addUpdateCamera(map)
+
+        callApi?.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                AppLogger.response(response.body().toString())
+                hideProgressDialog()
+                if (response.isSuccessful) {
+                    val json = parseJsonObject(response.body().toString())
+                    if (json.getBoolean("ResponseResult")) {
+                        showSuccessToast("Camera update successfully.")
+                        dialog.dismiss()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                AppLogger.error(t.toString())
+                hideProgressDialog()
+            }
+
+        })
     }
 }

@@ -79,7 +79,6 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                     btnSave.isEnabled = false
                 }
             }
-
             R.id.btnDeleteall -> {
                 IOSDialog.Builder(this@MyCameraSettingAct)
                     .setTitle(getString(R.string.delete))
@@ -104,7 +103,6 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
             }
         }
     }
-
     var groupId: String = ""
     var myGroupList: ArrayList<Groups>? = null
     var myCameraList: ArrayList<CameraDetailsFull>? = null

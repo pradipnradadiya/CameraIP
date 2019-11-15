@@ -58,15 +58,14 @@ interface ApiInterface {
     fun clearLog(): Call<JsonObject>
 
     //    Update Users
+    @Headers("Content-Type: application/json")
     @GET("api/User/UpdateRelayUsers")
     fun updateUsers(): Call<JsonObject>
-
 
     //    assign camera
     @Headers("Content-Type: application/json")
     @POST("api/User/SaveNewAddedCamera")
     fun assignCameraSave(@Body data: PostAssignCamera): Call<JsonObject>
-
 
     // Add Group
     @Headers("Content-Type: application/json")
@@ -133,7 +132,6 @@ interface ApiInterface {
     @POST("api/SettingAdmin/RemoveTraier")
     fun deleteTrailer(@Body body: Map<String, String>): Call<JsonObject>
 
-
     //*********************************My Camera Setting*******************************************
     //delete multiple camera
     @Headers("Content-Type: application/json")
@@ -141,6 +139,10 @@ interface ApiInterface {
     fun deleteMultipleCamera(@Body body: MyCameraSettingDeleteRequest): Call<JsonObject>
 
     //********************************Add Camera**************************************************
+    @Headers("Content-Type: application/json")
+    @POST("api/SettingAdmin/AddCamera")
+    fun addUpdateCamera(@Body body: Map<String, String>): Call<JsonObject>
+
     @GET("api/SettingAdmin/DefaultCamera")
     fun getDefaultGroupList(): Call<DefaultCameraItem>
 
@@ -154,7 +156,6 @@ interface ApiInterface {
     @POST("api/SettingAdmin/savecam")
     fun saveCam(@Body body: Map<String, Int>): Call<JsonObject>
 
-
     //************************************ MAP *******************************************
     @Headers("Content-Type: application/json")
     @POST("api/Common/GetMapPins")
@@ -165,6 +166,7 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST("api/SettingAdmin/GetGroupAssignedUsers")
     fun getGroupAssignedUsers(@Body body: Map<String, String>): Call<UserListItem>
+
 
     @Headers("Content-Type: application/json")
     @POST("api/SettingAdmin/DeleteGroupCamera")
@@ -178,11 +180,14 @@ interface ApiInterface {
     @POST("api/VideoDetail/StoredVideos")
     fun storedVideo(@Body body: Map<String, String>): Call<StoredVideoItem>
 
-
     /************************************Trailer****************************************/
     //Trailer List
     @GET("api/Trailers/GetTrailerList")
     fun getTrailerGaugeList(): Call<TrailerGaugeItem>
 
+
+    @Headers("Content-Type: application/json")
+    @POST("api/Trailers/GetVitalsDetails")
+    fun getGaugeDetail(@Body body: Map<String, String>): Call<JsonObject>
 
 }

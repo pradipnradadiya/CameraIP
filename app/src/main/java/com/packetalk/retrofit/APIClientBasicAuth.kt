@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object APIClientBasicAuth {
+
     private val BASE_URL = AppConstants.BASE_URL
     private var retrofit: Retrofit? = null
     val client: Retrofit?
@@ -23,9 +24,9 @@ object APIClientBasicAuth {
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(BasicAuthInterceptor("Admin", "1234"))
-        .connectTimeout(20, TimeUnit.SECONDS)
-        .writeTimeout(20, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
+        .connectTimeout(120, TimeUnit.SECONDS)
+        .writeTimeout(120, TimeUnit.SECONDS)
+        .readTimeout(120, TimeUnit.SECONDS)
         .build()
 
 }

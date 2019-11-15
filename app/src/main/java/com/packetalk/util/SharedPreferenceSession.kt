@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 
-
 class SharedPreferenceSession(mContext: Activity) {
     private val sharedPreferences: SharedPreferences
     private val editor: Editor
@@ -31,6 +30,7 @@ class SharedPreferenceSession(mContext: Activity) {
     init {
         sharedPreferences = mContext.getSharedPreferences(SHARED, Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()
+        editor.apply()
     }
 
     fun saveLoginData(loginData: String) {
@@ -63,7 +63,6 @@ class SharedPreferenceSession(mContext: Activity) {
         editor.commit()
     }
 
-
     companion object {
         private const val SHARED = "DEMO"
         private const val LOGIN_DATA = "login_data"
@@ -73,5 +72,4 @@ class SharedPreferenceSession(mContext: Activity) {
         private const val MEMBERID = "member_id"
         private const val PASSWORD = "password"
     }
-
 }

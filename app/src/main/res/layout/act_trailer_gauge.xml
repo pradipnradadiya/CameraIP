@@ -1,46 +1,343 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".Trailer.fragment.activity.TrailerGaugeAct">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Trailer.fragment.activity.TrailerGaugeAct">
 
         <include
-                android:id="@+id/include9"
-                layout="@layout/toolbar"
-                android:layout_width="0dp"
+            android:id="@+id/include9"
+            layout="@layout/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include9">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/trailer_gauge__border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <RelativeLayout
+                        android:id="@+id/relGauge1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.github.anastr.speedviewlib.SpeedView
+                            android:id="@+id/speedViewTrailer1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:sv_centerCircleColor="@color/trailer_guage_background"
+                            app:sv_highSpeedColor="@color/red"
+                            app:sv_indicator="HalfLineIndicator"
+                            app:sv_indicatorWidth="3dp"
+                            app:sv_markColor="@color/white"
+                            app:sv_maxGaugeValue="120"
+                            app:sv_speedTextSize="@dimen/twenty_dp"
+                            app:sv_speedometerMode="NORMAL"
+                            app:sv_tickNumber="10"
+                            app:sv_tickPadding="@dimen/thirty_sp"
+                            app:sv_tickRotation="true" />
+
+                        <!--            app:sv_tickTextFormat="INTEGER"-->
+
+                        <com.packetalk.utility.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Willing Boro"
+                            android:textSize="@dimen/twenty_dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/sixteen_dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/relGauge1">
+
+                        <LinearLayout
+                            android:id="@+id/linMainBorder1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/sixteen_dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="@dimen/sixteen_dp"
+                            android:background="@drawable/trailer_border"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/sixteen_dp"
+                            android:paddingTop="40dp"
+                            android:paddingEnd="@dimen/sixteen_dp"
+                            android:paddingBottom="@dimen/sixteen_dp">
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/red" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/critical" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/yellow" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/warning" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/green" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/normal" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linSubBorder1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/trailer_border"
+                            android:padding="@dimen/ten_dp">
+
+                            <com.packetalk.utility.MyTextView
+                                android:id="@+id/tvSolarType1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Historical"
+                                android:textAllCaps="true" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/trailer_gauge__border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <RelativeLayout
+                        android:id="@+id/relGauge2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.github.anastr.speedviewlib.SpeedView
+                            android:id="@+id/speedViewTrailer2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:sv_averageHighSpeedPercent="90"
+                            app:sv_averageSpeedPercent="80"
+                            app:sv_centerCircleColor="@color/trailer_guage_background"
+                            app:sv_highSpeedColor="@color/red"
+                            app:sv_indicator="HalfLineIndicator"
+                            app:sv_indicatorWidth="3dp"
+                            app:sv_lowSpeedPercent="20"
+                            app:sv_markColor="@color/white"
+                            app:sv_maxGaugeValue="28"
+                            app:sv_mediumSpeedPercent="50"
+                            app:sv_minSpeed="23"
+                            app:sv_speedTextSize="@dimen/twenty_dp"
+                            app:sv_speedometerMode="NORMAL"
+                            app:sv_tickNumber="6"
+                            app:sv_tickPadding="@dimen/thirty_sp"
+                            app:sv_tickRotation="true" />
+
+                        <!--app:sv_tickTextFormat="INTEGER"-->
+
+                        <com.packetalk.utility.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Willing Boro"
+                            android:textSize="@dimen/twenty_dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/sixteen_dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/relGauge2">
+
+                        <LinearLayout
+                            android:id="@+id/linMainBorder2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/sixteen_dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="@dimen/sixteen_dp"
+                            android:background="@drawable/trailer_border"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/sixteen_dp"
+                            android:paddingTop="40dp"
+                            android:paddingEnd="@dimen/sixteen_dp"
+                            android:paddingBottom="@dimen/sixteen_dp">
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/red" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/critical" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/yellow" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/warning" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/green" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/normal" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linSubBorder2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/trailer_border"
+                            android:padding="@dimen/ten_dp">
+
+                            <com.packetalk.utility.MyTextView
+                                android:id="@+id/tvSolarType2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Historical"
+                                android:textAllCaps="true" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleviewTrailerGauge"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/include9" />
+            android:id="@+id/recycleviewTrailerGauge"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include9" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/sixteen_dp"
-            android:layout_marginBottom="@dimen/sixteen_dp"
-            android:clickable="true"
-            android:tint="@color/white"
-            app:srcCompat="@drawable/ic_map"
-            android:focusable="true" />
+        android:id="@+id/fabMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_marginBottom="@dimen/sixteen_dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/ic_map" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

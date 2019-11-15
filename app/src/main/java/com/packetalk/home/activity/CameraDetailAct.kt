@@ -57,14 +57,17 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
             R.id.linTrailer -> {
 
             }
+
             R.id.linCalender -> {
                 showDialog()
             }
+
             R.id.imgPlus -> {
                 zoomCount += 1
                 seekBarZoom.progress = zoomCount
                 loadZoom()
             }
+
             R.id.imgMinus -> {
                 if (zoomCount != 0) {
                     zoomCount -= 1
@@ -72,29 +75,37 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
                 seekBarZoom.progress = zoomCount
                 loadZoom()
             }
+
             R.id.imgTop -> {
                 direction = "u"
+                AppLogger.e("${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree")
                 webHidden.load(
                     "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree",
                     this@CameraDetailAct
                 )
             }
+
             R.id.imgBottom -> {
                 direction = "d"
+                AppLogger.e("${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree")
                 webHidden.load(
                     "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree",
                     this@CameraDetailAct
                 )
             }
+
             R.id.imgLeft -> {
                 direction = "l"
+                AppLogger.e("${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree")
                 webHidden.load(
                     "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree",
                     this@CameraDetailAct
                 )
             }
+
             R.id.imgRight -> {
                 direction = "r"
+                AppLogger.e("${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree")
                 webHidden.load(
                     "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=$direction&dist=5&unit=degree",
                     this@CameraDetailAct
@@ -157,8 +168,9 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
     }
 
     private fun loadZoom() {
+        AppLogger.e("http://willingboro1.packetalk.net:5350/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=l&dist=$zoomCount&unit=degree")
         webHidden.load(
-            "http://willingboro1.packetalk.net:5350/control/1/cmd=dir&dir=l&dist=$zoomCount&unit=degree",
+            "http://willingboro1.packetalk.net:5350/control/${cameraDetail?.cameraIDOnServer}/cmd=dir&dir=l&dist=$zoomCount&unit=degree",
             this@CameraDetailAct
         )
     }
@@ -305,6 +317,7 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
                         val adapter =
                             StoredVideoListAdapter(this@CameraDetailAct, response.body()?.objectX)
                         dialog.recycleViewStoredVideo.adapter = adapter
+
                     }
                 }
 

@@ -77,10 +77,7 @@ class DefaultGroupAdapter(
             AppLogger.e(cameraId.toString())
 
             for ((index, value) in myGroupList?.get(groupPosition)?.cameraDetailsFull?.withIndex()!!) {
-                if (cameraId == myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(
-                        index
-                    )!!.adminCameraIDPK
-                ) {
+                if (cameraId == myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(index)!!.adminCameraIDPK) {
                     activity?.showErrorToast("This Camera already added in database.")
                     (activity as AddCameraAct).flag = true
                     break
@@ -90,7 +87,6 @@ class DefaultGroupAdapter(
             }
 
             if (!(activity as AddCameraAct).flag) {
-
                 if (myGroupList?.get(groupPosition)?.cameraDetailsFull!!.isEmpty()) {
                     myGroupList?.get(groupPosition)
                         ?.cameraDetailsFull?.add(

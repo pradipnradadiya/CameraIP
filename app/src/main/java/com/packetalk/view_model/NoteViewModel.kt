@@ -54,7 +54,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     private inner class InsertAsyncTask internal constructor(mNoteDao: NoteDao) :
         OperationsAsyncTask(mNoteDao) {
 
-        protected override fun doInBackground(vararg notes: Note): Void? {
+        override fun doInBackground(vararg notes: Note): Void? {
             mAsyncTaskDao.insert(notes[0])
             return null
         }

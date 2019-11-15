@@ -6,12 +6,9 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import com.github.anastr.speedviewlib.components.indicators.NormalIndicator
 
-/**
- * this Library build By Anas Altair
- * see it on [GitHub](https://github.com/anastr/SpeedView)
- */
 class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : Speedometer(context, attrs, defStyleAttr) {
 
     private val markPath = Path()
@@ -56,14 +53,12 @@ class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             return
         }
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.SpeedView, 0, 0)
-
         circlePaint.color = a.getColor(R.styleable.SpeedView_sv_centerCircleColor, circlePaint.color)
         a.recycle()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldW: Int, oldH: Int) {
         super.onSizeChanged(w, h, oldW, oldH)
-
         updateBackgroundBitmap()
     }
 
@@ -85,14 +80,17 @@ class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         initDraw()
 
         val markH = viewSizePa / 28f
+        Log.e("markH","--------------"+markH)
+
         markPath.reset()
         markPath.moveTo(size * .5f, padding.toFloat())
         markPath.lineTo(size * .5f, markH + padding)
         markPaint.strokeWidth = markH / 3f
 
         val risk = getSpeedometerWidth() * .5f + padding
-        speedometerRect.set(risk, risk, size - risk, size - risk)
+        Log.e("risk","--------------"+risk)
 
+        speedometerRect.set(risk, risk, size - risk, size - risk)
         speedometerPaint.color = getHighSpeedColor()
         c.drawArc(speedometerRect, getStartDegree().toFloat(), (getEndDegree() - getStartDegree()).toFloat(), false, speedometerPaint)
         speedometerPaint.color = getAverageHighSpeedColor()
@@ -103,22 +101,26 @@ class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         c.drawArc(speedometerRect, getStartDegree().toFloat(), (getEndDegree() - getStartDegree()) * getMediumSpeedOffset(), false, speedometerPaint)
         speedometerPaint.color = getLowSpeedColor()
         c.drawArc(speedometerRect, getStartDegree().toFloat(), (getEndDegree() - getStartDegree()) * getLowSpeedOffset(), false, speedometerPaint)
-
         c.save()
+
         c.rotate(90f + getStartDegree(), size * .5f, size * .5f)
         val everyDegree = (getEndDegree() - getStartDegree()) * .111f
         var i = getStartDegree().toFloat()
+        Log.e("i","--------------"+i)
+
         while (i < getEndDegree() - 2f * everyDegree) {
             c.rotate(everyDegree, size * .5f, size * .5f)
             c.drawPath(markPath, markPaint)
             i += everyDegree
         }
-        c.restore()
 
+        c.restore()
         if (tickNumber > 0)
             drawTicks(c)
         else
             drawDefMinMaxSpeedPosition(c)
 
+
     }
+
 }

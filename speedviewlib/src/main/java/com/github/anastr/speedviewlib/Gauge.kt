@@ -148,7 +148,6 @@ abstract class Gauge constructor(context: Context, attrs: AttributeSet? = null, 
 
     private var averageHighSpeedPercent = 40.0F
 
-
     private var section = LOW_SECTION
 
     /**
@@ -763,7 +762,7 @@ abstract class Gauge constructor(context: Context, attrs: AttributeSet? = null, 
     /**
      * cancel all animators without call [tremble].
      */
-    protected fun cancelSpeedAnimator() {
+    fun cancelSpeedAnimator() {
         cancelSpeedMove()
         cancelTremble()
     }
@@ -835,7 +834,7 @@ abstract class Gauge constructor(context: Context, attrs: AttributeSet? = null, 
      * @see realSpeedTo
      */
     fun speedTo(speed: Float) {
-        speedTo(speed, 2000)
+        speedTo(speed, 0)
     }
 
     /**
