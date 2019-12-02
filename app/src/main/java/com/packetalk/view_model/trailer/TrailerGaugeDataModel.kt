@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.packetalk.Trailer.fragment.model.trailer.TrailerGaugeItem
+import com.packetalk.Trailer.fragment.model.trailer.TrailerSubGaugeItem
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.util.AppLogger
@@ -16,10 +16,10 @@ import retrofit2.Response
 
 class TrailerGaugeDataModel : ViewModel() {
     //this is the data that we will fetch asynchronously
-    private var gaugeList: MutableLiveData<TrailerGaugeItem>? = null
+    private var gaugeList: MutableLiveData<TrailerSubGaugeItem>? = null
 
     //we will call this method to get the data
-    fun getTrailer(vitalType: String, trailerName: String): LiveData<TrailerGaugeItem> {
+    fun getTrailer(vitalType: String, trailerName: String): LiveData<TrailerSubGaugeItem> {
         //if the list is null
         if (gaugeList == null) {
             gaugeList = MutableLiveData()
@@ -27,7 +27,7 @@ class TrailerGaugeDataModel : ViewModel() {
             getTrailerGaugeList(vitalType, trailerName)
         }
         //finally we will return the list
-        return gaugeList as MutableLiveData<TrailerGaugeItem>
+        return gaugeList as MutableLiveData<TrailerSubGaugeItem>
     }
 
     override fun onCleared() {
@@ -36,13 +36,17 @@ class TrailerGaugeDataModel : ViewModel() {
     }
 
     private fun getTrailerGaugeList(vitalType: String, trailerName: String) {
+        val map = HashMap<String, String>()
+        map["VitalType"] = vitalType
+        map["TrailerName"] = trailerName
+        AppLogger.e("map------------$map")
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
-        val callApi = apiInterface?.getTrailerGaugeList()
-        callApi?.enqueue(object : Callback<TrailerGaugeItem> {
+        val callApi = apiInterface?.getSubTrailerGaugeList(map)
+        callApi?.enqueue(object : Callback<TrailerSubGaugeItem> {
 
             override fun onResponse(
-                call: Call<TrailerGaugeItem>,
-                response: Response<TrailerGaugeItem>
+                call: Call<TrailerSubGaugeItem>,
+                response: Response<TrailerSubGaugeItem>
             ) {
                 AppLogger.response("model response--------" + response.body().toString())
                 if (response.isSuccessful) {
@@ -52,7 +56,7 @@ class TrailerGaugeDataModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<TrailerGaugeItem>, t: Throwable) {
+            override fun onFailure(call: Call<TrailerSubGaugeItem>, t: Throwable) {
                 AppLogger.error(t.message.toString())
             }
         })

@@ -308,6 +308,7 @@ abstract class Gauge constructor(context: Context, attrs: AttributeSet? = null, 
                 override fun onAnimationCancel(animation: Animator) {}
 
                 override fun onAnimationRepeat(animation: Animator) {}
+
             }
         }
         defaultGaugeValues()

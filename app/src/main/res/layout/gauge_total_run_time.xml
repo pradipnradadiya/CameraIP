@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.github.anastr.speedviewlib.SpeedView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/speedViewTotalRunTime"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:sv_centerCircleColor="@color/trailer_guage_background"
+    app:sv_indicator="NoIndicator"
+    app:sv_indicatorWidth="3dp"
+    app:sv_markColor="@color/white"
+    app:sv_maxGaugeValue="50"
+    app:sv_speedTextSize="@dimen/twenty_dp"
+    app:sv_speedometerMode="NORMAL"
+    app:sv_tickNumber="10"
+    app:sv_tickPadding="@dimen/thirty_sp"
+    app:sv_speedTextPosition="CENTER"
+    android:layout_gravity="center_horizontal"
+    />

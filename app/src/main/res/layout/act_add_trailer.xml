@@ -73,7 +73,7 @@
                     android:id="@+id/btnSubmit"
                     style="@style/btnStyle"
                     android:layout_width="@dimen/hundred_dp"
-                    android:layout_height="@dimen/btn_height"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/submit" />
 
@@ -81,7 +81,7 @@
                     android:id="@+id/btnCancel"
                     style="@style/btnStyle"
                     android:layout_width="@dimen/hundred_dp"
-                    android:layout_height="@dimen/btn_height"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/sixteen_dp"
                     android:text="@string/cancel" />

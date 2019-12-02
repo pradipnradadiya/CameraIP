@@ -66,7 +66,7 @@ class TrailerSubGaugeAdapter(
 //        speedView.maxGaugeValue = 200.0f
             itemView.speedViewTrailer.setGaugeMaxSpeed(maxsspedd)
             itemView.speedViewTrailer.speedTextColor
-//            itemView.speedViewTrailer.setTicks(10f)
+            itemView.speedViewTrailer.setTicks(10f)
 
 //            itemView.speedViewTrailer.setTicks(list)
 

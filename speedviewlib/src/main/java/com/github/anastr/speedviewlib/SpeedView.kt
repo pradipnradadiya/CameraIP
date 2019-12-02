@@ -21,6 +21,7 @@ class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
      * change the color of the center circle (if exist),
      * **this option is not available for all Speedometers**.
      */
+
     var centerCircleColor: Int
         get() = circlePaint.color
         set(centerCircleColor) {
@@ -80,7 +81,7 @@ class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         initDraw()
 
         val markH = viewSizePa / 28f
-        Log.e("markH","--------------"+markH)
+//        Log.e("markH","--------------"+markH)
 
         markPath.reset()
         markPath.moveTo(size * .5f, padding.toFloat())
@@ -88,7 +89,7 @@ class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         markPaint.strokeWidth = markH / 3f
 
         val risk = getSpeedometerWidth() * .5f + padding
-        Log.e("risk","--------------"+risk)
+//        Log.e("risk","--------------"+risk)
 
         speedometerRect.set(risk, risk, size - risk, size - risk)
         speedometerPaint.color = getHighSpeedColor()
@@ -106,7 +107,7 @@ class SpeedView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         c.rotate(90f + getStartDegree(), size * .5f, size * .5f)
         val everyDegree = (getEndDegree() - getStartDegree()) * .111f
         var i = getStartDegree().toFloat()
-        Log.e("i","--------------"+i)
+//        Log.e("i","--------------"+i)
 
         while (i < getEndDegree() - 2f * everyDegree) {
             c.rotate(everyDegree, size * .5f, size * .5f)

@@ -1,197 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        tools:context=".Trailer.fragment.TrailerFrg">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    tools:context=".Trailer.fragment.TrailerFrg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/trailer_gauge__border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <com.github.anastr.speedviewlib.TubeSpeedometer
+            android:id="@+id/tubeSpeedometer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/trailer_gauge__border"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="60dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-
-        <com.github.anastr.speedviewlib.TubeSpeedometer
-                android:id="@+id/tubeSpeedometer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:sv_backgroundCircleColor="@color/trailer_guage_background"
-                app:sv_maxSpeed="100"
-                app:sv_speedTextColor="@color/trailer_guage_background"
-                app:sv_speedometerBackColor="@color/green"
-                app:sv_textColor="@color/trailer_guage_background"
-                app:sv_unitTextColor="@color/trailer_guage_background" />
+            app:sv_backgroundCircleColor="@color/trailer_guage_background"
+            app:sv_speedTextColor="@color/trailer_guage_background"
+            app:sv_speedometerBackColor="@color/green"
+            app:sv_textColor="@color/trailer_guage_background"
+            app:sv_unitTextColor="@color/trailer_guage_background"
+            app:sv_withEffects3D="false" />
 
         <com.github.anastr.speedviewlib.TubeSpeedometer
-                android:id="@+id/tubeSpeedometerYellow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:sv_backgroundCircleColor="@color/trailer_guage_background"
-                app:sv_maxSpeed="100"
-                app:sv_speedTextColor="@color/trailer_guage_background"
-                app:sv_speedometerBackColor="@color/yellow"
-                app:sv_textColor="@color/trailer_guage_background"
-                app:sv_unitTextColor="@color/trailer_guage_background" />
+            android:id="@+id/tubeSpeedometerYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sv_backgroundCircleColor="@color/trailer_guage_background"
+            app:sv_speedTextColor="@color/trailer_guage_background"
+            app:sv_speedometerBackColor="@color/yellow"
+            app:sv_textColor="@color/trailer_guage_background"
+            app:sv_unitTextColor="@color/trailer_guage_background"
+            app:sv_withEffects3D="false" />
 
         <com.github.anastr.speedviewlib.TubeSpeedometer
-                android:id="@+id/tubeSpeedometerRed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:sv_backgroundCircleColor="@color/trailer_guage_background"
-                app:sv_maxSpeed="100"
-                app:sv_speedTextColor="@color/trailer_guage_background"
-                app:sv_speedometerBackColor="@color/red"
-                app:sv_textColor="@color/trailer_guage_background"
-                app:sv_unitTextColor="@color/trailer_guage_background" />
+            android:id="@+id/tubeSpeedometerRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sv_backgroundCircleColor="@color/trailer_guage_background"
+            app:sv_speedTextColor="@color/trailer_guage_background"
+            app:sv_speedometerBackColor="@color/red"
+            app:sv_textColor="@color/trailer_guage_background"
+            app:sv_unitTextColor="@color/trailer_guage_background"
+            app:sv_withEffects3D="false" />
+
+        <View
+            android:id="@+id/viewEngineStatus"
+            android:layout_width="@dimen/twenty_dp"
+            android:layout_height="@dimen/twenty_dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/red"
+            app:layout_constraintBottom_toBottomOf="@+id/tvEngineStatus"
+            app:layout_constraintEnd_toStartOf="@+id/tvEngineStatus"
+            app:layout_constraintTop_toTopOf="@+id/tvEngineStatus" />
+
+        <com.packetalk.utility.MyTextView
+            android:id="@+id/tvEngineStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:text="Not Reachable"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="@+id/tubeSpeedometer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/sixteen_dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tubeSpeedometer">
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/sixteen_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tubeSpeedometer">
 
             <LinearLayout
-                    android:id="@+id/linMainBorder"
-                    android:layout_width="match_parent"
+                android:id="@+id/linMainBorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:background="@drawable/trailer_border"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/sixteen_dp"
+                android:paddingTop="40dp"
+                android:paddingEnd="@dimen/sixteen_dp"
+                android:paddingBottom="@dimen/sixteen_dp">
+
+                <View
+                    android:layout_width="@dimen/twenty_dp"
+                    android:layout_height="@dimen/twenty_dp"
+                    android:background="@color/red" />
+
+                <com.packetalk.utility.MyTextView
+                    android:id="@+id/myTextView13"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen_dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="@dimen/sixteen_dp"
-                    android:background="@drawable/trailer_border"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/sixteen_dp"
-                    android:paddingTop="40dp"
-                    android:paddingEnd="@dimen/sixteen_dp"
-                    android:paddingBottom="@dimen/sixteen_dp">
+                    android:layout_marginStart="@dimen/eight_dp"
+                    android:layout_weight="1"
+                    android:text="@string/critical" />
 
                 <View
-                        android:layout_width="@dimen/twenty_dp"
-                        android:layout_height="@dimen/twenty_dp"
-                        android:background="@color/red" />
+                    android:layout_width="@dimen/twenty_dp"
+                    android:layout_height="@dimen/twenty_dp"
+                    android:background="@color/yellow" />
 
                 <com.packetalk.utility.MyTextView
-                        android:id="@+id/myTextView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/eight_dp"
-                        android:layout_weight="1"
-                        android:text="@string/critical" />
+                    android:id="@+id/myTextView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/eight_dp"
+                    android:layout_weight="1"
+                    android:text="@string/warning" />
 
                 <View
-                        android:layout_width="@dimen/twenty_dp"
-                        android:layout_height="@dimen/twenty_dp"
-                        android:background="@color/yellow" />
+                    android:layout_width="@dimen/twenty_dp"
+                    android:layout_height="@dimen/twenty_dp"
+                    android:background="@color/green" />
 
                 <com.packetalk.utility.MyTextView
-                        android:id="@+id/myTextView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/eight_dp"
-                        android:layout_weight="1"
-                        android:text="@string/warning" />
-
-                <View
-                        android:layout_width="@dimen/twenty_dp"
-                        android:layout_height="@dimen/twenty_dp"
-                        android:background="@color/green" />
-
-                <com.packetalk.utility.MyTextView
-                        android:id="@+id/myTextView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/eight_dp"
-                        android:layout_weight="1"
-                        android:text="@string/normal" />
+                    android:id="@+id/myTextView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/eight_dp"
+                    android:layout_weight="1"
+                    android:text="@string/normal" />
 
             </LinearLayout>
 
             <LinearLayout
-                    android:id="@+id/linSubBorder"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/trailer_border"
-                    android:padding="@dimen/ten_dp">
+                android:id="@+id/linSubBorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/trailer_border"
+                android:padding="@dimen/ten_dp">
 
                 <com.packetalk.utility.MyTextView
-                        android:id="@+id/tvSolarType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="true" />
+                    android:id="@+id/tvSolarType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="true" />
 
             </LinearLayout>
 
         </RelativeLayout>
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvTrailerGaugeName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/twenty_dp"
-                app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-                app:layout_constraintEnd_toEndOf="@+id/tubeSpeedometer"
-                app:layout_constraintHorizontal_bias="0.512"
-                app:layout_constraintStart_toStartOf="@+id/tubeSpeedometer"
-                app:layout_constraintTop_toTopOf="@+id/tubeSpeedometer"
-                tools:ignore="SpUsage" />
+            android:id="@+id/tvTrailerGaugeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/twenty_dp"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+            app:layout_constraintEnd_toEndOf="@+id/tubeSpeedometer"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="@+id/tubeSpeedometer"
+            app:layout_constraintTop_toTopOf="@+id/tubeSpeedometer"
+            tools:ignore="SpUsage" />
 
-        <com.github.angads25.toggle.LabeledSwitch
-                android:id="@+id/switchTrailer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"
-                app:colorBorder="@color/green"
-                app:colorOn="@color/green"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:on="true"
-                app:textOff="OFF"
-                app:textOn="ON" />
+        <RelativeLayout
+            android:id="@+id/relativeLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-                android:id="@+id/imgRestart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_refresh"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+
+            <RelativeLayout
+                android:visibility="visible"
+                android:id="@+id/relContent1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.packetalk.utility.MyTextView
+                    android:id="@+id/tvLoadStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Load status"
+                    android:layout_toLeftOf="@+id/switchTrailer"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/sixteen_dp"
+                    android:layout_marginEnd="@dimen/ten_dp"
+                    />
+
+
+
+                <ToggleButton
+                    android:id="@+id/switchTrailer"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/toggle_selector"
+                    android:layout_centerInParent="true"
+                    android:textOff=""
+                    android:checked="false"
+                    android:textOn=""/>
+
+
+<!--                android:id="@+id/switchTrailer"-->
+
+
+<!--                <com.github.angads25.toggle.LabeledSwitch-->
+<!--                    android:id="@+id/switchTrailer"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:colorBorder="@color/green"-->
+<!--                    app:colorOn="@color/green"-->
+<!--                    app:on="false"-->
+<!--                    android:layout_centerInParent="true"-->
+<!--                    app:textOff="OFF"-->
+<!--                    android:saveEnabled="false"-->
+<!--                    app:textOn="ON" />-->
+
+
+
+                <ImageView
+                    android:layout_toRightOf="@id/switchTrailer"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/imgRestart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_refresh"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/relContent2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btnStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_height"
+                    android:text="Start"
+                    android:layout_toLeftOf="@+id/imgReset"
+                    android:layout_marginEnd="@dimen/ten_dp"
+                    android:background="@color/green"
+                    android:layout_centerVertical="true"
+                    style="@style/btnStyle"
+                    />
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/imgReset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_refresh"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_centerInParent="true"
+                    tools:ignore="ContentDescription" />
+
+                <Button
+                    android:id="@+id/btnStop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_height"
+                    android:text="Stop"
+                    android:layout_toRightOf="@+id/imgReset"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:background="@color/red"
+                    android:layout_centerVertical="true"
+                    style="@style/btnStyle"
+                    />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            style="@style/viewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout6" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

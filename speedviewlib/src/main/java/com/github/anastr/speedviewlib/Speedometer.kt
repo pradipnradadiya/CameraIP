@@ -326,12 +326,9 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
         val defaultSize = dpTOpx(250f).toInt()
-
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
-
         val size: Int
 
         size = if (widthMode == MeasureSpec.EXACTLY)
@@ -697,7 +694,6 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
             return
         try {
             textPaint.textAlign = Paint.Align.LEFT
-
             for (i in ticks.indices) {
                 val d = getDegreeAtSpeed(ticks[i]) + 90f
                 c.save()

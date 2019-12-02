@@ -80,4 +80,8 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
     implementation project(path: ':speedviewlib')
 
+    // Material Dialog Library
+    implementation 'com.shreyaspatil:MaterialDialog:1.0.0'
+    // Lottie Animation Library
+    implementation 'com.airbnb.android:lottie:3.0.6'
 }

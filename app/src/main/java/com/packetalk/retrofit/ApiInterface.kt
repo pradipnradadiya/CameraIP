@@ -2,6 +2,7 @@ package com.packetalk.retrofit
 
 import com.google.gson.JsonObject
 import com.packetalk.Trailer.fragment.model.trailer.TrailerGaugeItem
+import com.packetalk.Trailer.fragment.model.trailer.TrailerSubGaugeItem
 import com.packetalk.home.model.group_camera_model.GroupCameraItem
 import com.packetalk.home.model.group_camera_model.strored_video.StoredVideoItem
 import com.packetalk.map.fragment.model.MapItem
@@ -186,8 +187,43 @@ interface ApiInterface {
     fun getTrailerGaugeList(): Call<TrailerGaugeItem>
 
 
+    //Hybrid Trailer List
+    @Headers("Content-Type: application/json")
+    @POST("api/Trailers/GetHybridVitalsList")
+    fun getHybridTrailerGaugeList(@Body body: Map<String, String>): Call<TrailerGaugeItem>
+
+
+    //Sub Trailer List
     @Headers("Content-Type: application/json")
     @POST("api/Trailers/GetVitalsDetails")
-    fun getGaugeDetail(@Body body: Map<String, String>): Call<JsonObject>
+    fun getSubTrailerGaugeList(@Body body: Map<String, String>): Call<TrailerSubGaugeItem>
+
+    //Hybrid trailer Trailer List
+    @Headers("Content-Type: application/json")
+    @POST("api/Trailers/GetVitalsDetails")
+    fun getHybridVitalGaugeList(@Body body: Map<String, String>): Call<TrailerGaugeItem>
+
+    // On/Off trailer
+    @Headers("Content-Type: application/json")
+    @POST("api/Trailers/ChangeEngineStatus")
+    fun onOffTrailer(@Body body: Map<String, String>): Call<JsonObject>
+
+    // Start Diesel
+    @Headers("Content-Type: application/json")
+    @POST("api/Trailers/StartDiesel")
+    fun startDiesel(@Body body: Map<String, String>): Call<JsonObject>
+
+    // Stop Diesel
+    @Headers("Content-Type: application/json")
+    @POST("api/Trailers/StopDiesel")
+    fun stopDiesel(@Body body: Map<String, String>): Call<JsonObject>
+
+    // Reset Diesel
+    @Headers("Content-Type: application/json")
+    @POST("api/Trailers/ResetDiesel")
+    fun resetDiesel(@Body body: Map<String, String>): Call<JsonObject>
+
+
+
 
 }

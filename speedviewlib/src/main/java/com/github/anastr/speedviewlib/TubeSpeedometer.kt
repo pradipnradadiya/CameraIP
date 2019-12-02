@@ -1,5 +1,4 @@
 package com.github.anastr.speedviewlib
-
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.EmbossMaskFilter
@@ -8,10 +7,6 @@ import android.graphics.RectF
 import android.os.Build
 import android.util.AttributeSet
 
-/**
- * this Library build By Anas Altair
- * see it on [GitHub](https://github.com/anastr/SpeedView)
- */
 class TubeSpeedometer @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : Speedometer(context, attrs, defStyleAttr) {
 
     private val tubePaint = Paint(Paint.ANTI_ALIAS_FLAG)

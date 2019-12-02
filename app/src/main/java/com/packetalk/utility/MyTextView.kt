@@ -22,5 +22,4 @@ class MyTextView : TextView {
         val font = Typeface.createFromAsset(context.assets, "fonts/roboto_regular.ttf")
         setTypeface(font, Typeface.NORMAL)
     }
-
 }

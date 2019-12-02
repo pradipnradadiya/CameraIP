@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.activity.AssignGroupToUserAct
 import com.packetalk.util.AppConstants.GROUP_ID
 import com.packetalk.util.AppLogger
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.act_add_group_item.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,6 +85,25 @@ class GroupAdapter(
                         }
                         R.id.action_delete -> {
 
+                            val mBottomSheetDialog =
+                                BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                                    .setTitle("DELETE?")
+                                    .setMessage(activity.getString(R.string.delete_msg))
+                                    .setCancelable(false)
+                                    .setPositiveButton("YES",R.drawable.ic_delete_popup) { dialogInterface, which ->
+                                        AppLogger.e(itemArrayList?.get(adapterPosition)?.groupID.toString())
+                                        deleteGroup(itemArrayList?.get(adapterPosition)?.groupID.toString())
+                                        removeAt(position = adapterPosition)
+                                        dialogInterface.dismiss()
+                                    }
+                                    .setNegativeButton("NO",R.drawable.ic_close) { dialogInterface, which ->
+                                        dialogInterface.dismiss()
+                                    }
+                                    .build()
+                            // Show Dialog
+                            mBottomSheetDialog.show()
+
+                            /*
                             IOSDialog.Builder(activity)
                                 .setTitle(activity?.getString(R.string.delete))
                                 .setMessage(activity?.getString(R.string.delete_msg))
@@ -97,7 +118,7 @@ class GroupAdapter(
                                 }
                                 .setNegativeButton(
                                     activity?.getString(R.string.cancel)
-                                ) { dialog, _ -> dialog.dismiss() }.show()
+                                ) { dialog, _ -> dialog.dismiss() }.show()*/
 
 
                         }

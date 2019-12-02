@@ -17,7 +17,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class TrailerFrg : BaseFragment() {
     lateinit var rootView: View
     var layoutManager: LinearLayoutManager? = null
@@ -30,7 +29,6 @@ class TrailerFrg : BaseFragment() {
     ): View {
         rootView = inflater.inflate(R.layout.frg_trailer, parent, false)
         return rootView
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,54 +42,20 @@ class TrailerFrg : BaseFragment() {
 
     override fun initView() {
         rootView.recycleViewTrailer.layoutManager = layoutManager
-        val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
-        snapHelper.attachToRecyclerView(rootView.recycleViewTrailer)
+//        val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
+//        snapHelper.attachToRecyclerView(rootView.recycleViewTrailer)
     }
 
     override fun postInitView() {
-        /* var name = ArrayList<String>()
-         name.add("1")
-         name.add("2")
-         name.add("2")
-         name.add("3")
 
-         for (i in 0 until name.size) {
-             var j = i + 1
-             while (j < name.size) {
-                 // j needs to start at i + 1 not 1.
-                 if (name[i] == name[j]) {
-                     name.removeAt(j)                     // You need to remove at the higher index
-                   // name.removeAt(i)                     // first, because items are shifted left.
-                     j -= 1
-                 }
-                 j++
-             }
-         }
-
-         AppLogger.e(name.toString())*/
     }
 
     override fun addListener() {
 
-        /*// Add label converter
-        rootView.meterView.labelConverter =
-            SpeedometerView.LabelConverter { progress, maxProgress ->
-                Math.round(progress).toInt().toString()
-            }*/
     }
 
     override fun loadData() {
         getTrailerList()
-
-        /*  // configure value range and ticks
-          rootView.meterView.maxSpeed = 160.0
-          rootView.meterView.majorTickStep = 20.0
-          rootView.meterView.minorTicks = 2
-          rootView.meterView.speed = 90.0
-          // Configure value range colors
-          rootView.meterView.addColoredRange(30.0, 140.0, Color.GREEN);
-          rootView.meterView.addColoredRange(140.0, 180.0, Color.YELLOW);
-          rootView.meterView.addColoredRange(180.0, 400.0, Color.RED);*/
     }
 
     private fun getTrailerList() {
@@ -117,7 +81,6 @@ class TrailerFrg : BaseFragment() {
             override fun onFailure(call: Call<TrailerGaugeItem>, t: Throwable) {
                 AppLogger.error(t.message.toString())
             }
-
         })
     }
 

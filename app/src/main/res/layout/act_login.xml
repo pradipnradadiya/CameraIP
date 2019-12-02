@@ -80,7 +80,7 @@
                     android:id="@+id/btnLSubmit"
                     style="@style/btnStyle"
                     android:layout_width="@dimen/hundred_dp"
-                    android:layout_height="@dimen/btn_height"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/twenty_four_dp"
                     android:text="@string/login" />

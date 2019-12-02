@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
@@ -16,6 +17,7 @@ import com.packetalk.setting.model.trailer.Object
 import com.packetalk.util.AppLogger
 import com.packetalk.util.parseJsonObject
 import com.packetalk.util.showSuccessToast
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.act_add_trailer_item.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,7 +71,25 @@ class TrailerAdapter(
                 )
             }
             itemView.btnDelete.setOnClickListener {
-                IOSDialog.Builder(activity)
+
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                        .setTitle("DELETE?")
+                        .setMessage(activity.getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton("YES",R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            deleteTrailer()
+                            removeAt(adapterPosition)
+                            dialogInterface.dismiss()
+                        }
+                        .setNegativeButton("NO",R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+               /* IOSDialog.Builder(activity)
                     .setTitle(activity?.getString(R.string.delete))
                     .setMessage(activity?.getString(R.string.delete_msg))
                     .setPositiveButton(
@@ -82,7 +102,10 @@ class TrailerAdapter(
                     }
                     .setNegativeButton(
                         activity?.getString(R.string.cancel)
-                    ) { dialog, _ -> dialog.dismiss() }.show()
+                    ) { dialog, _ -> dialog.dismiss() }.show()*/
+
+
+
             }
         }
 
