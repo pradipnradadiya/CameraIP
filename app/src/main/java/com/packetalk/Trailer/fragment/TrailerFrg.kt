@@ -59,6 +59,7 @@ class TrailerFrg : BaseFragment() {
     }
 
     private fun getTrailerList() {
+        showProgressDialog("Trailer", "Please wait..")
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.getTrailerGaugeList()
         callApi?.enqueue(object : Callback<TrailerGaugeItem> {
@@ -69,6 +70,7 @@ class TrailerFrg : BaseFragment() {
             ) {
                 AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
+                    hideProgressDialog()
                     if (response.body()?.responseResult!!) {
                         adapter = TrailerGaugeAdapter(activity, response.body()?.objectX)
                         rootView.recycleViewTrailer.adapter = adapter
@@ -80,6 +82,7 @@ class TrailerFrg : BaseFragment() {
 
             override fun onFailure(call: Call<TrailerGaugeItem>, t: Throwable) {
                 AppLogger.error(t.message.toString())
+                hideProgressDialog()
             }
         })
     }
@@ -89,10 +92,8 @@ class TrailerFrg : BaseFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // TODO Add your menu entries here
 //        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.trailer_menu, menu)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

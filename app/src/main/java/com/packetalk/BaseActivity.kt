@@ -18,6 +18,7 @@ import com.packetalk.login.activity.LoginAct
 import com.packetalk.util.LogoutDialogClass
 import com.packetalk.util.NetworkUtils
 import com.packetalk.util.SharedPreferenceSession
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
@@ -163,7 +164,7 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_user -> {
-                IOSDialog.Builder(this)
+               /* IOSDialog.Builder(this)
                     .setTitle("Logout")
                     .setMessage("Do you want to logout this application ?")
                     .setPositiveButton(
@@ -180,8 +181,29 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
                     }
                     .setNegativeButton(
                         this.getString(R.string.cancel)
-                    ) { dialog, _ -> dialog.dismiss() }.show()
+                    ) { dialog, _ -> dialog.dismiss() }.show()*/
 
+
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(this)
+                        .setTitle("LOGOUT")
+                        .setMessage("Do you want to logout this application ?")
+                        .setCancelable(false)
+                        .setPositiveButton("OK",R.drawable.ic_logout) { dialogInterface, which ->
+                            // continue with delete
+                            val session = SharedPreferenceSession(this)
+                            session.saveUserType("")
+                            startNewActivity(LoginAct::class.java)
+                            finishAffinity()
+                            dialogInterface.dismiss()
+                        }
+                        .setNegativeButton("Cancel",R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .setAnimation("logout.json")
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
 
               /*
                 // Do something

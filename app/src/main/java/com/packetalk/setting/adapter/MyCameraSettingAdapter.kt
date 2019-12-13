@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
@@ -20,6 +21,7 @@ import com.packetalk.util.AppConstants
 import com.packetalk.util.AppLogger
 import com.packetalk.util.parseJsonObject
 import com.packetalk.util.showSuccessToast
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.act_my_camera_setting_item.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -102,6 +104,26 @@ class MyCameraSettingAdapter(
 
             itemView.linDelete.setOnClickListener {
 
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                        .setTitle(activity.getString(R.string.delete))
+                        .setMessage(activity.getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(activity.getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                            deleteCamera()
+                            activity?.showSuccessToast("Delete successfully")
+                            itemArrayList?.removeAt(adapterPosition)
+                            notifyItemRemoved(adapterPosition)
+                        }
+                        .setNegativeButton(activity.getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+                /*
                 IOSDialog.Builder(activity)
                     .setTitle(activity?.getString(R.string.delete))
                     .setMessage(activity?.getString(R.string.delete_msg))
@@ -119,6 +141,11 @@ class MyCameraSettingAdapter(
                     .setNegativeButton(
                         activity?.getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
+*/
+
+
+
+
             }
 
             itemView.checkBox.setOnClickListener {

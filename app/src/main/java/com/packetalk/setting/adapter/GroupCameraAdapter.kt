@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
@@ -16,6 +17,7 @@ import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.activity.AddCameraAct
 import com.packetalk.setting.activity.AddCameraAct.Companion.groupPosition
 import com.packetalk.util.AppLogger
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.act_add_camera.*
 import kotlinx.android.synthetic.main.act_assign_camera_item.view.*
 import retrofit2.Call
@@ -74,6 +76,34 @@ class GroupCameraAdapter(
 
             if (itemArrayList?.get(adapterPosition)?.choice!!) {
 
+
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                        .setTitle(activity.getString(R.string.delete))
+                        .setMessage(activity.getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(activity.getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            // continue with delete
+                            AppLogger.e(adapterPosition.toString())
+                            removeAt(adapterPosition)
+                            AppLogger.e("group position $groupPosition")
+                            AppLogger.e("adapter position $adapterPosition")
+//                myGroupList?.get(groupPosition)?.cameraDetailsFull?.removeAt(adapterPosition)
+
+                            (activity as AddCameraAct).checkSpinnerEnableDisable(0)
+                            dialogInterface.dismiss()
+                        }
+                        .setNegativeButton(activity.getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+
+
+
+/*
                 IOSDialog.Builder(activity)
                     .setTitle(activity?.getString(R.string.delete))
                     .setMessage(activity?.getString(R.string.delete_msg))
@@ -105,7 +135,34 @@ class GroupCameraAdapter(
                         activity?.getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
 
+                */
+
+
+
             } else {
+
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                        .setTitle(activity.getString(R.string.delete))
+                        .setMessage(activity.getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(activity.getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                            // continue with delete
+                            deleteCamera(itemArrayList!![adapterPosition].adminCameraIDPK)
+                            removeAt(adapterPosition)
+//                myGroupList?.get(groupPosition)?.cameraDetailsFull?.removeAt(adapterPosition)
+                            (activity as AddCameraAct).checkSpinnerEnableDisable(1)
+                        }
+                        .setNegativeButton(activity.getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+
+                /*
                 IOSDialog.Builder(activity)
                     .setTitle(activity?.getString(R.string.delete))
                     .setMessage(activity?.getString(R.string.delete_msg))
@@ -121,7 +178,7 @@ class GroupCameraAdapter(
                     }
                     .setNegativeButton(
                         activity?.getString(R.string.cancel)
-                    ) { dialog, _ -> dialog.dismiss() }.show()
+                    ) { dialog, _ -> dialog.dismiss() }.show()*/
             }
 
         }

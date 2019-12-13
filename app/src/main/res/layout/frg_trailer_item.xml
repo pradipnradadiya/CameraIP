@@ -13,14 +13,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/trailer_gauge__border"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/trailer_gauge_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
 
         <com.github.anastr.speedviewlib.TubeSpeedometer
             android:id="@+id/tubeSpeedometer"
@@ -91,7 +90,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
@@ -109,7 +107,7 @@
                 android:layout_marginStart="@dimen/sixteen_dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="@dimen/sixteen_dp"
-                android:background="@drawable/trailer_border"
+                android:background="@drawable/green_border"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/sixteen_dp"
                 android:paddingTop="40dp"
@@ -162,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/trailer_border"
+                android:background="@drawable/green_border"
                 android:padding="@dimen/ten_dp">
 
                 <com.packetalk.utility.MyTextView
@@ -195,109 +193,100 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <RelativeLayout
-                android:visibility="visible"
                 android:id="@+id/relContent1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="visible">
 
                 <com.packetalk.utility.MyTextView
                     android:id="@+id/tvLoadStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Load status"
-                    android:layout_toLeftOf="@+id/switchTrailer"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/sixteen_dp"
                     android:layout_marginEnd="@dimen/ten_dp"
-                    />
-
+                    android:layout_toLeftOf="@+id/switchTrailer"
+                    android:text="Load status"
+                    android:textSize="@dimen/sixteen_dp" />
 
 
                 <ToggleButton
                     android:id="@+id/switchTrailer"
                     android:layout_width="48dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/toggle_selector"
                     android:layout_centerInParent="true"
-                    android:textOff=""
+                    android:background="@drawable/toggle_selector"
                     android:checked="false"
-                    android:textOn=""/>
+                    android:textOff=""
+                    android:textOn="" />
 
 
-<!--                android:id="@+id/switchTrailer"-->
+                <!--                android:id="@+id/switchTrailer"-->
 
 
-<!--                <com.github.angads25.toggle.LabeledSwitch-->
-<!--                    android:id="@+id/switchTrailer"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textSize="14sp"-->
-<!--                    app:colorBorder="@color/green"-->
-<!--                    app:colorOn="@color/green"-->
-<!--                    app:on="false"-->
-<!--                    android:layout_centerInParent="true"-->
-<!--                    app:textOff="OFF"-->
-<!--                    android:saveEnabled="false"-->
-<!--                    app:textOn="ON" />-->
-
+                <!--                <com.github.angads25.toggle.LabeledSwitch-->
+                <!--                    android:id="@+id/switchTrailer"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:textSize="14sp"-->
+                <!--                    app:colorBorder="@color/green"-->
+                <!--                    app:colorOn="@color/green"-->
+                <!--                    app:on="false"-->
+                <!--                    android:layout_centerInParent="true"-->
+                <!--                    app:textOff="OFF"-->
+                <!--                    android:saveEnabled="false"-->
+                <!--                    app:textOn="ON" />-->
 
 
                 <ImageView
-                    android:layout_toRightOf="@id/switchTrailer"
-                    android:layout_centerVertical="true"
                     android:id="@+id/imgRestart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_refresh"
+                    android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_toRightOf="@id/switchTrailer"
+                    android:src="@drawable/ic_refresh"
                     tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:visibility="gone"
                 android:id="@+id/relContent2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/btn_height"
-                    android:text="Start"
-                    android:layout_toLeftOf="@+id/imgReset"
-                    android:layout_marginEnd="@dimen/ten_dp"
-                    android:background="@color/green"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    style="@style/btnStyle"
-                    />
+                    android:layout_marginEnd="@dimen/ten_dp"
+                    android:layout_toLeftOf="@+id/imgReset"
+                    android:backgroundTint="@color/green"
+                    android:text="Start" />
 
                 <ImageView
-                    android:layout_centerVertical="true"
                     android:id="@+id/imgReset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_refresh"
-                    android:layout_marginStart="@dimen/ten_dp"
                     android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:src="@drawable/ic_refresh"
                     tools:ignore="ContentDescription" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnStop"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/btn_height"
-                    android:text="Stop"
-                    android:layout_toRightOf="@+id/imgReset"
-                    android:layout_marginStart="@dimen/ten_dp"
-                    android:background="@color/red"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    style="@style/btnStyle"
-                    />
+                    android:layout_marginStart="@dimen/ten_dp"
+                    android:layout_toRightOf="@+id/imgReset"
+                    android:backgroundTint="@color/red"
+                    android:text="Stop" />
 
             </RelativeLayout>
-
 
         </RelativeLayout>
 

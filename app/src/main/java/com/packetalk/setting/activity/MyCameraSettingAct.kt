@@ -3,6 +3,7 @@ package com.packetalk.setting.activity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
 import com.ligl.android.widget.iosdialog.IOSDialog
@@ -17,6 +18,7 @@ import com.packetalk.setting.adapter.MyCameraSettingAdapter
 import com.packetalk.setting.request.trailor.my_camera_setting.MyCameraSettingDeleteRequest
 import com.packetalk.setting.request.trailor.my_camera_setting.MyCameraSettingPriorityRequest
 import com.packetalk.util.*
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.act_my_camera_sertting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +28,24 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnDeleteGroup -> {
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(this)
+                        .setTitle(getString(R.string.delete))
+                        .setMessage(getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                            // continue with delete
+                            deleteGroup(groupId)
+                        }
+                        .setNegativeButton(getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+                /*
                 IOSDialog.Builder(this@MyCameraSettingAct)
                     .setTitle(getString(R.string.delete))
                     .setMessage(getString(R.string.delete_msg))
@@ -39,6 +59,7 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                     .setNegativeButton(
                         getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
+*/
 
 
             }
@@ -80,6 +101,32 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                 }
             }
             R.id.btnDeleteall -> {
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(this)
+                        .setTitle(getString(R.string.delete))
+                        .setMessage(getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                            // continue with delete
+                            AppLogger.e(arrayAdminCameraIDPK.toString())
+                            if (arrayAdminCameraIDPK.isNullOrEmpty()) {
+                                showErrorToast("There are No camera selected.")
+                            } else {
+                                AppLogger.e("delete all")
+                                deleteCameraSetting()
+                            }
+                        }
+                        .setNegativeButton(getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+
+
+                /*
                 IOSDialog.Builder(this@MyCameraSettingAct)
                     .setTitle(getString(R.string.delete))
                     .setMessage(getString(R.string.delete_msg))
@@ -100,6 +147,9 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                     .setNegativeButton(
                         getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
+
+                */
+
             }
         }
     }

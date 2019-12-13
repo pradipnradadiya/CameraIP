@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ import com.packetalk.user.model.users.Object
 import com.packetalk.util.AppLogger
 import com.packetalk.util.parseJsonObject
 import com.packetalk.util.showSuccessToast
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.act_assign_group_to_user_item.view.*
 import kotlinx.android.synthetic.main.frg_create_user_item.view.tvUserName
 import retrofit2.Call
@@ -83,6 +85,24 @@ class UserGroupSelectedListAdapter(
             AppLogger.e("on click")
 
             if (itemArrayList?.get(adapterPosition)?.isNew!!) {
+
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                        .setTitle(activity.getString(R.string.delete))
+                        .setMessage(activity.getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(activity.getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                            removeAt(adapterPosition)
+                        }
+                        .setNegativeButton(activity.getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+/*
                 IOSDialog.Builder(activity)
                     .setTitle(activity?.getString(R.string.delete))
                     .setMessage(activity?.getString(R.string.delete_msg))
@@ -97,7 +117,30 @@ class UserGroupSelectedListAdapter(
                     .setNegativeButton(
                         activity?.getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
+
+*/
+
             }else{
+                val mBottomSheetDialog =
+                    BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                        .setTitle(activity.getString(R.string.delete))
+                        .setMessage(activity.getString(R.string.delete_msg))
+                        .setCancelable(false)
+                        .setPositiveButton(activity.getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                            // continue with delete
+                            AppLogger.e(itemArrayList!![adapterPosition].iD)
+                            deleteUserOnGroup(itemArrayList!![adapterPosition].iD, userId)
+                            removeAt(adapterPosition)
+                        }
+                        .setNegativeButton(activity.getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                            dialogInterface.dismiss()
+                        }
+                        .build()
+                // Show Dialog
+                mBottomSheetDialog.show()
+
+                /*
                 IOSDialog.Builder(activity)
                     .setTitle(activity?.getString(R.string.delete))
                     .setMessage(activity?.getString(R.string.delete_msg))
@@ -114,6 +157,8 @@ class UserGroupSelectedListAdapter(
                     .setNegativeButton(
                         activity?.getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
+                */
+
             }
 
         }

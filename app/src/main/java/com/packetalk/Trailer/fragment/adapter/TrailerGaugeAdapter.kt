@@ -37,7 +37,6 @@ class TrailerGaugeAdapter(
         return ViewHolder(v)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, i: Int) {
         val data = itemArrayList?.get(i)
         holder.setData(data)
@@ -153,10 +152,10 @@ class TrailerGaugeAdapter(
                     itemView.viewEngineStatus.visibility = View.INVISIBLE
                     if (data.engineStatus == "true") {
                         data.isOn = true
-                        notifyItemChanged(adapterPosition)
+//                        notifyItemChanged(adapterPosition)
                     } else {
                         data.isOn = false
-                        notifyItemChanged(adapterPosition)
+//                        notifyItemChanged(adapterPosition)
                     }
                 }
             }
@@ -204,6 +203,8 @@ class TrailerGaugeAdapter(
                         .build()
                 // Show Dialog
                 mBottomSheetDialog.show()
+
+
 
             }
 

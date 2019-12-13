@@ -17,8 +17,6 @@
     <string name="select_group">Select Group</string>
     <string name="select_camera">Select Cameras</string>
     <string name="_2019_packettalk_all_right_reserved">\u00A9 2019 Packetalk All Right Reserved</string>
-    <string name="from_date">From Date</string>
-    <string name="to_date">To Date</string>
     <string name="trailer">Trailer</string>
     <string name="auto_focus">Auto focus</string>
     <string name="title_activity_maps">Map</string>
@@ -65,6 +63,18 @@
     <string name="no_record_found">No Record Found.</string>
     <string name="clear_log">Clear Log</string>
     <string name="assign_camera_to_user">Assign camera to user</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="week">Week</string>
+    <string name="_3_week">3-Week</string>
+    <string name="month">Month</string>
+    <string name="_6_month">6-Month</string>
+    <string name="year">Year</string>
+    <string name="chart_type">Chart Type</string>
+    <string name="update_camera">Update Camera</string>
+    <string name="existing_url">Existing URL</string>
+    <string name="add_server_url">Add server URL</string>
+    <string name="new_url">New URL</string>
 
     <string-array name="test_array">
         <item>1</item>

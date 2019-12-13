@@ -3,9 +3,12 @@ package com.packetalk.retrofit
 import com.google.gson.JsonObject
 import com.packetalk.Trailer.fragment.model.trailer.TrailerGaugeItem
 import com.packetalk.Trailer.fragment.model.trailer.TrailerSubGaugeItem
+import com.packetalk.chart.model.ChartItem
 import com.packetalk.home.model.group_camera_model.GroupCameraItem
 import com.packetalk.home.model.group_camera_model.strored_video.StoredVideoItem
 import com.packetalk.map.fragment.model.MapItem
+import com.packetalk.setting.model.add_camera.CamToGroupRequest
+import com.packetalk.setting.model.add_camera.CameraUrlItem
 import com.packetalk.setting.model.add_camera.DefaultCameraItem
 import com.packetalk.setting.model.modem_setting.ModemItem
 import com.packetalk.setting.model.server_setting.ServerItem
@@ -157,6 +160,17 @@ interface ApiInterface {
     @POST("api/SettingAdmin/savecam")
     fun saveCam(@Body body: Map<String, Int>): Call<JsonObject>
 
+
+    //Get camera url
+    @GET("api/SettingAdmin/GetCamerasUrl")
+    fun getCameraURL(): Call<CameraUrlItem>
+
+    //Assign camera to group
+    @Headers("Content-Type: application/json")
+    @POST("api/SettingAdmin/AssignCamToGroup")
+    fun assignCameraToGroup(@Body body: CamToGroupRequest): Call<JsonObject>
+
+
     //************************************ MAP *******************************************
     @Headers("Content-Type: application/json")
     @POST("api/Common/GetMapPins")
@@ -224,6 +238,13 @@ interface ApiInterface {
     fun resetDiesel(@Body body: Map<String, String>): Call<JsonObject>
 
 
+    /************************************CHART*****************************************
+     *
+     */
 
+    //get chart data
+    @Headers("Content-Type: application/json")
+    @POST("api/Common/GetChartData")
+    fun getChartData(@Body body: Map<String, String>): Call<ChartItem>
 
 }

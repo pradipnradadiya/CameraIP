@@ -72,12 +72,10 @@ class DefaultGroupAdapter(
             AppLogger.e("on click")
 
             val cameraId =
-                itemArrayList!![adapterPosition].adminCameraIDPK
-
+                itemArrayList!![adapterPosition].cameraName.trim()
             AppLogger.e(cameraId.toString())
-
             for ((index, value) in myGroupList?.get(groupPosition)?.cameraDetailsFull?.withIndex()!!) {
-                if (cameraId == myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(index)!!.adminCameraIDPK) {
+                if (cameraId == myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(index)!!.cameraName.trim()) {
                     activity?.showErrorToast("This Camera already added in database.")
                     (activity as AddCameraAct).flag = true
                     break
@@ -97,13 +95,8 @@ class DefaultGroupAdapter(
                         true
 
                 } else {
-                    myGroupList?.get(groupPosition)
-                        ?.cameraDetailsFull?.add(
-                        itemArrayList!![0]
-                    )
-                    myGroupList?.get(groupPosition)
-                        ?.cameraDetailsFull?.get(myGroupList?.get(groupPosition)?.cameraDetailsFull!!.size - 1)!!.choice =
-                        true
+                    myGroupList?.get(groupPosition)?.cameraDetailsFull?.add(itemArrayList!![adapterPosition])
+                    myGroupList?.get(groupPosition)?.cameraDetailsFull?.get(myGroupList?.get(groupPosition)?.cameraDetailsFull!!.size - 1)!!.choice = true
 
                 }
                 activity.refreshAdapter()

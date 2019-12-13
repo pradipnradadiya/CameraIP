@@ -16,19 +16,20 @@
         android:background="@color/cardview_dark_background"
         android:paddingTop="@dimen/ten_dp"
         android:paddingBottom="@dimen/ten_dp"
-        android:text="Add server URL"
+        android:text="@string/add_server_url"
         android:textAlignment="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+        tools:ignore="PrivateResource" />
 
     <com.packetalk.utility.MyTextViewBold
         android:id="@+id/myTextViewBold11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="New URL"
+        android:text="@string/new_url"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/myTextViewBold10" />
@@ -38,25 +39,27 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Existing URL"
+        android:text="@string/existing_url"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <EditText
         android:id="@+id/editText"
+        android:background="@drawable/edit_round"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textWebEditText"
-        android:lines="1"
+        android:padding="@dimen/ten_dp"
+        android:inputType="textWebEditText|textMultiLine"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/myTextViewBold11" />
+        app:layout_constraintTop_toBottomOf="@+id/myTextViewBold11"
+        tools:ignore="Autofill,LabelFor" />
 
-    <EditText
-        android:id="@+id/editText2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewExstingUrl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -72,10 +75,10 @@
         style="@style/btnStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/btn_height"
-        android:text="Update Camera"
+        android:text="@string/update_camera"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/recycleViewExstingUrl" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineLeft"

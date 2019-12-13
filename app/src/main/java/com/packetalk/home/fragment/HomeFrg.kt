@@ -41,6 +41,7 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
     private lateinit var rootView: View
     var cameraAdapter : CameraListAdapter? = null
     private var linearLayoutManager2 : LinearLayoutManager? = null
+
     @SuppressLint("InflateParams")
     override fun onClick(v: View?) {
         when (v?.id) {

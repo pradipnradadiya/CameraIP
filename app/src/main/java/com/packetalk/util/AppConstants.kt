@@ -20,4 +20,7 @@ object AppConstants {
     const val AND_IMAGE_WIDTH = "&imagewidth="
     const val AND_IMAGE_HEIGHT = "&imageheight="
 
+    const val TRAILER_NAME  = "trailerName"
+    const val GAUGE_TYPE = "gaugeType"
+
 }

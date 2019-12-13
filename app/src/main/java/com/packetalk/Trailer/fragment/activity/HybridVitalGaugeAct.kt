@@ -52,6 +52,7 @@ class HybridVitalGaugeAct : BaseActivity() {
     }
 
     private fun getHybridTrailerList(trailerName: String) {
+        showProgressDialog("Trailer","Please wait..")
         val map = HashMap<String,String>()
         map["TrailerName"] = trailerName
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
@@ -64,6 +65,7 @@ class HybridVitalGaugeAct : BaseActivity() {
             ) {
                 AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
+                    hideProgressDialog()
                     if (response.body()?.responseResult!!) {
                         adapter =
                             TrailerGaugeAdapter(this@HybridVitalGaugeAct, response.body()?.objectX)
@@ -76,6 +78,7 @@ class HybridVitalGaugeAct : BaseActivity() {
 
             override fun onFailure(call: Call<TrailerGaugeItem>, t: Throwable) {
                 AppLogger.error(t.message.toString())
+                hideProgressDialog()
             }
         })
     }

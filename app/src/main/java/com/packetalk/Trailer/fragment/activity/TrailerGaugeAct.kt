@@ -1,7 +1,9 @@
 package com.packetalk.Trailer.fragment.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +12,8 @@ import com.packetalk.BaseActivity
 import com.packetalk.R
 import com.packetalk.Trailer.fragment.adapter.TrailerSubGaugeAdapter
 import com.packetalk.Trailer.fragment.model.trailer.TrailerSubGaugeItem
+import com.packetalk.chart.ChartAct
+import com.packetalk.util.AppConstants
 import com.packetalk.util.AppLogger
 import com.packetalk.view_model.trailer.TrailerGaugeDataModel
 import kotlinx.android.synthetic.main.act_trailer_gauge.*
@@ -20,7 +24,7 @@ import kotlinx.android.synthetic.main.gauge_total_run_time.*
 import kotlinx.android.synthetic.main.gauge_voltage.*
 import org.json.JSONArray
 
-class TrailerGaugeAct : BaseActivity() {
+class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
     private var adapter: TrailerSubGaugeAdapter? = null
     private var layoutManager: LinearLayoutManager? = null
     private var arrSubGaugeList = ArrayList<TrailerSubGaugeItem>()
@@ -38,7 +42,7 @@ class TrailerGaugeAct : BaseActivity() {
     }
 
     override fun initView() {
-        bindToolBarBack("Trailer")
+        bindToolBarBack(trailerName.toString())
         recycleviewTrailerGauge.layoutManager = layoutManager
     }
 
@@ -52,11 +56,17 @@ class TrailerGaugeAct : BaseActivity() {
     override fun addListener() {
         fabMap.setOnClickListener {
         }
+        linSubBorder1.setOnClickListener(this)
+        linSubBorder2.setOnClickListener(this)
+        linSubBorder3.setOnClickListener(this)
+        linSubBorder4.setOnClickListener(this)
+        linSubBorder5.setOnClickListener(this)
     }
 
     @SuppressLint("SetTextI18n")
     override fun loadData() {
         showProgressDialog("Trailer Gauge", "Please wait..")
+
         val data =
             ViewModelProviders.of(this@TrailerGaugeAct).get(TrailerGaugeDataModel::class.java)
         data.getTrailer(vitalType.toString(), trailerName.toString()).observe(this,
@@ -69,7 +79,7 @@ class TrailerGaugeAct : BaseActivity() {
                 if (gaugeData.objectX.isIdel) {
 //                    tvEnginRunning.text = "${gaugeData.objectX.idelStatus} "
                     tvEnginRunning.text = "Idle"
-                }else{
+                } else {
                     tvEnginRunning.text = "Off"
                 }
 
@@ -94,9 +104,6 @@ class TrailerGaugeAct : BaseActivity() {
 
                     }
                 }
-
-
-
 
                 var fuelStartEndValue = gaugeData.objectX.fULLRangeFUELLEVEL.replace("[", "")
                 fuelStartEndValue = fuelStartEndValue.replace("]", "")
@@ -153,7 +160,6 @@ class TrailerGaugeAct : BaseActivity() {
                         }
                     }
                 }
-
 
                 //VoltageGauge
                 if (vitalType == "diesel") {
@@ -236,20 +242,20 @@ class TrailerGaugeAct : BaseActivity() {
                 //ENGINE RUNNING
 
                 if (vitalType == "diesel") {
-                        when {
-                            gaugeData.objectX.idelStatus == "Critical" -> {
-                                linMainBorder3.setBackgroundResource(R.drawable.trailer_border_red)
-                                linSubBorder3.setBackgroundResource(R.drawable.trailer_border_red)
-                            }
-                            gaugeData.objectX.idelStatus == "Warning" -> {
-                                linMainBorder3.setBackgroundResource(R.drawable.trailer_border_yellow)
-                                linSubBorder3.setBackgroundResource(R.drawable.trailer_border_yellow)
-                            }
-                            gaugeData.objectX.idelStatus == "Normal" -> {
-                                linMainBorder3.setBackgroundResource(R.drawable.trailer_border)
-                                linSubBorder3.setBackgroundResource(R.drawable.trailer_border)
-                            }
+                    when (gaugeData.objectX.idelStatus) {
+                        "Critical" -> {
+                            linMainBorder3.setBackgroundResource(R.drawable.trailer_border_red)
+                            linSubBorder3.setBackgroundResource(R.drawable.trailer_border_red)
                         }
+                        "Warning" -> {
+                            linMainBorder3.setBackgroundResource(R.drawable.trailer_border_yellow)
+                            linSubBorder3.setBackgroundResource(R.drawable.trailer_border_yellow)
+                        }
+                        "Normal" -> {
+                            linMainBorder3.setBackgroundResource(R.drawable.trailer_border)
+                            linSubBorder3.setBackgroundResource(R.drawable.trailer_border)
+                        }
+                    }
                 }
 
                 speedViewEngineRunning.setMinSpeed(0f)
@@ -263,20 +269,19 @@ class TrailerGaugeAct : BaseActivity() {
 
                 //LAST TIME ENGINE RUN
                 if (vitalType == "diesel") {
-                    when {
-                        gaugeData.objectX.riskLastTimeEngineRun == "Critical" -> {
+                    when (gaugeData.objectX.riskLastTimeEngineRun) {
+                        "Critical" -> {
                             linMainBorder4.setBackgroundResource(R.drawable.trailer_border_red)
                             linSubBorder4.setBackgroundResource(R.drawable.trailer_border_red)
                         }
-                        gaugeData.objectX.riskLastTimeEngineRun == "Warning" -> {
+                        "Warning" -> {
                             linMainBorder4.setBackgroundResource(R.drawable.trailer_border_yellow)
                             linSubBorder4.setBackgroundResource(R.drawable.trailer_border_yellow)
                         }
-                        gaugeData.objectX.riskLastTimeEngineRun == "Normal" -> {
+                        "Normal" -> {
                             linMainBorder4.setBackgroundResource(R.drawable.trailer_border)
                             linSubBorder4.setBackgroundResource(R.drawable.trailer_border)
                         }
-
                     }
                 }
 
@@ -303,13 +308,9 @@ class TrailerGaugeAct : BaseActivity() {
                 speedViewLastTimeEngineRun.setAverageHighSpeedPercent(12f)
                 speedViewLastTimeEngineRun.setHighSpeedColor(Color.RED)
 
-
                 //TOTAL RUN TIME
-
-                        linMainBorder5.setBackgroundResource(R.drawable.trailer_border)
-                        linSubBorder5.setBackgroundResource(R.drawable.trailer_border)
-
-
+                linMainBorder5.setBackgroundResource(R.drawable.trailer_border)
+                linSubBorder5.setBackgroundResource(R.drawable.trailer_border)
 
                 var fullRangeTotalRunTime = gaugeData.objectX.fULLRangeTOTALRUNTIME.replace("[", "")
                 fullRangeTotalRunTime = fullRangeTotalRunTime.replace("]", "")
@@ -322,7 +323,6 @@ class TrailerGaugeAct : BaseActivity() {
                 for (i in 0..countTotalRuntime) {
                     listTotalRunTime.add(i.toFloat() * 5)
                 }
-
                 speedViewTotalRunTime.setTicks(listTotalRunTime)
                 speedViewTotalRunTime.cancelSpeedAnimator()
                 speedViewTotalRunTime.setLowSpeedPercent(0f)
@@ -331,9 +331,38 @@ class TrailerGaugeAct : BaseActivity() {
                 speedViewTotalRunTime.setAverageHighSpeedPercent(0f)
                 speedViewTotalRunTime.setHighSpeedColor(Color.RED)
 
-
             })
+    }
 
+    override fun onClick(v: View?) {
+        val intent = Intent(this@TrailerGaugeAct, ChartAct::class.java)
+        when (v?.id) {
+            R.id.linSubBorder1 -> {
+                intent.putExtra(AppConstants.TRAILER_NAME, trailerName)
+                intent.putExtra(AppConstants.GAUGE_TYPE, "FUEL_LEVEL")
+                startActivity(intent)
+            }
+            R.id.linSubBorder2 -> {
+                intent.putExtra(AppConstants.TRAILER_NAME, trailerName)
+                intent.putExtra(AppConstants.GAUGE_TYPE, "BATTERY_VOLTAGE")
+                startActivity(intent)
+            }
+            R.id.linSubBorder3 -> {
+                intent.putExtra(AppConstants.TRAILER_NAME, trailerName)
+                intent.putExtra(AppConstants.GAUGE_TYPE, "ENGINE_SPEED")
+                startActivity(intent)
+            }
+            R.id.linSubBorder4 -> {
+//                intent.putExtra(AppConstants.TRAILER_NAME,trailerName)
+//                intent.putExtra(AppConstants.GAUGE_TYPE,"FUEL_LEVEL")
+//                startActivity(intent)
+            }
+            R.id.linSubBorder5 -> {
+                intent.putExtra(AppConstants.TRAILER_NAME, trailerName)
+                intent.putExtra(AppConstants.GAUGE_TYPE, "TOTAL_ENGINE_RUN_TIME")
+                startActivity(intent)
+            }
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.packetalk.setting.activity
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
@@ -17,8 +18,12 @@ import com.packetalk.home.model.group_camera_model.Groups
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.adapter.DefaultGroupAdapter
+import com.packetalk.setting.adapter.ExistingUrlAdapter
 import com.packetalk.setting.adapter.GroupCameraAdapter
+import com.packetalk.setting.model.add_camera.CamToGroupRequest
+import com.packetalk.setting.model.add_camera.CameraUrlItem
 import com.packetalk.setting.model.add_camera.DefaultCameraItem
+import com.packetalk.setting.model.add_camera.ObjectX
 import com.packetalk.util.*
 import kotlinx.android.synthetic.main.act_add_camera.*
 import kotlinx.android.synthetic.main.dialog_add_camera.*
@@ -28,13 +33,17 @@ import retrofit2.Response
 
 class AddCameraAct : BaseActivity(), View.OnClickListener {
 
+    var existingUrlList: ArrayList<ObjectX>? = null
     var myCameraList: ArrayList<CameraDetailsFull>? = null
+    var saveCamList = ArrayList<CameraDetailsFull>()
     var defaultCameraList: ArrayList<CameraDetailsFull>? = null
     var layoutManager: LinearLayoutManager? = null
     var layoutManager1: LinearLayoutManager? = null
     var adapter: GroupCameraAdapter? = null
+    var existingUrlAdapter: ExistingUrlAdapter? = null
     var flag: Boolean = false
     lateinit var dialog: Dialog
+    private var groupId: String = ""
 
     companion object {
         var groupPosition: Int = 0
@@ -142,8 +151,8 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
     override fun loadData() {
         val session = SharedPreferenceSession(this@AddCameraAct)
         getGroupList(session.memberType.toString(), session.memberId.toString())
-
         getDefaultGroupList()
+        getCameraUrl()
     }
 
     private fun getGroupList(memberType: String, memberId: String) {
@@ -164,6 +173,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 if (response.body()!!.responseResult) {
                     loader.visibility = View.INVISIBLE
                     myGroupList = response.body()?.groups
+                    groupId = response.body()!!.groups[0].groupID.toString()
                     val arrayAdapter =
                         myGroupList?.let {
                             ArrayAdapter<Groups>(
@@ -176,7 +186,6 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                     spinnerGroup?.onItemSelectedListener =
                         object : AdapterView.OnItemSelectedListener {
                             override fun onNothingSelected(parent: AdapterView<*>?) {
-
                             }
 
                             override fun onItemSelected(
@@ -186,6 +195,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                                 id: Long
                             ) {
                                 groupPosition = position
+                                groupId = response.body()!!.groups[position].groupID.toString()
                                 if (myGroupList?.get(position)?.cameraDetailsFull.isNullOrEmpty()) {
                                     recycleViewMyCamera.visibility = View.INVISIBLE
                                 } else {
@@ -268,25 +278,61 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
     }
 
     private fun saveCam() {
-        val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
-//        val callApi = apiInterface?.saveCameraPriority()
+
+        saveCamList.clear()
+        for (data in myGroupList?.get(groupPosition)?.cameraDetailsFull!!) {
+            if (data.choice) {
+                AppLogger.e(data.toString())
+                saveCamList?.add(data)
+            }
+        }
+        if (saveCamList?.isEmpty()!!) {
+            showInfoToast("There are no new camera for submit!")
+        } else {
+            showProgressDialog("Assign Camera", "Please wait..")
+            val req = CamToGroupRequest(groupId, saveCamList!!)
+            val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
+            val callApi = apiInterface?.assignCameraToGroup(req)
+            callApi?.enqueue(object : Callback<JsonObject> {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    hideProgressDialog()
+                    showWarningToast("Something want to wrong.")
+                }
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    AppLogger.response(response.body().toString())
+                    if (response.isSuccessful) {
+                        val json = parseJsonObject(response.body().toString())
+                        if (json.getBoolean("ResponseResult")) {
+                            showSuccessToast("Camera assign successfully.")
+                            hideProgressDialog()
+                        }
+                    }
+                }
+
+            })
+        }
+
     }
+
 
     private fun showDialog() {
         dialog.setContentView(R.layout.dialog_add_camera)
 //        val name = dialog.findViewById(R.id.edGroupNames) as TextInputEditText
 //        name.setText(title)
         dialog.btnUpdateCamera.setOnClickListener {
-            //            addCamera("https://bcpo.packetalk.net/grapesxml/bcpo1.packetalk.net:5350.php")
-            addCamera("https://willingboro.packetalk.net/grapesxml/willingboro1.packetalk.net:5350.php")
+            addCamera("https://bcpo.packetalk.net/grapesxml/bcpo1.packetalk.net:5350.php")
+            //  addCamera("https://willingboro.packetalk.net/grapesxml/willingboro1.packetalk.net:5350.php")
         }
         dialog.window?.setLayout(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
+        val layoutManager = LinearLayoutManager(this@AddCameraAct)
+        dialog.recycleViewExstingUrl.layoutManager = layoutManager
+        dialog.recycleViewExstingUrl.adapter = existingUrlAdapter
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
-
     }
 
     private fun addCamera(url: String) {
@@ -312,6 +358,26 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 AppLogger.error(t.toString())
                 hideProgressDialog()
+            }
+
+        })
+    }
+
+    private fun getCameraUrl() {
+        val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
+        val callApi = apiInterface?.getCameraURL()
+        callApi?.enqueue(object : Callback<CameraUrlItem> {
+            override fun onFailure(call: Call<CameraUrlItem>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<CameraUrlItem>, response: Response<CameraUrlItem>) {
+                if (response.isSuccessful) {
+                    if (response.body()?.responseResult!!) {
+                        existingUrlList = response.body()!!.objectX
+                        existingUrlAdapter = ExistingUrlAdapter(existingUrlList)
+                    }
+                }
             }
 
         })

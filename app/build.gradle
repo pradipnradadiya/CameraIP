@@ -15,7 +15,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,6 +25,7 @@ android {
         }
     }
 }
+
 allprojects {
     repositories {
         maven { url "https://jitpack.io" }
@@ -56,7 +59,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.etebarian:meow-bottom-navigation:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.itlgl:iosdialog:1.0.1'
     implementation 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
@@ -68,7 +71,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     // For Kotlin use kapt instead of annotationProcessor
-
 
 //    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 //    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
@@ -82,6 +84,16 @@ dependencies {
 
     // Material Dialog Library
     implementation 'com.shreyaspatil:MaterialDialog:1.0.0'
+
     // Lottie Animation Library
     implementation 'com.airbnb.android:lottie:3.0.6'
+
+    //using for line graph
+    implementation 'org.hogel:line-chart-view:0.2.0'
+    implementation project(path: ':MPChartLib')
+
+
+//    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+//    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+
 }
