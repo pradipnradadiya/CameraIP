@@ -8,8 +8,8 @@
     app:sv_centerCircleColor="@color/trailer_guage_background"
     app:sv_highSpeedColor="@color/red"
     app:sv_indicator="HalfLineIndicator"
-    app:sv_indicatorWidth="3dp"
-    app:sv_maxGaugeValue="120"
+    app:sv_indicatorWidth="2dp"
+    app:sv_maxGaugeValue="20000"
     app:sv_tickNumber="7"
     app:sv_tickPadding="@dimen/thirty_sp"
     app:sv_tickRotation="true"
@@ -18,5 +18,7 @@
     android:layout_gravity="center_horizontal"
     app:sv_speedometerMode="NORMAL"
     app:sv_speedTextPosition="CENTER"
+    app:sv_speedTextColor="@color/trailer_guage_background"
+    app:sv_indicatorColor="@color/black"
     />
 

@@ -29,6 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"
             app:sv_backgroundCircleColor="@color/trailer_guage_background"
             app:sv_speedTextColor="@color/trailer_guage_background"
             app:sv_speedometerBackColor="@color/green"
@@ -70,8 +71,8 @@
 
         <View
             android:id="@+id/viewEngineStatus"
-            android:layout_width="@dimen/twenty_dp"
-            android:layout_height="@dimen/twenty_dp"
+            android:layout_width="@dimen/trailer_status_width_height"
+            android:layout_height="@dimen/trailer_status_width_height"
             android:layout_marginEnd="8dp"
             android:background="@color/red"
             app:layout_constraintBottom_toBottomOf="@+id/tvEngineStatus"
@@ -115,8 +116,9 @@
                 android:paddingBottom="@dimen/sixteen_dp">
 
                 <View
-                    android:layout_width="@dimen/twenty_dp"
-                    android:layout_height="@dimen/twenty_dp"
+                    android:layout_width="@dimen/trailer_status_width_height"
+                    android:layout_height="@dimen/trailer_status_width_height"
+                    android:layout_gravity="center_vertical"
                     android:background="@color/red" />
 
                 <com.packetalk.utility.MyTextView
@@ -128,8 +130,9 @@
                     android:text="@string/critical" />
 
                 <View
-                    android:layout_width="@dimen/twenty_dp"
-                    android:layout_height="@dimen/twenty_dp"
+                    android:layout_width="@dimen/trailer_status_width_height"
+                    android:layout_height="@dimen/trailer_status_width_height"
+                    android:layout_gravity="center_vertical"
                     android:background="@color/yellow" />
 
                 <com.packetalk.utility.MyTextView
@@ -141,8 +144,9 @@
                     android:text="@string/warning" />
 
                 <View
-                    android:layout_width="@dimen/twenty_dp"
-                    android:layout_height="@dimen/twenty_dp"
+                    android:layout_width="@dimen/trailer_status_width_height"
+                    android:layout_height="@dimen/trailer_status_width_height"
+                    android:layout_gravity="center_vertical"
                     android:background="@color/green" />
 
                 <com.packetalk.utility.MyTextView
@@ -167,7 +171,9 @@
                     android:id="@+id/tvSolarType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="true" />
+                    android:layout_marginLeft="@dimen/five_dp"
+                    android:layout_marginEnd="@dimen/five_dp"
+                    android:textAllCaps="false" />
 
             </LinearLayout>
 

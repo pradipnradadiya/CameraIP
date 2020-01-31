@@ -1,94 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="@dimen/eight_dp"
-            app:cardElevation="@dimen/eight_dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginTop="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_marginBottom="@dimen/sixteen_dp"
+        app:cardCornerRadius="@dimen/eight_dp"
+        app:cardElevation="@dimen/eight_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/eight_dp"
-                    android:layout_marginTop="@dimen/eight_dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/eight_dp"
+                android:layout_marginTop="@dimen/eight_dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.packetalk.utility.MyWebView
-                    android:id="@+id/webCamera"
-                    android:layout_width="@dimen/hundred_dp"
-                    android:layout_height="@dimen/hundred_dp"
-                    android:layout_marginBottom="16dp"
-                    android:scrollbars="none"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/checkBox"
-                    app:layout_constraintTop_toTopOf="@+id/checkBox" />
+                android:id="@+id/webCamera"
+                android:layout_width="@dimen/hundred_dp"
+                android:layout_height="@dimen/hundred_dp"
+                android:layout_marginBottom="@dimen/sixteen_dp"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/checkBox"
+                app:layout_constraintTop_toTopOf="@+id/checkBox" />
 
             <com.packetalk.utility.MyTextView
-                    android:id="@+id/tvCameraName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/eight_dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="@dimen/eight_dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/webCamera"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/tvCameraName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/eight_dp"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/eight_dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/webCamera"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                    android:id="@+id/linDelete"
+                android:id="@+id/linDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_border"
+                android:padding="@dimen/eight_dp"
+                app:layout_constraintBottom_toBottomOf="@+id/spinnerPriority"
+                app:layout_constraintEnd_toEndOf="@+id/tvCameraName"
+                app:layout_constraintTop_toTopOf="@+id/spinnerPriority"
+                app:srcCompat="@drawable/ic_delete"
+                tools:ignore="ContentDescription">
+
+                <ImageView
+                    android:id="@+id/imgDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:tint="@color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/spinnerPriority"
                     app:layout_constraintEnd_toEndOf="@+id/tvCameraName"
                     app:layout_constraintTop_toTopOf="@+id/spinnerPriority"
                     app:srcCompat="@drawable/ic_delete"
-                    android:background="@drawable/button_border"
-                    android:padding="@dimen/eight_dp"
-                    tools:ignore="ContentDescription">
-
-                <ImageView
-                        android:id="@+id/imgDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:tint="@color/white"
-                        app:layout_constraintBottom_toBottomOf="@+id/spinnerPriority"
-                        app:layout_constraintEnd_toEndOf="@+id/tvCameraName"
-                        app:layout_constraintTop_toTopOf="@+id/spinnerPriority"
-                        app:srcCompat="@drawable/ic_delete"
-                        tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
 
             <Spinner
-                    android:id="@+id/spinnerPriority"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/sixteen_dp"
-                    android:layout_marginEnd="@dimen/eight_dp"
-                    android:background="@drawable/spinner_background"
-                    app:layout_constraintEnd_toStartOf="@+id/linDelete"
-                    app:layout_constraintStart_toStartOf="@+id/tvCameraName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCameraName" />
+                android:id="@+id/spinnerPriority"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/eight_dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toStartOf="@+id/linDelete"
+                app:layout_constraintStart_toStartOf="@+id/tvCameraName"
+                app:layout_constraintTop_toBottomOf="@+id/tvCameraName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

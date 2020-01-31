@@ -11,6 +11,6 @@
             app:showAsAction="never"/>
     <item
             android:id="@+id/action_assign_camera"
-            android:title="@string/assign_camera"
+            android:title="Assign Users"
             app:showAsAction="never"/>
 </menu>

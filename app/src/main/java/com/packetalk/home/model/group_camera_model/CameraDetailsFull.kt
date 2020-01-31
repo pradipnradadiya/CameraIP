@@ -1,6 +1,5 @@
 package com.packetalk.home.model.group_camera_model
 
-
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

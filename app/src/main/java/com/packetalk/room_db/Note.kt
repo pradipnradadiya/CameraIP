@@ -5,7 +5,6 @@ import androidx.annotation.NonNull
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 
-
 @Entity(tableName = "notes")
 class Note(
     @field:PrimaryKey

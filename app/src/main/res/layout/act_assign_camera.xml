@@ -1,203 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout6"
+        android:id="@+id/constraintLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fifty_dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:padding="@dimen/eight_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close_black_24dp"
+            tools:ignore="ContentDescription" />
+
+        <com.packetalk.utility.MyTextViewBold
+            android:id="@+id/myTextView11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_marginEnd="@dimen/sixteen_dp"
+            android:text="@string/add_camera"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgClose"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginTop="@dimen/eight_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_marginBottom="@dimen/sixteen_dp"
+        android:background="@drawable/card_border"
+        app:layout_constraintBottom_toTopOf="@+id/tvAddAllGroupCam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout8"
             android:layout_width="match_parent"
             android:layout_height="@dimen/fifty_dp"
-            android:background="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-                android:id="@+id/imgClose"
+            <com.packetalk.utility.MyTextView
+                android:id="@+id/myTextView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/sixteen_dp"
-                android:padding="@dimen/eight_dp"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:text="@string/selected_user"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close_black_24dp"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.packetalk.utility.MyTextViewBold
-                android:id="@+id/myTextView11"
+            <com.packetalk.utility.MyTextViewBold
+                android:id="@+id/tvUserName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/sixteen_dp"
                 android:layout_marginEnd="@dimen/sixteen_dp"
-                android:text="@string/add_camera"
-                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imgClose"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/myTextView12"
                 app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout5"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/eight_dp"
-            android:layout_marginEnd="@dimen/sixteen_dp"
-            android:layout_marginBottom="@dimen/sixteen_dp"
-            android:background="@drawable/card_border"
-            app:layout_constraintBottom_toTopOf="@+id/tvAddAllGroupCam"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout8"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/fifty_dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            <com.packetalk.utility.MyTextViewBold
-                    android:id="@+id/myTextView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen_dp"
-                    android:text="@string/selected_user"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            <com.packetalk.utility.MyTextView
-                    android:id="@+id/tvUserName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen_dp"
-                    android:layout_marginEnd="@dimen/sixteen_dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/myTextView12"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             <View
-                    android:id="@+id/view6"
-                    style="@style/viewStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                android:id="@+id/view6"
+                style="@style/viewStyle"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycleViewUserCamera"
-                android:layout_width="@dimen/zero_dp"
-                android:layout_height="@dimen/zero_dp"
-                android:layout_marginStart="@dimen/eight_dp"
-                android:layout_marginTop="@dimen/eight_dp"
-                android:layout_marginEnd="@dimen/eight_dp"
-                android:layout_marginBottom="@dimen/eight_dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
-                tools:listitem="@layout/act_assign_camera_item" />
+            android:id="@+id/recycleViewUserCamera"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_marginStart="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginEnd="@dimen/eight_dp"
+            android:layout_marginBottom="@dimen/eight_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
+            tools:listitem="@layout/act_assign_camera_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout4"
-            android:layout_width="@dimen/zero_dp"
-            android:layout_height="@dimen/zero_dp"
-            android:layout_marginStart="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/eight_dp"
-            android:layout_marginEnd="@dimen/sixteen_dp"
-            android:layout_marginBottom="@dimen/eight_dp"
-            android:background="@drawable/card_border"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+        android:id="@+id/constraintLayout4"
+        android:layout_width="@dimen/zero_dp"
+        android:layout_height="@dimen/zero_dp"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginTop="@dimen/eight_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:background="@drawable/card_border"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout7"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/fifty_dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/constraintLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fifty_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.packetalk.utility.MyTextView
-                    android:id="@+id/myTextView16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen_dp"
-                    android:layout_marginEnd="@dimen/sixteen_dp"
-                    android:text="@string/public_camera"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.6"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ExpandableListView
-                android:id="@+id/listGroupWithCamera"
-                android:layout_width="@dimen/zero_dp"
-                android:layout_height="@dimen/zero_dp"
-                android:layout_marginStart="@dimen/eight_dp"
-                android:layout_marginTop="@dimen/eight_dp"
-                android:layout_marginEnd="@dimen/eight_dp"
-                android:layout_marginBottom="@dimen/eight_dp"
+                android:id="@+id/myTextView16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sixteen_dp"
+                android:layout_marginEnd="@dimen/sixteen_dp"
+                android:text="@string/public_camera"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            style="@style/viewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
+
+
+        <ExpandableListView
+            android:id="@+id/listGroupWithCamera"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="@dimen/zero_dp"
+            android:layout_marginStart="@dimen/eight_dp"
+            android:layout_marginTop="@dimen/eight_dp"
+            android:layout_marginEnd="@dimen/eight_dp"
+            android:layout_marginBottom="@dimen/eight_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.packetalk.utility.MyButton
-            android:id="@+id/btnCancel"
-            style="@style/btnStyle"
-            android:layout_width="@dimen/hundred_dp"
-            android:layout_height="@dimen/thirty_two_dp"
-            android:text="@string/cancel"
-            app:layout_constraintBottom_toBottomOf="@+id/btnSave"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnSave"
-            app:layout_constraintTop_toTopOf="@+id/btnSave" />
+    <com.packetalk.utility.CustomButton
+        android:id="@+id/btnCancel"
+        style="@style/btnStyle"
+        android:layout_width="@dimen/hundred_dp"
+        android:text="@string/cancel"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnSave"
+        app:layout_constraintTop_toTopOf="@+id/btnSave"
+        app:qb_radius="@integer/button_radius" />
 
-    <com.packetalk.utility.MyButton
-            android:id="@+id/btnSave"
-            style="@style/btnStyle"
-            android:layout_width="@dimen/hundred_dp"
-            android:layout_height="@dimen/thirty_two_dp"
-            android:layout_marginBottom="@dimen/sixteen_dp"
-            android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancel"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+    <com.packetalk.utility.CustomButton
+        android:id="@+id/btnSave"
+        style="@style/btnStyle"
+        android:layout_width="@dimen/hundred_dp"
+        android:layout_marginBottom="@dimen/sixteen_dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCancel"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:qb_radius="@integer/button_radius" />
 
     <com.packetalk.utility.MyTextView
-            android:id="@+id/tvAddAllGroupCam"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sixteen_dp"
-            android:background="@drawable/card_border"
-            android:padding="@dimen/eight_dp"
-            android:text="@string/click_here_to_add_all_group_camera"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toTopOf="@+id/btnSave"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout5"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout5" />
+        android:id="@+id/tvAddAllGroupCam"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/sixteen_dp"
+        android:background="@drawable/card_border"
+        android:padding="@dimen/eight_dp"
+        android:text="@string/click_here_to_add_all_group_camera"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

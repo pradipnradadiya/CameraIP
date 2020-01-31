@@ -57,10 +57,21 @@ class ChartDataModel : ViewModel() {
         map["Todate"] = toDate
         map["GaugeType"] = gaugeType
         map["IsCalender"] = isCalender
+
+        AppLogger.response("trailer name$trailerName")
+        AppLogger.response("chartType$chartType")
+        AppLogger.response("fromDate$fromDate")
+        AppLogger.response("toDate$toDate")
+        AppLogger.response("gaugeType$gaugeType")
+        AppLogger.response("isCalender$isCalender")
+
+
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.getChartData(map)
         callApi?.enqueue(object : Callback<ChartItem> {
             override fun onFailure(call: Call<ChartItem>, t: Throwable) {
+                AppLogger.response(t.message.toString())
+                chartData?.value = null
             }
 
             override fun onResponse(call: Call<ChartItem>, response: Response<ChartItem>) {

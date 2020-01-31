@@ -32,6 +32,7 @@ class HomeAct : BaseActivity() {
         private const val ID_SETTING = 4
         private const val ID_TRAILER = 5
         var userId = ""
+        var currentMapTrailerFlag = 0
     }
 
     override fun getLayoutResourceId(): Int {
@@ -90,13 +91,12 @@ class HomeAct : BaseActivity() {
         bottomNavigation.add(MeowBottomNavigation.Model(ID_USER, R.drawable.ic_user))
         bottomNavigation.add(MeowBottomNavigation.Model(ID_MAP, R.drawable.ic_map))
         bottomNavigation.add(MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_homes))
-        bottomNavigation.add(MeowBottomNavigation.Model(ID_SETTING, R.drawable.ic_setting_ico))
         bottomNavigation.add(MeowBottomNavigation.Model(ID_TRAILER, R.drawable.ic_trailer))
+        bottomNavigation.add(MeowBottomNavigation.Model(ID_SETTING, R.drawable.ic_setting_ico))
         bottomNavigation.show(ID_HOME, true)
 
         bottomNavigation.setOnShowListener {
             val name = when (it.id) {
-
                 ID_USER -> {
                     AppLogger.i("user")
                 }
@@ -126,7 +126,7 @@ class HomeAct : BaseActivity() {
                 ID_USER -> {
 //                    selectContentFragment(userFrg)
                     replaceFragment(userFrg)
-                    bindToolBar("User")
+                    bindToolBar("Users")
                 }
 
                 ID_MAP -> {
@@ -174,17 +174,16 @@ class HomeAct : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        /* if (currentFrg == 1){
-             bindToolBar("User")
-         }else if (currentFrg == 2){
-             bindToolBar("Map")
-         }else if (currentFrg == 3){
-             bindToolBar("Home")
-         }else if (currentFrg == 4){
-             bindToolBar("Setting")
-         }else if (currentFrg == 5){
-             bindToolBar("Trailer")
-         }*/
-
+        if (currentMapTrailerFlag == 1) {
+            currentMapTrailerFlag = 0
+            replaceFragment(mapFrg)
+            bottomNavigation.show(ID_MAP, true)
+            bindToolBar("Map")
+        } else if (currentMapTrailerFlag == 2) {
+            currentMapTrailerFlag = 0
+            replaceFragment(trailerFrg)
+            bottomNavigation.show(ID_TRAILER, true)
+            bindToolBar("Trailer")
+        }
     }
 }

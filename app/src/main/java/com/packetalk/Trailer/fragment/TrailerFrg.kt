@@ -1,6 +1,7 @@
 package com.packetalk.Trailer.fragment
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -12,6 +13,10 @@ import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.activity.AddTrailerACt
 import com.packetalk.util.AppLogger
+import com.packetalk.util.invisible
+import com.packetalk.util.setLoader
+import com.packetalk.util.visible
+import kotlinx.android.synthetic.main.frg_trailer.*
 import kotlinx.android.synthetic.main.frg_trailer.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,8 +47,8 @@ class TrailerFrg : BaseFragment() {
 
     override fun initView() {
         rootView.recycleViewTrailer.layoutManager = layoutManager
-//        val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
-//        snapHelper.attachToRecyclerView(rootView.recycleViewTrailer)
+        val snapHelper = LinearSnapHelper() // Or PagerSnapHelper
+        snapHelper.attachToRecyclerView(rootView.recycleViewTrailer)
     }
 
     override fun postInitView() {
@@ -59,21 +64,26 @@ class TrailerFrg : BaseFragment() {
     }
 
     private fun getTrailerList() {
-        showProgressDialog("Trailer", "Please wait..")
+        rootView.loader.controller = setLoader()
+//        showProgressDialog("Trailer", "Please wait..")
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.getTrailerGaugeList()
         callApi?.enqueue(object : Callback<TrailerGaugeItem> {
-
             override fun onResponse(
                 call: Call<TrailerGaugeItem>,
                 response: Response<TrailerGaugeItem>
             ) {
                 AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
-                    hideProgressDialog()
                     if (response.body()?.responseResult!!) {
                         adapter = TrailerGaugeAdapter(activity, response.body()?.objectX)
                         rootView.recycleViewTrailer.adapter = adapter
+                        val r = Runnable {
+                            rootView.loader.invisible()
+                            rootView.recycleViewTrailer.visible()
+                        }
+                        val h = Handler()
+                        h.postDelayed(r, 5000)
 //                        val divider = SimpleDividerItemDecoration(resources)
 //                        rootView.recycleViewTrailer.addItemDecoration(divider)
                     }
@@ -104,5 +114,4 @@ class TrailerFrg : BaseFragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }

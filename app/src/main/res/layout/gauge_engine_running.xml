@@ -9,11 +9,13 @@
     app:sv_indicator="NoIndicator"
     app:sv_indicatorWidth="3dp"
     app:sv_markColor="@color/white"
-    app:sv_maxGaugeValue="120"
+    app:sv_maxGaugeValue="20000"
     app:sv_speedTextSize="@dimen/twenty_dp"
     app:sv_speedometerMode="NORMAL"
     app:sv_tickNumber="0"
     app:sv_tickPadding="@dimen/thirty_sp"
+    app:sv_highSpeedColor="@color/green"
     app:sv_speedTextPosition="CENTER"
     android:layout_gravity="center_horizontal"/>
+
 

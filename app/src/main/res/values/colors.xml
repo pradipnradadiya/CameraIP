@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F59C48</color>
-    <color name="colorPrimaryDark">#be6d17</color>
-    <color name="colorAccent">#ffcd77</color>
-
+    <color name="colorPrimary">#f49c48</color>
+    <color name="colorPrimaryDark">#bd6d17</color>
+    <color name="colorAccent">#f49c48</color>
+<!--    <color name="colorAccent">#ffcd77</color>-->
     <color name="setting_img_color">#be6d17</color>
-
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="green">#008000</color>
-    <color name="yellow">#FDD835</color>
+    <color name="yellow">#FFFF00</color>
     <color name="red">#FF0000</color>
 
     <!--Bottom Bar-->
@@ -25,5 +24,6 @@
     <color name="tranparent_camera_text_color">#80000000</color>
     <color name="delete_popup_background">#FDE3CA</color>
     <color name="trailer_guage_background">#FEF4EA</color>
+    <color name="expand_title_color">#666666</color>
 
 </resources>

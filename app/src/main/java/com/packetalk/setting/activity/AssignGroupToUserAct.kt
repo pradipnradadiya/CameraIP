@@ -1,8 +1,16 @@
 package com.packetalk.setting.activity
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.StyleSpan
 import android.view.Gravity
 import android.view.View
+import android.widget.TextView
+import androidx.core.text.bold
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager.HORIZONTAL
@@ -18,6 +26,7 @@ import com.packetalk.setting.request.trailor.group.AssignUserToGroupRequest
 import com.packetalk.user.model.users.Object
 import com.packetalk.user.model.users.UserListItem
 import com.packetalk.util.AppConstants.GROUP_ID
+import com.packetalk.util.AppConstants.GROUP_NAME
 import com.packetalk.util.AppLogger
 import com.packetalk.util.parseJsonObject
 import com.packetalk.util.showErrorToast
@@ -51,6 +60,7 @@ class AssignGroupToUserAct : BaseActivity(), View.OnClickListener {
 
     private var userIdList = ArrayList<Int>()
     private var groupId: String? = null
+    private var groupName: String? = null
     var layoutManagerUser: LinearLayoutManager? = null
     var layoutManagerUserGroup: LinearLayoutManager? = null
     var adapterUser: UserListAdapter? = null
@@ -64,6 +74,8 @@ class AssignGroupToUserAct : BaseActivity(), View.OnClickListener {
 
     override fun init() {
         groupId = intent.getStringExtra(GROUP_ID)
+        groupName = intent.getStringExtra(GROUP_NAME)
+        AppLogger.e("groupname-----$groupName")
     }
 
     @SuppressLint("WrongConstant")
@@ -72,6 +84,10 @@ class AssignGroupToUserAct : BaseActivity(), View.OnClickListener {
         layoutManagerUser = LinearLayoutManager(this@AssignGroupToUserAct)
         layoutManagerUserGroup = LinearLayoutManager(this@AssignGroupToUserAct)
         layoutManagerUserGroup!!.orientation = HORIZONTAL
+
+        val s = SpannableStringBuilder("Selected Group: ")
+            .bold { append(groupName) }
+        tvSelectedGroup.text = s
     }
 
     override fun postInitView() {

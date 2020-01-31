@@ -15,6 +15,7 @@ import com.packetalk.R
 import com.packetalk.home.model.group_camera_model.CameraDetailsFull
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
+import com.packetalk.setting.activity.MyCameraSettingAct
 import com.packetalk.setting.activity.MyCameraSettingAct.Companion.arrayAdminCameraIDPK
 import com.packetalk.setting.request.trailor.my_camera_setting.MyCameraSettingDeleteRequest
 import com.packetalk.util.AppConstants
@@ -49,10 +50,10 @@ class MyCameraSettingAdapter(
         return itemArrayList!!.size
     }
 
-    fun removeAt(position: Int) {
+   /* fun removeAt(position: Int) {
         itemArrayList?.removeAt(position)
         notifyItemRemoved(position)
-    }
+    }*/
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener, View.OnLongClickListener {
@@ -72,9 +73,25 @@ class MyCameraSettingAdapter(
                     )
                 }
             itemView.spinnerPriority.adapter = arrayAdapter
-            AppLogger.e((data.priority - 1).toString())
-            itemView.spinnerPriority.setSelection((data.priority) - 1)
+
+//            AppLogger.e((data.priority - 1).toString())
+
+
+            if (data.priority == null || data.priority == 0) {
+                itemView.spinnerPriority.setSelection(0)
+            } else {
+                AppLogger.e("-------------${data.priority - 1}")
+                itemView.spinnerPriority.setSelection(data.priority - 1)
+            }
+
+           /* if (data.priority == null || data.priority == 0) {
+                itemView.spinnerPriority.setSelection(adapterPosition)
+            } else {
+                itemView.spinnerPriority.setSelection((data.priority) - 1)
+            }*/
+
             itemView.checkBox.isChecked = data.isSelected
+
             itemView.spinnerPriority?.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -109,14 +126,26 @@ class MyCameraSettingAdapter(
                         .setTitle(activity.getString(R.string.delete))
                         .setMessage(activity.getString(R.string.delete_msg))
                         .setCancelable(false)
-                        .setPositiveButton(activity.getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                        .setPositiveButton(
+                            activity.getString(R.string.ok),
+                            R.drawable.ic_delete_popup
+                        ) { dialogInterface, which ->
                             dialogInterface.dismiss()
+                            arrayAdminCameraIDPK.clear()
+                            arrayAdminCameraIDPK.add(itemArrayList!![adapterPosition].adminCameraIDPK)
                             deleteCamera()
-                            activity?.showSuccessToast("Delete successfully")
+                            print("group position---${(activity as MyCameraSettingAct).myGroupList?.get(activity.groupPosition)}")
+                            print("array position---${adapterPosition}")
+//                            (activity as MyCameraSettingAct).myGroupList?.get(activity.groupPosition)?.cameraDetailsFull?.removeAt(adapterPosition)
+                            (activity as MyCameraSettingAct).refreshAdapter(adapterPosition)
                             itemArrayList?.removeAt(adapterPosition)
                             notifyItemRemoved(adapterPosition)
+                            notifyItemRangeChanged(adapterPosition, itemArrayList!!.size)
                         }
-                        .setNegativeButton(activity.getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                        .setNegativeButton(
+                            activity.getString(R.string.cancel),
+                            R.drawable.ic_close
+                        ) { dialogInterface, which ->
                             dialogInterface.dismiss()
                         }
                         .build()
@@ -142,14 +171,11 @@ class MyCameraSettingAdapter(
                         activity?.getString(R.string.cancel)
                     ) { dialog, _ -> dialog.dismiss() }.show()
 */
-
-
-
-
             }
 
             itemView.checkBox.setOnClickListener {
-                itemArrayList?.get(adapterPosition)!!.isSelected =!itemArrayList?.get(adapterPosition)?.isSelected!!
+                itemArrayList?.get(adapterPosition)!!.isSelected =
+                    !itemArrayList?.get(adapterPosition)?.isSelected!!
                 itemView.checkBox.isChecked = itemArrayList!![adapterPosition].isSelected
                 if (itemArrayList?.get(adapterPosition)?.isSelected!!) {
                     arrayAdminCameraIDPK.add(itemArrayList!![adapterPosition].adminCameraIDPK)
@@ -175,9 +201,11 @@ class MyCameraSettingAdapter(
                     AppLogger.e(response.body().toString())
                     val data = parseJsonObject(response.body().toString())
                     if (data.getBoolean("ResponseResult")) {
+                        activity?.showSuccessToast("Camera deleted successfully")
                         arrayAdminCameraIDPK.clear()
                     }
                 }
+
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
                 }

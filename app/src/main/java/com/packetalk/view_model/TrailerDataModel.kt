@@ -1,6 +1,5 @@
 package com.packetalk.view_model
 
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,6 @@ import com.packetalk.util.AppLogger
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class TrailerDataModel : ViewModel() {
     //this is the data that we will fetch asynchronously

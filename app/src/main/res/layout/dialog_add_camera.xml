@@ -42,10 +42,10 @@
         android:text="@string/existing_url"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/edUrl" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edUrl"
         android:background="@drawable/edit_round"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewExstingUrl"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textWebEditText"
@@ -70,15 +70,20 @@
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/myTextViewBold12" />
 
-    <com.packetalk.utility.MyButton
+    <com.packetalk.utility.CustomButton
         android:id="@+id/btnUpdateCamera"
-        style="@style/btnStyle"
         android:layout_width="0dp"
-        android:layout_height="@dimen/btn_height"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sixteen_dp"
         android:text="@string/update_camera"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/recycleViewExstingUrl" />
+        app:layout_constraintTop_toBottomOf="@+id/recycleViewExstingUrl"
+        app:qb_backgroundColor="@color/white"
+        app:qb_radius="8"
+        app:qb_strokeColor="@color/black"
+        app:qb_strokeWidth="1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineLeft"

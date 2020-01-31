@@ -1,209 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/eight_dp"
+    android:layout_marginTop="@dimen/eight_dp"
+    android:layout_marginEnd="@dimen/eight_dp"
+    android:background="@drawable/card_border"
+    android:orientation="vertical"
+    android:padding="@dimen/sixteen_dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/eight_dp"
-        android:layout_marginTop="@dimen/eight_dp"
-        android:layout_marginEnd="@dimen/eight_dp"
-        android:background="@drawable/card_border"
-        android:orientation="vertical"
-        android:padding="@dimen/sixteen_dp">
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        android:orientation="horizontal">
 
         <com.packetalk.utility.MyTextViewBold
-                android:id="@+id/myTextView18"
-                style="@style/trailer_list_item_txt_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dns" />
+            android:id="@+id/myTextView18"
+            style="@style/trailer_list_item_txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dns" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView19"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="@dimen/twenty_dp"
-                android:layout_height="wrap_content"
-                android:text="@string/colon" />
+            android:id="@+id/myTextView19"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="@dimen/twenty_dp"
+            android:layout_height="wrap_content"
+            android:text="@string/colon" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvDns"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5" />
+            android:id="@+id/tvDns"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <LinearLayout
-            style="@style/trailer_list_item_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        style="@style/trailer_list_item_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.packetalk.utility.MyTextViewBold
-                android:id="@+id/myTextView21"
-                style="@style/trailer_list_item_txt_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/ip" />
+            android:id="@+id/myTextView21"
+            style="@style/trailer_list_item_txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ip" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView22"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="@dimen/twenty_dp"
-                android:layout_height="wrap_content"
-                android:text="@string/colon" />
+            android:id="@+id/myTextView22"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="@dimen/twenty_dp"
+            android:layout_height="wrap_content"
+            android:text="@string/colon" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvIp"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5" />
+            android:id="@+id/tvIp"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <LinearLayout
-            style="@style/trailer_list_item_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        style="@style/trailer_list_item_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.packetalk.utility.MyTextViewBold
-                android:id="@+id/myTextView24"
-                style="@style/trailer_list_item_txt_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/trailer_name" />
+            android:id="@+id/myTextView24"
+            style="@style/trailer_list_item_txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/trailer_name" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView25"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="@dimen/twenty_dp"
-                android:layout_height="wrap_content"
-                android:text="@string/colon" />
+            android:id="@+id/myTextView25"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="@dimen/twenty_dp"
+            android:layout_height="wrap_content"
+            android:text="@string/colon" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvTrailerName"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5" />
+            android:id="@+id/tvTrailerName"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <LinearLayout
-            style="@style/trailer_list_item_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        style="@style/trailer_list_item_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.packetalk.utility.MyTextViewBold
-                android:id="@+id/myTextView27"
-                style="@style/trailer_list_item_txt_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/community" />
+            android:id="@+id/myTextView27"
+            style="@style/trailer_list_item_txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/community" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView28"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="@dimen/twenty_dp"
-                android:layout_height="wrap_content"
-                android:text="@string/colon" />
+            android:id="@+id/myTextView28"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="@dimen/twenty_dp"
+            android:layout_height="wrap_content"
+            android:text="@string/colon" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvCommunity"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5" />
+            android:id="@+id/tvCommunity"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <LinearLayout
-            style="@style/trailer_list_item_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        style="@style/trailer_list_item_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.packetalk.utility.MyTextViewBold
-                android:id="@+id/myTextView30"
-                style="@style/trailer_list_item_txt_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/oid" />
+            android:id="@+id/myTextView30"
+            style="@style/trailer_list_item_txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/oid" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView31"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="@dimen/twenty_dp"
-                android:layout_height="wrap_content"
-                android:text="@string/colon" />
+            android:id="@+id/myTextView31"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="@dimen/twenty_dp"
+            android:layout_height="wrap_content"
+            android:text="@string/colon" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvOid"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5" />
+            android:id="@+id/tvOid"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <LinearLayout
-            style="@style/trailer_list_item_linear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        style="@style/trailer_list_item_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.packetalk.utility.MyTextViewBold
-                android:id="@+id/myTextView35"
-                style="@style/trailer_list_item_txt_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/type" />
+            android:id="@+id/myTextView35"
+            style="@style/trailer_list_item_txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/type" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/myTextView34"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="@dimen/twenty_dp"
-                android:layout_height="wrap_content"
-                android:text="@string/colon" />
+            android:id="@+id/myTextView34"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="@dimen/twenty_dp"
+            android:layout_height="wrap_content"
+            android:text="@string/colon" />
 
         <com.packetalk.utility.MyTextView
-                android:id="@+id/tvType"
-                style="@style/trailer_list_item_txt_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5" />
+            android:id="@+id/tvType"
+            style="@style/trailer_list_item_txt_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5" />
     </LinearLayout>
 
     <LinearLayout
-            style="@style/trailer_list_item_linear"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        style="@style/trailer_list_item_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <com.packetalk.utility.MyButton
-                android:id="@+id/btnEdit"
-                style="@style/btnStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/btn_height"
-                android:layout_weight="1"
-                android:text="Edit" />
+        <com.packetalk.utility.CustomButton
+            android:id="@+id/btnEdit"
+            style="@style/btnStyle"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edit"
+            app:qb_radius="@integer/button_radius" />
 
-        <com.packetalk.utility.MyButton
-                android:id="@+id/btnDelete"
-                style="@style/btnStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/btn_height"
-                android:layout_marginStart="@dimen/sixteen_dp"
-                android:layout_weight="1"
-                android:text="Delete " />
+        <com.packetalk.utility.CustomButton
+            android:id="@+id/btnDelete"
+            style="@style/btnStyle"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/sixteen_dp"
+            android:layout_weight="1"
+            android:text="@string/delete"
+            app:qb_radius="@integer/button_radius" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.packetalk.BaseFragment
 import com.packetalk.R
 import com.packetalk.util.AppLogger
+import com.packetalk.util.invisible
+import com.packetalk.util.visible
 import kotlinx.android.synthetic.main.frg_user.*
 
 class UserFrg : BaseFragment(), View.OnClickListener {
@@ -25,19 +27,19 @@ class UserFrg : BaseFragment(), View.OnClickListener {
         when (v?.id) {
             R.id.creteUserClick -> {
                 hideView()
-                viewUser.visibility = View.VISIBLE
+                viewUser.visible()
                 callFragment(createUserFrg)
             }
 
             R.id.userLogClick -> {
                 hideView()
-                viewUserLog.visibility = View.VISIBLE
+                viewUserLog.visible()
                 callFragment(userLogFrg)
             }
 
             R.id.updateUserClick -> {
                 hideView()
-                viewUpdateUser.visibility = View.VISIBLE
+                viewUpdateUser.visible()
                 callFragment(updateUserFrg)
             }
         }
@@ -79,9 +81,9 @@ class UserFrg : BaseFragment(), View.OnClickListener {
     }
 
     private fun hideView() {
-        viewUser.visibility = View.INVISIBLE
-        viewUpdateUser.visibility = View.INVISIBLE
-        viewUserLog.visibility = View.INVISIBLE
+        viewUser.invisible()
+        viewUpdateUser.invisible()
+        viewUserLog.invisible()
     }
 
     private fun callFragment(fragment: Fragment) {

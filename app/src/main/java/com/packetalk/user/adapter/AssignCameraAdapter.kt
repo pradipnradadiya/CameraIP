@@ -12,7 +12,8 @@ import com.packetalk.home.model.group_camera_model.CameraDetailsFull
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.user.activity.AssignCameraAct
-import com.packetalk.util.AppLogger
+import com.packetalk.user.model.CommonItem
+import com.packetalk.util.*
 import kotlinx.android.synthetic.main.act_assign_camera_item.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,8 +73,12 @@ class AssignCameraAdapter(
                 removeAt(adapterPosition)
                 (activity as AssignCameraAct).removeAt(adapterPosition)
             } else {
+                val session = activity?.let { SharedPreferenceSession(it) }
+                AppLogger.e("adminCameraIDPK------"+itemArrayList!![adapterPosition].adminCameraIDPK.toString())
+                AppLogger.e("member id------"+session?.memberId.toString())
+                deleteAssignCamera(itemArrayList!![adapterPosition].adminCameraIDPK.toString(),(activity as AssignCameraAct).memberId)
                 removeAt(adapterPosition)
-                (activity as AssignCameraAct).removeAt(adapterPosition)
+                activity.removeAt(adapterPosition)
             }
 
 
@@ -85,18 +90,26 @@ class AssignCameraAdapter(
 
     }
 
-    private fun deleteAssignCamera(id: String, adminCameraId: String) {
+    private fun deleteAssignCamera(adminCameraId: String,memberId: String) {
+        activity?.showPDialog("Delete","Camera is deleted please wait..")
         val map = HashMap<String, String>()
-        map["MemberID"] = id
-        map["MemberID"] = adminCameraId
+        map["AdminCameraID_PK"] = adminCameraId
+        map["MemberID"] = memberId
 
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.deleteAssignCamera(map)
-        callApi?.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+        callApi?.enqueue(object : Callback<CommonItem> {
+            override fun onResponse(call: Call<CommonItem>, response: Response<CommonItem>) {
+                AppLogger.response(response.body().toString())
+                if (response.isSuccessful){
+                    if (response.body()?.responseResult!!){
+                        activity?.hidePDialog()
+                        activity?.showSuccessToast("Camera deleted successfully")
+                    }
+                }
             }
 
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            override fun onFailure(call: Call<CommonItem>, t: Throwable) {
             }
 
         })

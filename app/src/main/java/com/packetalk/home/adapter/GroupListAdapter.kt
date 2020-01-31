@@ -47,9 +47,9 @@ class GroupListAdapter(
         fun setData(data: Groups?) {
             itemView.tvGroupName.text = data!!.groupName.trim()
             if (data.isSelected) {
-                itemView.tvGroupName.setTextColor(itemView.resources.getColor(R.color.red));
+                itemView.tvGroupName.setTextColor(itemView.resources.getColor(R.color.red))
             } else {
-                itemView.tvGroupName.setTextColor(itemView.resources.getColor(R.color.black));
+                itemView.tvGroupName.setTextColor(itemView.resources.getColor(R.color.black))
             }
         }
 

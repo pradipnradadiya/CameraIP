@@ -6,12 +6,12 @@
         android:layout_height="match_parent"
         tools:context=".user.fragment.UpdateUserFrg">
 
-    <com.packetalk.utility.MyButton
+    <com.packetalk.utility.CustomButton
+        app:qb_radius="@integer/button_radius"
             android:id="@+id/btnUpdateUser"
             style="@style/btnStyle"
             android:layout_width="150dp"
-            android:layout_height="@dimen/btn_height"
-            android:text="Update Users"
+            android:text="@string/update_users"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

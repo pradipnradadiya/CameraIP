@@ -18,4 +18,9 @@
     <dimen name="delete_popup_height">150dp</dimen>
     <dimen name="ten_dp">10dp</dimen>
     <dimen name="loader_height_width">72dp</dimen>
+    <dimen name="loader_width">72dp</dimen>
+    <dimen name="loader_height">72dp</dimen>
+
+    <dimen name="trailer_status_width_height">10dp</dimen>
+    <dimen name="no_data_size">30sp</dimen>
 </resources>

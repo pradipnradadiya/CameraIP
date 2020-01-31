@@ -16,7 +16,7 @@ class SplashACt : AppCompatActivity() {
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
             val session = SharedPreferenceSession(this)
-            if (session.userType.isNullOrBlank()){
+            if (session.userType==""){
                 val intent = Intent(applicationContext, LoginAct::class.java)
                 startActivity(intent)
                 finish()

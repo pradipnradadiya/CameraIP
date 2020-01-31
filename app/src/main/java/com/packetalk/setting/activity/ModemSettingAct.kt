@@ -10,6 +10,7 @@ import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.adapter.ModemSettingAdapter
 import com.packetalk.setting.model.modem_setting.ModemItem
 import com.packetalk.util.AppLogger
+import com.packetalk.util.invisible
 import com.packetalk.util.setLoader
 import kotlinx.android.synthetic.main.act_modem_setting.*
 import retrofit2.Call
@@ -25,7 +26,7 @@ class ModemSettingAct : BaseActivity() {
     }
 
     override fun init() {
-        bindToolBarBack("Modem Server Setting")
+        bindToolBarBack("Modem Setting")
     }
 
     override fun initView() {
@@ -51,7 +52,7 @@ class ModemSettingAct : BaseActivity() {
 //                AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
                     if (response.body()?.responseResult!!) {
-                        loader.visibility = View.INVISIBLE
+                        loader.invisible()
                         recycleViewModemSetting.layoutManager = layoutManager
                         adapter =
                             ModemSettingAdapter(this@ModemSettingAct, response.body()!!.objectX)

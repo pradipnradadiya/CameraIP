@@ -13,8 +13,7 @@ import com.packetalk.R
 import com.packetalk.Trailer.fragment.adapter.TrailerSubGaugeAdapter
 import com.packetalk.Trailer.fragment.model.trailer.TrailerSubGaugeItem
 import com.packetalk.chart.ChartAct
-import com.packetalk.util.AppConstants
-import com.packetalk.util.AppLogger
+import com.packetalk.util.*
 import com.packetalk.view_model.trailer.TrailerGaugeDataModel
 import kotlinx.android.synthetic.main.act_trailer_gauge.*
 import kotlinx.android.synthetic.main.gauge_engine_running.*
@@ -23,6 +22,8 @@ import kotlinx.android.synthetic.main.gauge_last_time_engine_run.*
 import kotlinx.android.synthetic.main.gauge_total_run_time.*
 import kotlinx.android.synthetic.main.gauge_voltage.*
 import org.json.JSONArray
+import kotlin.math.roundToInt
+
 
 class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
     private var adapter: TrailerSubGaugeAdapter? = null
@@ -30,6 +31,8 @@ class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
     private var arrSubGaugeList = ArrayList<TrailerSubGaugeItem>()
     private var vitalType: String? = null
     private var trailerName: String? = null
+    private var defaultMinValue = 0.0F
+    private var defaultMaxValue = 100.0F
 
     override fun getLayoutResourceId(): Int {
         return R.layout.act_trailer_gauge
@@ -65,182 +68,229 @@ class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     override fun loadData() {
-        showProgressDialog("Trailer Gauge", "Please wait..")
 
+//        showProgressDialog("Trailer Gauge", "Please wait..")
+        loader.controller = setLoader()
         val data =
             ViewModelProviders.of(this@TrailerGaugeAct).get(TrailerGaugeDataModel::class.java)
         data.getTrailer(vitalType.toString(), trailerName.toString()).observe(this,
             Observer<TrailerSubGaugeItem> { gaugeData ->
                 AppLogger.e("data is----------" + gaugeData.objectX.toString())
-                hideProgressDialog()
 
-                tvFualLevel.text = "${gaugeData.objectX.fUELLEVEL} %"
-                tvVoltage.text = "${gaugeData.objectX.bATTERYVOLTAGE} V"
-                if (gaugeData.objectX.isIdel) {
+                //Gauge text value
+                tvFualLevel.text =
+                    "${CommonUtils.upperCaseFirstLetter(gaugeData.objectX.fUELLEVEL.toString())} %"
+                tvVoltage.text =
+                    "${CommonUtils.upperCaseFirstLetter(gaugeData.objectX.bATTERYVOLTAGE.toString())} V"
+                if (gaugeData.objectX.rUNNINGSTATE == 0.toDouble()) {
 //                    tvEnginRunning.text = "${gaugeData.objectX.idelStatus} "
                     tvEnginRunning.text = "Idle"
                 } else {
                     tvEnginRunning.text = "Off"
                 }
-
                 tvLastTimeEnginRun.text = "${gaugeData.objectX.lastTimeEngineRun} Min"
-                tvTotalRunTime.text = "${gaugeData.objectX.tOTALENGINERUNTIME} Hrs"
+                tvTotalRunTime.text = "${gaugeData.objectX.tOTALENGINERUNTIME} \nHrs"
 
-                //Fuel Gauge
+
+                //Fuel Gauge***********************************************
                 if (vitalType == "diesel") {
-                    when {
-                        gaugeData.objectX.riskFUELLEVEL == "Critical" -> {
+                    when (gaugeData.objectX.riskFUELLEVEL) {
+                        "Critical" -> {
                             linMainBorder1.setBackgroundResource(R.drawable.trailer_border_red)
                             linSubBorder1.setBackgroundResource(R.drawable.trailer_border_red)
                         }
-                        gaugeData.objectX.riskFUELLEVEL == "Warning" -> {
+                        "Warning" -> {
                             linMainBorder1.setBackgroundResource(R.drawable.trailer_border_yellow)
                             linSubBorder1.setBackgroundResource(R.drawable.trailer_border_yellow)
                         }
-                        gaugeData.objectX.riskFUELLEVEL == "Normal" -> {
+                        "Normal" -> {
                             linMainBorder1.setBackgroundResource(R.drawable.trailer_border)
                             linSubBorder1.setBackgroundResource(R.drawable.trailer_border)
                         }
-
                     }
                 }
 
-                var fuelStartEndValue = gaugeData.objectX.fULLRangeFUELLEVEL.replace("[", "")
-                fuelStartEndValue = fuelStartEndValue.replace("]", "")
-                val fr = fuelStartEndValue.split("-")
+                if (gaugeData.objectX.fuelLevelRange.isFromDB) {
+                    AppLogger.e("if fuel")
+                    val startValue = gaugeData.objectX.fuelLevelRange.ranges.critical[0]
+                    val endValue = gaugeData.objectX.fuelLevelRange.ranges.normal[1]
+                    val totalPer = endValue - startValue
+                    speedViewFuelLevel.setMinSpeed(startValue)
+                    speedViewFuelLevel.maxGaugeValue = endValue
+                    speedViewFuelLevel.tickNumber = 5
+                    speedViewFuelLevel.speedTo(gaugeData.objectX.fUELLEVEL.toFloat())
+                    speedViewFuelLevel.cancelSpeedAnimator()
 
-                speedViewFuelLevel.setMinSpeed(fr[0].toFloat())
-                speedViewFuelLevel.setGaugeMaxSpeed(fr[1].toFloat())
+                    val criticalRange =
+                        gaugeData.objectX.fuelLevelRange.ranges.critical[1] - gaugeData.objectX.fuelLevelRange.ranges.critical[0]
+                    val warningRange =
+                        gaugeData.objectX.fuelLevelRange.ranges.warning[1] - gaugeData.objectX.fuelLevelRange.ranges.warning[0]
+                    val normalRange =
+                        gaugeData.objectX.fuelLevelRange.ranges.normal[1] - gaugeData.objectX.fuelLevelRange.ranges.normal[0]
 
-                val list = ArrayList<Float>()
-                val count = fr[1].toInt() / 10
-                for (i in 0..count) {
-                    list.add(i.toFloat() * 10)
-                }
-
-                speedViewFuelLevel.setTicks(list)
-                speedViewFuelLevel.speedTo(60f)
-                speedViewFuelLevel.cancelSpeedAnimator()
-
-                val jsonArrayFuel = JSONArray(gaugeData.objectX.rangeFUELLEVEL)
-                val fuelRangeArray = jsonArrayFuel.join(",").split(",")
-//                AppLogger.e("fuel range array-----------$fuelRangeArray")
+                    AppLogger.e("percent----${(criticalRange * 100) / totalPer}")
+                    AppLogger.e("percent----${(warningRange * 100) / totalPer}")
+                    AppLogger.e("percent----${(normalRange * 100) / totalPer}")
 
 
-                for ((i, value) in fuelRangeArray.withIndex()) {
-                    when (i) {
-                        0 -> {
-                            val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
-                            speedViewFuelLevel.setLowSpeedPercent(per)
-                            speedViewFuelLevel.setLowSpeedColor(Color.RED)
-                            if (fuelRangeArray.size == 1) {
+                    val per1 = (criticalRange * 100) / totalPer
+                    val per2 = ((warningRange * 100) / totalPer) + per1
+                    val per3 = ((normalRange * 100) / totalPer) + per2
+
+                    speedViewFuelLevel.setLowSpeedPercent(0F)
+                    speedViewFuelLevel.setMediumSpeedPercent(per1)
+                    speedViewFuelLevel.setAverageSpeedPercent(per2)
+                    speedViewFuelLevel.setAverageHighSpeedPercent(per3)
+                    speedViewFuelLevel.setLowSpeedColor(resources.getColor(R.color.red))
+                    speedViewFuelLevel.setMediumSpeedColor(resources.getColor(R.color.red))
+                    speedViewFuelLevel.setAverageSpeedColor(resources.getColor(R.color.yellow))
+                    speedViewFuelLevel.setAverageHighSpeedColor(resources.getColor(R.color.green))
+                    speedViewFuelLevel.setHighSpeedColor(resources.getColor(R.color.green))
+
+
+
+
+
+                } else {
+                    AppLogger.e("if fuel")
+                    var fuelStartEndValue = gaugeData.objectX.fULLRangeFUELLEVEL.replace("[", "")
+                    fuelStartEndValue = fuelStartEndValue.replace("]", "")
+                    val fr = fuelStartEndValue.split("-")
+                    speedViewFuelLevel.setMinSpeed(fr[0].toFloat())
+                    speedViewFuelLevel.maxGaugeValue = fr[1].toFloat()
+                    speedViewFuelLevel.tickNumber = 10
+                    speedViewFuelLevel.speedTo(gaugeData.objectX.fUELLEVEL.toFloat())
+                    speedViewFuelLevel.cancelSpeedAnimator()
+                    val jsonArrayFuel = JSONArray(gaugeData.objectX.rangeFUELLEVEL)
+                    val fuelRangeArray = jsonArrayFuel.join(",").split(",")
+                    for ((i, value) in fuelRangeArray.withIndex()) {
+                        when (i) {
+                            0 -> {
+                                val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
+                                speedViewFuelLevel.setLowSpeedPercent(per)
+                                speedViewFuelLevel.setLowSpeedColor(Color.RED)
+                                if (fuelRangeArray.size == 1) {
+                                    speedViewFuelLevel.setMediumSpeedPercent(per)
+                                    speedViewFuelLevel.setAverageSpeedPercent(per)
+                                    speedViewFuelLevel.setAverageHighSpeedPercent(per)
+                                }
+                            }
+                            1 -> {
+                                val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
                                 speedViewFuelLevel.setMediumSpeedPercent(per)
+                                if (fuelRangeArray.size == 2) {
+                                    speedViewFuelLevel.setAverageSpeedPercent(per)
+                                    speedViewFuelLevel.setAverageHighSpeedPercent(per)
+                                    speedViewFuelLevel.setAverageSpeedColor(resources.getColor(R.color.green))
+                                    speedViewFuelLevel.setAverageHighSpeedColor(resources.getColor(R.color.green))
+                                    speedViewFuelLevel.setHighSpeedColor(resources.getColor(R.color.green))
+                                }
+                            }
+                            2 -> {
+                                val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
                                 speedViewFuelLevel.setAverageSpeedPercent(per)
+                                if (fuelRangeArray.size == 3) {
+                                    speedViewFuelLevel.setAverageHighSpeedPercent(per)
+                                }
+                            }
+                            3 -> {
+                                val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
                                 speedViewFuelLevel.setAverageHighSpeedPercent(per)
                             }
-                        }
-                        1 -> {
-                            val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
-                            speedViewFuelLevel.setMediumSpeedPercent(per)
-                            if (fuelRangeArray.size == 2) {
-                                speedViewFuelLevel.setAverageSpeedPercent(per)
-                                speedViewFuelLevel.setAverageHighSpeedPercent(per)
-                            }
-                        }
-                        2 -> {
-                            val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
-                            speedViewFuelLevel.setAverageSpeedPercent(per)
-                            if (fuelRangeArray.size == 3) {
-                                speedViewFuelLevel.setAverageHighSpeedPercent(per)
-                            }
-                        }
-                        3 -> {
-                            val per: Float = (value.toFloat() * 100) / fr[1].toFloat()
-                            speedViewFuelLevel.setAverageHighSpeedPercent(per)
                         }
                     }
                 }
 
-                //VoltageGauge
+
+                //VoltageGauge****************************************************************
                 if (vitalType == "diesel") {
-                    when {
-                        gaugeData.objectX.riskVOLTAGE == "Critical" -> {
+                    when (gaugeData.objectX.riskVOLTAGE) {
+                        "Critical" -> {
                             linMainBorder2.setBackgroundResource(R.drawable.trailer_border_red)
                             linSubBorder2.setBackgroundResource(R.drawable.trailer_border_red)
                         }
-                        gaugeData.objectX.riskVOLTAGE == "Warning" -> {
+                        "Warning" -> {
                             linMainBorder2.setBackgroundResource(R.drawable.trailer_border_yellow)
                             linSubBorder2.setBackgroundResource(R.drawable.trailer_border_yellow)
                         }
-                        gaugeData.objectX.riskVOLTAGE == "Normal" -> {
+                        "Normal" -> {
                             linMainBorder2.setBackgroundResource(R.drawable.trailer_border)
                             linSubBorder2.setBackgroundResource(R.drawable.trailer_border)
                         }
                     }
                 }
 
-                var voltageStartEndValue = gaugeData.objectX.fULLRangeVOLTAGE.replace("[", "")
-                voltageStartEndValue = voltageStartEndValue.replace("]", "")
-                val vr = voltageStartEndValue.split("-")
-                speedViewVoltage.setMinSpeed(vr[0].toFloat())
-                speedViewVoltage.setGaugeMaxSpeed(vr[1].toFloat())
-                val listVolatge = ArrayList<Float>()
-                val startVoltage = vr[0].toInt() - 1
+                if (gaugeData.objectX.voltageRange.isFromDB) {
+                    AppLogger.e("if voltage")
+                    val startValue = gaugeData.objectX.voltageRange.ranges.critical[0]
+                    val endValue = gaugeData.objectX.voltageRange.ranges.normal[1]
+                    val totalPer = endValue - startValue
+                    speedViewVoltage.setMinSpeed(startValue)
+                    speedViewVoltage.maxGaugeValue = endValue
+                    speedViewVoltage.tickNumber = 5
+                    speedViewVoltage.speedTo(gaugeData.objectX.bATTERYVOLTAGE.toFloat())
+                    speedViewVoltage.cancelSpeedAnimator()
+
+                    val criticalRange =
+                        gaugeData.objectX.voltageRange.ranges.critical[1] - gaugeData.objectX.voltageRange.ranges.critical[0]
+                    val warningRange =
+                        gaugeData.objectX.voltageRange.ranges.warning[1] - gaugeData.objectX.voltageRange.ranges.warning[0]
+                    val normalRange =
+                        gaugeData.objectX.voltageRange.ranges.normal[1] - gaugeData.objectX.voltageRange.ranges.normal[0]
+
+                    AppLogger.e("percent----${(criticalRange * 100) / totalPer}")
+                    AppLogger.e("percent----${(warningRange * 100) / totalPer}")
+                    AppLogger.e("percent----${(normalRange * 100) / totalPer}")
 
 
-                val countVoltage = vr[1].toInt() - 1
-                AppLogger.e("count voltage------------$countVoltage")
-                for (i in startVoltage..countVoltage) {
-                    AppLogger.e(i.toString())
-                    val par = i + 1
-                    AppLogger.e("" + par.toFloat())
-                    listVolatge.add(par.toFloat())
+                    val per1 = (criticalRange * 100) / totalPer
+                    val per2 = ((warningRange * 100) / totalPer) + per1
+                    val per3 = ((normalRange * 100) / totalPer) + per2
+
+                    speedViewVoltage.setLowSpeedPercent(0F)
+                    speedViewVoltage.setMediumSpeedPercent(per1)
+                    speedViewVoltage.setAverageSpeedPercent(per2)
+                    speedViewVoltage.setAverageHighSpeedPercent(per3)
+                    speedViewVoltage.setLowSpeedColor(resources.getColor(R.color.red))
+                    speedViewVoltage.setMediumSpeedColor(resources.getColor(R.color.red))
+                    speedViewVoltage.setAverageSpeedColor(resources.getColor(R.color.yellow))
+                    speedViewVoltage.setAverageHighSpeedColor(resources.getColor(R.color.green))
+                    speedViewVoltage.setHighSpeedColor(resources.getColor(R.color.green))
+
+
+                } else {
+                    AppLogger.e("else voltage")
+                    var voltageStartEndValue = gaugeData.objectX.fULLRangeVOLTAGE.replace("[", "")
+                    voltageStartEndValue = voltageStartEndValue.replace("]", "")
+                    val vr = voltageStartEndValue.split("-")
+                    speedViewVoltage.setMinSpeed(vr[0].toFloat())
+                    speedViewVoltage.maxGaugeValue = vr[1].toFloat()
+                    speedViewVoltage.tickNumber = 5
+                    speedViewVoltage.speedTo(gaugeData.objectX.bATTERYVOLTAGE.toFloat())
+                    speedViewVoltage.cancelSpeedAnimator()
+                    val jsonArrayVoltage = JSONArray(gaugeData.objectX.rangeVOLTAGE)
+                    val voltageRangeArray = jsonArrayVoltage.join(",").split(",")
+
+                    val rangeCount = vr[1].toInt() - vr[0].toInt()
+                    val range1 = voltageRangeArray[0].toFloat() - vr[0].toInt()
+                    val range2 = voltageRangeArray[1].toFloat() - vr[0].toInt()
+                    val per1 = (range1 * 100) / rangeCount
+                    val per2 = ((range2 * 100) / rangeCount)
+                    AppLogger.e("per1--------$per1")
+                    AppLogger.e("per2--------$per2")
+                    speedViewVoltage.setLowSpeedPercent(0F)
+                    speedViewVoltage.setMediumSpeedPercent(per1)
+                    speedViewVoltage.setAverageSpeedPercent(per2)
+                    speedViewVoltage.setAverageHighSpeedPercent(per2)
+                    speedViewVoltage.setLowSpeedColor(Color.RED)
+                    speedViewVoltage.setMediumSpeedColor(Color.RED)
+                    speedViewVoltage.setAverageSpeedColor(resources.getColor(R.color.yellow))
+                    speedViewVoltage.setAverageHighSpeedColor(resources.getColor(R.color.green))
+                    speedViewVoltage.setHighSpeedColor(resources.getColor(R.color.green))
                 }
 
-                speedViewVoltage.setTicks(listVolatge)
-                speedViewVoltage.speedTo(25f)
-                speedViewVoltage.cancelSpeedAnimator()
-                val jsonArrayVoltage = JSONArray(gaugeData.objectX.rangeVOLTAGE)
-                val voltageRangeArray = jsonArrayVoltage.join(",").split(",")
 
-                speedViewVoltage.setLowSpeedPercent(18.38F)
-                speedViewVoltage.setLowSpeedColor(Color.RED)
-
-                speedViewVoltage.setMediumSpeedPercent(20F)
-                speedViewVoltage.setMediumSpeedColor(Color.CYAN)
-                speedViewVoltage.setAverageSpeedPercent(20F)
-                speedViewVoltage.setAverageHighSpeedPercent(20F)
-
-
-//                AppLogger.e("voltage range array-----------$voltageRangeArray")
-                for ((i, value) in voltageRangeArray.withIndex()) {
-                    when (i) {
-                        0 -> {
-                            val per: Float = (value.toFloat() * 100) / vr[1].toFloat()
-                            AppLogger.e("per-----------$voltageRangeArray")
-//                            speedViewVoltage.setLowSpeedPercent(per)
-//                            speedViewVoltage.setLowSpeedColor(Color.RED)
-                        }
-                        1 -> {
-                            val per: Float = (value.toFloat() * 100) / vr[1].toFloat()
-                            AppLogger.e("per-----------$voltageRangeArray")
-//                            speedViewVoltage.setMediumSpeedPercent(per)
-                        }
-                        2 -> {
-                            val per: Float = (value.toFloat() * 100) / vr[1].toFloat()
-                            AppLogger.e("per-----------$voltageRangeArray")
-//                            speedViewVoltage.setAverageSpeedPercent(per)
-                        }
-                        3 -> {
-                            val per: Float = (value.toFloat() * 100) / vr[1].toFloat()
-                            AppLogger.e("per-----------$voltageRangeArray")
-//                            speedViewVoltage.setAverageHighSpeedPercent(per)
-                        }
-                    }
-                }
-
-                //ENGINE RUNNING
-
+                //ENGINE RUNNING**********************************
                 if (vitalType == "diesel") {
                     when (gaugeData.objectX.idelStatus) {
                         "Critical" -> {
@@ -258,16 +308,24 @@ class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
                     }
                 }
 
-                speedViewEngineRunning.setMinSpeed(0f)
-                speedViewEngineRunning.setGaugeMaxSpeed(120f)
-                speedViewEngineRunning.cancelSpeedAnimator()
+                speedViewEngineRunning.setMinSpeed(0.0.toFloat())
+                speedViewEngineRunning.maxGaugeValue = 120.0.toFloat()
+                speedViewEngineRunning.tickNumber = 0
+
                 speedViewEngineRunning.setLowSpeedPercent(0f)
                 speedViewEngineRunning.setMediumSpeedPercent(0f)
                 speedViewEngineRunning.setAverageSpeedPercent(0f)
                 speedViewEngineRunning.setAverageHighSpeedPercent(0f)
-                speedViewEngineRunning.setHighSpeedColor(Color.GREEN)
 
-                //LAST TIME ENGINE RUN
+
+                speedViewEngineRunning.setLowSpeedColor(resources.getColor(R.color.green))
+                speedViewEngineRunning.setMediumSpeedColor(resources.getColor(R.color.green))
+                speedViewEngineRunning.setAverageSpeedColor(resources.getColor(R.color.green))
+                speedViewEngineRunning.setAverageHighSpeedColor(resources.getColor(R.color.green))
+                speedViewEngineRunning.setHighSpeedColor(resources.getColor(R.color.green))
+
+
+                //LAST TIME ENGINE RUN******************************************************
                 if (vitalType == "diesel") {
                     when (gaugeData.objectX.riskLastTimeEngineRun) {
                         "Critical" -> {
@@ -290,47 +348,87 @@ class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
                 fullRangeLastTimeEngineRun = fullRangeLastTimeEngineRun.replace("]", "")
                 val er = fullRangeLastTimeEngineRun.split("-")
 
-                speedViewLastTimeEngineRun.setMinSpeed(er[0].toFloat())
-                speedViewLastTimeEngineRun.setGaugeMaxSpeed(er[1].toFloat())
 
-                val listEngineRun = ArrayList<Float>()
-                val countEngineRun = er[1].toInt() / 5
-                for (i in 0..countEngineRun) {
-                    listEngineRun.add(i.toFloat() * 5)
+                var minValsLastTimeEngineRun = 0.0F
+                var maxValsLastTimeEngineRun = 0.0F
+                val perLastTimeEngineRun = gaugeData.objectX.lastTimeEngineRun * 30 / 100
+                if (gaugeData.objectX.lastTimeEngineRun > 90) {
+                    minValsLastTimeEngineRun =
+                        (gaugeData.objectX.lastTimeEngineRun - perLastTimeEngineRun).toFloat()
+                    maxValsLastTimeEngineRun =
+                        (gaugeData.objectX.lastTimeEngineRun + perLastTimeEngineRun).toFloat()
+                } else {
+                    minValsLastTimeEngineRun = defaultMinValue
+                    maxValsLastTimeEngineRun = defaultMaxValue
                 }
 
-                speedViewLastTimeEngineRun.setTicks(listEngineRun)
-                speedViewLastTimeEngineRun.speedTo(15f)
-                speedViewLastTimeEngineRun.cancelSpeedAnimator()
-                speedViewLastTimeEngineRun.setLowSpeedPercent(8f)
-                speedViewLastTimeEngineRun.setMediumSpeedPercent(12f)
-                speedViewLastTimeEngineRun.setAverageSpeedPercent(12f)
-                speedViewLastTimeEngineRun.setAverageHighSpeedPercent(12f)
-                speedViewLastTimeEngineRun.setHighSpeedColor(Color.RED)
+                AppLogger.e("min value LAST  -------$minValsLastTimeEngineRun")
+                AppLogger.e("max value LAST  --------$maxValsLastTimeEngineRun")
 
-                //TOTAL RUN TIME
+                speedViewLastTimeEngineRun.maxGaugeValue = maxValsLastTimeEngineRun
+                speedViewLastTimeEngineRun.setMinSpeed(minValsLastTimeEngineRun)
+                speedViewLastTimeEngineRun.tickNumber = 10
+
+                speedViewLastTimeEngineRun.speedTo(gaugeData.objectX.lastTimeEngineRun.toFloat())
+                speedViewLastTimeEngineRun.cancelSpeedAnimator()
+                speedViewLastTimeEngineRun.setLowSpeedPercent(0f)
+                speedViewLastTimeEngineRun.setMediumSpeedPercent(50f)
+                speedViewLastTimeEngineRun.setAverageSpeedPercent(75f)
+                speedViewLastTimeEngineRun.setAverageHighSpeedPercent(75f)
+                speedViewLastTimeEngineRun.setLowSpeedColor(resources.getColor(R.color.green))
+                speedViewLastTimeEngineRun.setMediumSpeedColor(resources.getColor(R.color.green))
+                speedViewLastTimeEngineRun.setAverageSpeedColor(resources.getColor(R.color.green))
+                speedViewLastTimeEngineRun.setAverageHighSpeedColor(resources.getColor(R.color.green))
+                speedViewLastTimeEngineRun.setHighSpeedColor(resources.getColor(R.color.green))
+
+
+
+                //TOTAL RUN TIME****************************************************
                 linMainBorder5.setBackgroundResource(R.drawable.trailer_border)
                 linSubBorder5.setBackgroundResource(R.drawable.trailer_border)
 
                 var fullRangeTotalRunTime = gaugeData.objectX.fULLRangeTOTALRUNTIME.replace("[", "")
                 fullRangeTotalRunTime = fullRangeTotalRunTime.replace("]", "")
                 val rr = fullRangeTotalRunTime.split("-")
-                speedViewTotalRunTime.setMinSpeed(rr[0].toFloat())
-                speedViewTotalRunTime.setGaugeMaxSpeed(rr[1].toFloat())
-                val listTotalRunTime = ArrayList<Float>()
-                val countTotalRuntime = rr[1].toInt() / 5
 
-                for (i in 0..countTotalRuntime) {
-                    listTotalRunTime.add(i.toFloat() * 5)
+                val minValsTotalTuntime: Float
+                val maxValsTotalTuntime: Float
+                val per = gaugeData.objectX.tOTALENGINERUNTIME * 40 / 100
+
+                if (gaugeData.objectX.tOTALENGINERUNTIME > 90) {
+                    minValsTotalTuntime =
+                        (gaugeData.objectX.tOTALENGINERUNTIME - per.roundToInt()).toInt().toFloat()
+                    maxValsTotalTuntime =
+                        (gaugeData.objectX.tOTALENGINERUNTIME + per.roundToInt()).toInt().toFloat()
+                } else {
+                    minValsTotalTuntime = defaultMinValue
+                    maxValsTotalTuntime = defaultMaxValue
                 }
-                speedViewTotalRunTime.setTicks(listTotalRunTime)
-                speedViewTotalRunTime.cancelSpeedAnimator()
+
+                AppLogger.e("min value--------$minValsTotalTuntime")
+                AppLogger.e("max value--------$maxValsTotalTuntime")
+
+                speedViewTotalRunTime.maxGaugeValue = maxValsTotalTuntime
+                speedViewTotalRunTime.setMinSpeed(minValsTotalTuntime)
+
+                speedViewTotalRunTime.tickNumber = 10
                 speedViewTotalRunTime.setLowSpeedPercent(0f)
                 speedViewTotalRunTime.setMediumSpeedPercent(0f)
                 speedViewTotalRunTime.setAverageSpeedPercent(0f)
                 speedViewTotalRunTime.setAverageHighSpeedPercent(0f)
-                speedViewTotalRunTime.setHighSpeedColor(Color.RED)
+                speedViewTotalRunTime.setHighSpeedColor(resources.getColor(R.color.green))
 
+                AppLogger.e("${gaugeData.objectX.bATTERYVOLTAGE}")
+                if (gaugeData.objectX.bATTERYVOLTAGE.equals(2.00)) {
+                    linMainBorder2.setBackgroundResource(R.drawable.trailer_border_red)
+                    linMainBorder3.setBackgroundResource(R.drawable.trailer_border_red)
+                    linMainBorder4.setBackgroundResource(R.drawable.trailer_border_red)
+                    tvVoltage.text = "Not Reachable"
+                    tvEnginRunning.text = "Not Reachable"
+                    tvLastTimeEnginRun.text = "Not Reachable"
+                }
+                loader.invisible()
+                linContainer.visibility = View.VISIBLE
             })
     }
 
@@ -342,21 +440,25 @@ class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
                 intent.putExtra(AppConstants.GAUGE_TYPE, "FUEL_LEVEL")
                 startActivity(intent)
             }
+
             R.id.linSubBorder2 -> {
                 intent.putExtra(AppConstants.TRAILER_NAME, trailerName)
                 intent.putExtra(AppConstants.GAUGE_TYPE, "BATTERY_VOLTAGE")
                 startActivity(intent)
             }
+
             R.id.linSubBorder3 -> {
                 intent.putExtra(AppConstants.TRAILER_NAME, trailerName)
                 intent.putExtra(AppConstants.GAUGE_TYPE, "ENGINE_SPEED")
                 startActivity(intent)
             }
+
             R.id.linSubBorder4 -> {
 //                intent.putExtra(AppConstants.TRAILER_NAME,trailerName)
 //                intent.putExtra(AppConstants.GAUGE_TYPE,"FUEL_LEVEL")
 //                startActivity(intent)
             }
+
             R.id.linSubBorder5 -> {
                 intent.putExtra(AppConstants.TRAILER_NAME, trailerName)
                 intent.putExtra(AppConstants.GAUGE_TYPE, "TOTAL_ENGINE_RUN_TIME")
@@ -364,5 +466,4 @@ class TrailerGaugeAct : BaseActivity(), View.OnClickListener {
             }
         }
     }
-
 }

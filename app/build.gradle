@@ -15,7 +15,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -37,6 +36,9 @@ android {
         enabled = true
     }
 }
+repositories {
+    google()
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -48,7 +50,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
     //Fresco ImageView
     implementation 'com.facebook.fresco:fresco:2.0.0'
     // For animated GIF support
@@ -67,33 +68,38 @@ dependencies {
     implementation 'com.github.angads25:toggle:1.0.0'
 
     def lifecycle_version = "2.1.0"
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-    // For Kotlin use kapt instead of annotationProcessor
 
+
+    // For Kotlin use kapt instead of annotationProcessor
 //    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 //    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
-
     def room_version = "2.2.0-rc01"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     implementation project(path: ':speedviewlib')
-
     // Material Dialog Library
     implementation 'com.shreyaspatil:MaterialDialog:1.0.0'
-
     // Lottie Animation Library
     implementation 'com.airbnb.android:lottie:3.0.6'
-
     //using for line graph
     implementation 'org.hogel:line-chart-view:0.2.0'
     implementation project(path: ':MPChartLib')
-
-
 //    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 //    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+
+    implementation 'com.karumi:dexter:6.0.1'
+
+    //Download file
+    implementation 'com.github.esafirm:rxdownloader:2.0.0'
+
+//    implementation "androidx.tonyodev.fetch2:xfetch2:3.1.4"
+
+    implementation 'androidx.core:core-ktx:1.1.0'
 
 }

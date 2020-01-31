@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
@@ -20,10 +21,8 @@ import com.packetalk.retrofit.ApiInterface
 import com.packetalk.user.adapter.LogAdapter
 import com.packetalk.user.model.log.LogItem
 import com.packetalk.user.model.log.Object
-import com.packetalk.util.AppLogger
-import com.packetalk.util.setLoader
-import com.packetalk.util.showErrorToast
-import com.packetalk.util.showSuccessToast
+import com.packetalk.util.*
+import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.frg_user_log.*
 import kotlinx.android.synthetic.main.frg_user_log.view.*
 import org.json.JSONObject
@@ -81,8 +80,30 @@ class UserLogFrg : BaseFragment(), Filterable {
             clearLog()
         }
         rootView.fab.setOnClickListener {
-            clearLog()
-//            showDatePickerDialog(it)
+
+
+            val mBottomSheetDialog =
+                BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
+                    .setTitle("Clear Log")
+                    .setMessage("Are you sure you want clear all log?")
+                    .setCancelable(false)
+                    .setPositiveButton(
+                        (activity as AppCompatActivity).getString(R.string.ok),
+                        R.drawable.ic_clear_all_black_24dp
+                    ) { dialogInterface, which ->
+                        // continue with delete
+                        clearLog()
+                        dialogInterface.dismiss()
+                    }
+                    .setNegativeButton(
+                        (activity as AppCompatActivity).getString(R.string.cancel),
+                        R.drawable.ic_close
+                    ) { dialogInterface, which ->
+                        dialogInterface.dismiss()
+                    }
+                    .build()
+            // Show Dialog
+            mBottomSheetDialog.show()
         }
 
         rootView.edSearchLog.addTextChangedListener(object : TextWatcher {
@@ -140,13 +161,21 @@ class UserLogFrg : BaseFragment(), Filterable {
                 AppLogger.e(response.body().toString())
 
                 if (response.isSuccessful) {
-                    rootView.loader.visibility = View.INVISIBLE
+                    rootView.loader.invisible()
                     if (response.body()?.responseResult!!) {
 
                         logArr = response.body()?.objectX
                         rootView.recycleViewUsersLogs.layoutManager = layoutManager
-                        adapter = LogAdapter(activity, response.body()?.objectX)
-                        rootView.recycleViewUsersLogs.adapter = adapter
+
+                        if (response.body()!!.objectX.isEmpty()) {
+                            rootView.tvNoData.visible()
+                            rootView.recycleViewUsersLogs.invisible()
+                        } else {
+                            rootView.tvNoData.invisible()
+                            rootView.recycleViewUsersLogs.visible()
+                            adapter = LogAdapter(activity, response.body()?.objectX)
+                            rootView.recycleViewUsersLogs.adapter = adapter
+                        }
                     }
                 }
             }

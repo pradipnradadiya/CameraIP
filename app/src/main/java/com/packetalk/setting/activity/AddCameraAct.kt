@@ -1,13 +1,16 @@
 package com.packetalk.setting.activity
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Patterns
 import android.view.View
+import android.view.Window
+import android.webkit.URLUtil
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
 import com.packetalk.BaseActivity
@@ -25,11 +28,14 @@ import com.packetalk.setting.model.add_camera.CameraUrlItem
 import com.packetalk.setting.model.add_camera.DefaultCameraItem
 import com.packetalk.setting.model.add_camera.ObjectX
 import com.packetalk.util.*
+import com.packetalk.utility.SwipeDismissTouchListener
 import kotlinx.android.synthetic.main.act_add_camera.*
 import kotlinx.android.synthetic.main.dialog_add_camera.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.MalformedURLException
+
 
 class AddCameraAct : BaseActivity(), View.OnClickListener {
 
@@ -171,9 +177,11 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 AppLogger.e(response.body().toString())
                 hideProgressDialog()
                 if (response.body()!!.responseResult) {
-                    loader.visibility = View.INVISIBLE
+                    loader.invisible()
                     myGroupList = response.body()?.groups
                     groupId = response.body()!!.groups[0].groupID.toString()
+
+
                     val arrayAdapter =
                         myGroupList?.let {
                             ArrayAdapter<Groups>(
@@ -182,6 +190,8 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                                 it
                             )
                         }
+
+
                     spinnerGroup.adapter = arrayAdapter
                     spinnerGroup?.onItemSelectedListener =
                         object : AdapterView.OnItemSelectedListener {
@@ -197,9 +207,9 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                                 groupPosition = position
                                 groupId = response.body()!!.groups[position].groupID.toString()
                                 if (myGroupList?.get(position)?.cameraDetailsFull.isNullOrEmpty()) {
-                                    recycleViewMyCamera.visibility = View.INVISIBLE
+                                    recycleViewMyCamera.invisible()
                                 } else {
-                                    recycleViewMyCamera.visibility = View.VISIBLE
+                                    recycleViewMyCamera.visible()
                                     recycleViewMyCamera.layoutManager = layoutManager
                                     adapter = GroupCameraAdapter(
                                         this@AddCameraAct,
@@ -246,18 +256,25 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
     }
 
     fun refreshAdapter() {
-        recycleViewMyCamera.visibility = View.VISIBLE
+        recycleViewMyCamera.visible()
         recycleViewMyCamera.layoutManager = layoutManager
         adapter = GroupCameraAdapter(
             this@AddCameraAct,
             myGroupList?.get(groupPosition)?.cameraDetailsFull
         )
         recycleViewMyCamera.adapter = adapter
+
         spinnerGroup.isEnabled = false
+
+        (spinnerGroup.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.expand_title_color))
+        spinnerGroup.isEnabled = false
+
+
     }
 
     fun checkSpinnerEnableDisable(position: Int) {
         //  spinnerGroup.isEnabled = position != 1
+
         var flag = false
         for ((index, value) in adapter?.itemArrayList?.withIndex()!!) {
             if (value.choice) {
@@ -267,7 +284,17 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 flag = false
             }
         }
-        spinnerGroup.isEnabled = !flag
+
+//        spinnerGroup.isEnabled = !flag
+        if (flag) {
+            (spinnerGroup.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.expand_title_color))
+            spinnerGroup.isEnabled = false
+
+        } else {
+            (spinnerGroup.getChildAt(0) as TextView).setTextColor(resources.getColor(R.color.black))
+            spinnerGroup.isEnabled = true
+        }
+
 
         /*
   //        myGroupList?.get(groupPosition)?.cameraDetailsFull?.removeAt(position)
@@ -304,7 +331,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                     if (response.isSuccessful) {
                         val json = parseJsonObject(response.body().toString())
                         if (json.getBoolean("ResponseResult")) {
-                            showSuccessToast("Camera assign successfully.")
+                            showSuccessToast("Camera assigned successfully.")
                             hideProgressDialog()
                         }
                     }
@@ -315,33 +342,68 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
 
     }
 
+    private fun isValid(urlString: String): Boolean {
+        try {
+            return URLUtil.isValidUrl(urlString) && Patterns.WEB_URL.matcher(urlString).matches()
+        } catch (e: MalformedURLException) {
+        }
+        return false
+    }
 
     private fun showDialog() {
+
         dialog.setContentView(R.layout.dialog_add_camera)
+
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
 //        val name = dialog.findViewById(R.id.edGroupNames) as TextInputEditText
 //        name.setText(title)
         dialog.btnUpdateCamera.setOnClickListener {
-            addCamera("https://bcpo.packetalk.net/grapesxml/bcpo1.packetalk.net:5350.php")
+            if (isValid(dialog.edUrl.text.toString())) {
+                addCamera("https://bcpo.packetalk.net/grapesxml/bcpo1.packetalk.net:5350.php")
+            } else {
+                showErrorToast("Please enter valid url.")
+            }
+
+
             //  addCamera("https://willingboro.packetalk.net/grapesxml/willingboro1.packetalk.net:5350.php")
         }
         dialog.window?.setLayout(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.MATCH_PARENT
+            LinearLayout.LayoutParams.WRAP_CONTENT
         )
         val layoutManager = LinearLayoutManager(this@AddCameraAct)
         dialog.recycleViewExstingUrl.layoutManager = layoutManager
         dialog.recycleViewExstingUrl.adapter = existingUrlAdapter
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
+
+
+        val window: Window? = dialog.window
+        window?.decorView?.setOnTouchListener(
+            SwipeDismissTouchListener(
+                window.decorView,
+                null,
+                object : SwipeDismissTouchListener.DismissCallbacks {
+                    override fun onDismiss(view: View?, token: Any?) {
+                        dialog.dismiss()
+                    }
+
+                    override fun canDismiss(token: Any?): Boolean {
+                        return true
+                    }
+
+                })
+        )
+
     }
 
     private fun addCamera(url: String) {
-        showProgressDialog("Update Camera", "Please wait camera is updated..")
+        showProgressDialog("", getString(R.string.please_wait))
         val map = HashMap<String, String>()
         map["url"] = url
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.addUpdateCamera(map)
-
         callApi?.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 AppLogger.response(response.body().toString())
@@ -372,6 +434,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
             }
 
             override fun onResponse(call: Call<CameraUrlItem>, response: Response<CameraUrlItem>) {
+                AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
                     if (response.body()?.responseResult!!) {
                         existingUrlList = response.body()!!.objectX

@@ -58,7 +58,6 @@ class UserAdapter(
                 intent.putExtra(AppConstants.MEMBERNAME, itemArrayList?.get(adapterPosition)?.username)
                 activity?.startActivity(intent)
             }
-
         }
 
         override fun onClick(v: View) {
@@ -68,6 +67,6 @@ class UserAdapter(
         override fun onLongClick(v: View): Boolean {
             return false
         }
-    }
 
+    }
 }

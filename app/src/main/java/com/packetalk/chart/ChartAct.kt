@@ -5,8 +5,12 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Color
 import android.text.Html
+import android.text.TextUtils
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,8 +27,7 @@ import com.github.mikephil.charting.listener.OnChartGestureListener
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.packetalk.BaseActivity
 import com.packetalk.R
-import com.packetalk.util.AppConstants
-import com.packetalk.util.AppLogger
+import com.packetalk.util.*
 import com.packetalk.view_model.chart.ChartDataModel
 import kotlinx.android.synthetic.main.activity_chart.*
 import java.util.*
@@ -45,15 +48,19 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
     private var startFullDateTime: String = ""
     private var endFullDateTime: String = ""
     private var mChart: LineChart? = null
-    var trailerName: String = ""
-    var gaugeType: String = ""
-    var chartType: String = "Week"
     private var minValue: Float = 0.0f
     private var maxValue: Float = 0.0f
     var flag = true
+    var trailerName: String = ""
+    var gaugeType: String = ""
+    var chartType: String = "Week"
+    private var isCalender = "false"
+    private var fromDate: String = ""
+    private var toDate: String = ""
 
     /*  private val MAX_Y = 100.0
       private var chartView: LineChartView? = null*/
+
 
     override fun getLayoutResourceId(): Int {
         return R.layout.activity_chart
@@ -66,103 +73,8 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
 
     }
 
-    /*   private fun nextChartData() {
-           val points: MutableList<LineChartView.Point> = ArrayList()
-           var x = arrayOf(0,100,200,300,400,500,600,700,800)
-           var y = arrayOf(0,11,22,33,44,55,66,77,88)
-           for (i in 0..8) {
-   //            val y = (Math.random() * MAX_Y).toInt()
-               points.add(LineChartView.Point(x[i].toLong(), y[i].toLong()))
-           }
-           chartView!!.points = points
-       }*/
-
-    /* private fun setXAxisValues(): ArrayList<String>? {
-         val xVals = ArrayList<String>()
-         xVals.add("11-01 13:13")
-         xVals.add("12-06 18:20")
-         xVals.add("13-07 00:57")
-         xVals.add("14-07 07:31")
-         xVals.add("15-07 14:05")
-         xVals.add("16-08 20:31")
-         xVals.add("17-08 03:06")
-         xVals.add("18-08 09:40")
-         xVals.add("19-09 16:55")
-         xVals.add("20-09 23:30")
-         xVals.add("21-09 06:04")
-         xVals.add("22-10 12:51")
-         xVals.add("23-10 19:24")
-         xVals.add("24-11 01:58")
-         xVals.add("25-12 08:32")
-         xVals.add("26-12 21:52")
-         xVals.add("27-12 04:26")
-         xVals.add("28-13 11:00")
-         xVals.add("29-13 17:32")
-         xVals.add("30-13 00:07")
-         xVals.add("31-13 06:42")
-         xVals.add("32-14 13:17")
-         xVals.add("33-14 19:53")
-         return xVals
-     }
- */
-
-    /*private fun setYAxisValues(): ArrayList<Entry>? {
-        val yVals = ArrayList<Entry>()
-        yVals.add(Entry(60f, 0))
-        yVals.add(Entry(48f, 1))
-        yVals.add(Entry(70.5f, 2))
-        yVals.add(Entry(100f, 3))
-        yVals.add(Entry(180.9f, 4))
-        yVals.add(Entry(180.9f, 5))
-        yVals.add(Entry(180.9f, 6))
-        yVals.add(Entry(180.9f, 7))
-        yVals.add(Entry(180.9f, 8))
-        yVals.add(Entry(180.9f, 9))
-        yVals.add(Entry(30.9f, 10))
-        yVals.add(Entry(180.9f, 11))
-        yVals.add(Entry(180.9f, 12))
-        yVals.add(Entry(180.9f, 13))
-        yVals.add(Entry(150.9f, 14))
-        yVals.add(Entry(50.9f, 15))
-        yVals.add(Entry(60.9f, 16))
-        yVals.add(Entry(180.9f, 17))
-        yVals.add(Entry(180.9f, 18))
-        yVals.add(Entry(80.9f, 19))
-        yVals.add(Entry(180.9f, 20))
-        yVals.add(Entry(180.9f, 21))
-        yVals.add(Entry(100.9f, 22))
-        return yVals
-    }*/
-
-    private fun setData(xVal: ArrayList<String>,yVal: ArrayList<Entry>) {
-//        val xVals = setXAxisValues()
-//        val yVals = setYAxisValues()
-        val set1: LineDataSet
-        // create a dataset and give it a type
-        set1 = LineDataSet(yVal, "DataSet 1")
-        set1.fillAlpha = 50
-        // set1.setFillColor(Color.RED);
-// set the line to be drawn like this "- - - - - -"
-//   set1.enableDashedLine(10f, 5f, 0f);
-// set1.enableDashedHighlightLine(10f, 5f, 0f);
-        set1.color = Color.RED
-        set1.setCircleColor(Color.RED)
-        set1.lineWidth = 2f
-        set1.circleRadius = 5f
-        set1.setDrawCircleHole(true)
-        set1.valueTextSize = 9f
-        set1.setDrawFilled(false)
-        set1.label = "LINE CHART"
-        val dataSets = ArrayList<ILineDataSet>()
-        dataSets.add(set1) // add the datasets
-        // create a data object with the datasets
-        val data = LineData(xVal, dataSets)
-        // set data
-        mChart!!.data = data
-    }
-
     override fun initView() {
-        bindToolBarBack("JCPD (FUEL_LEVEL)")
+        bindToolBarBack("$trailerName($gaugeType)")
     }
 
     override fun postInitView() {
@@ -180,6 +92,9 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
                 setOnMenuItemClickListener { item ->
                     edChartType.setText(item.title)
                     chartType = item.title.toString()
+                    isCalender = "false"
+                    fromDate = ""
+                    toDate = ""
                     val data = ViewModelProviders.of(this@ChartAct).get(ChartDataModel::class.java)
                     data.chartData = null
                     flag = true
@@ -193,54 +108,83 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
 
     @SuppressLint("SetTextI18n")
     override fun loadData() {
+        getChartData(
+            trailerName,
+            chartType,
+            fromDate,
+            toDate,
+            gaugeType,
+            isCalender
+        )
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getChartData(
+        trailerName: String,
+        chartType: String,
+        startFullDateTime: String,
+        endFullDateTime: String,
+        gaugeType: String,
+        isCalender: String
+    ) {
+        showProgressDialog("Chart Data", "Please wait..")
         val data = ViewModelProviders.of(this@ChartAct).get(ChartDataModel::class.java)
-        data.callGetChartData(trailerName, chartType, startFullDateTime, "", gaugeType, "false")
+        data.callGetChartData(
+            trailerName,
+            chartType,
+            startFullDateTime,
+            endFullDateTime,
+            gaugeType,
+            isCalender
+        )
             .observe(this,
                 Observer {
+                    AppLogger.e("chart item")
+                    hideProgressDialog()
 
-                    val yVal = ArrayList<Entry>()
-                    val xVal = it.objectX.lable
-                    val yArr: ArrayList<Float> = it.objectX.value
-                    for ((index, value) in yArr.withIndex()) {
-                        yVal.add(Entry(value.toFloat(), index))
-                    }
+                    if (it != null){
+                        val yVal = ArrayList<Entry>()
+                        val xVal = it.objectX.lable
+                        val yArr: ArrayList<Float> = it.objectX.value
+                        for ((index, value) in yArr.withIndex()) {
+                            yVal.add(Entry(value, index))
+                        }
 
 //                    minValue = yArr.min()!!.toFloat() - 5
 //                    maxValue = yArr.max()!!.toFloat() + 5
 
-                    maxValue = Collections.max(yArr)
-                    minValue = Collections.min(yArr)
+                        maxValue = Collections.max(yArr)
+                        minValue = Collections.min(yArr)
 
-                    setChartData(xVal, yVal)
+                        setChartData(xVal, yVal)
 
-                    AppLogger.e("" + minValue)
-                    AppLogger.e("" + maxValue)
+                        AppLogger.e("" + minValue)
+                        AppLogger.e("" + maxValue)
 
-                    tvHeader.text = it.objectX.header
-                    val date = it.objectX.headerDate.split("To")
-                    tvFromDate.text = Html.fromHtml("${date[0]}")
-                    tvToDate.text = Html.fromHtml("<b>To</b>${date[1]}")
+                        tvHeader.text = it.objectX.header
+                        val date = it.objectX.headerDate.split("To")
+                        tvFromDate.text = Html.fromHtml("${date[0]}")
+                        tvToDate.text = Html.fromHtml("<b>To</b>${date[1]}")
 
-                    when (it.objectX.averageStatus.status) {
-                        "Normal" -> {
-                            constraintAverage.setBackgroundResource(R.drawable.top_border_round)
-                            tvAverage.text = "Avg is: ${it.objectX.averageStatus.status}"
-                            tvAverage.setTextColor(resources.getColor(R.color.green))
-                        }
-                        "Critical" -> {
-                            constraintAverage.setBackgroundResource(R.drawable.top_border_red)
-                            tvAverage.text = "Avg is: ${it.objectX.averageStatus.status}"
-                            tvAverage.setTextColor(resources.getColor(R.color.red))
-                        }
-                        "Warning" -> {
-                            constraintAverage.setBackgroundResource(R.drawable.top_border_yellow)
-                            tvAverage.text = "Avg is: ${it.objectX.averageStatus.status}"
-                            tvAverage.setTextColor(resources.getColor(R.color.yellow))
+                        when (it.objectX.averageStatus.status) {
+                            "Normal" -> {
+                                constraintAverage.setBackgroundResource(R.drawable.top_border_round)
+                                tvAverage.text = "Avg is ${it.objectX.averageStatus.status}"
+                                tvAverage.setTextColor(resources.getColor(R.color.green))
+                            }
+                            "Critical" -> {
+                                constraintAverage.setBackgroundResource(R.drawable.top_border_red)
+                                tvAverage.text = "Avg is ${it.objectX.averageStatus.status}"
+                                tvAverage.setTextColor(resources.getColor(R.color.red))
+                            }
+                            "Warning" -> {
+                                constraintAverage.setBackgroundResource(R.drawable.top_border_yellow)
+                                tvAverage.text = "Avg is ${it.objectX.averageStatus.status}"
+                                tvAverage.setTextColor(resources.getColor(R.color.yellow))
+                            }
                         }
                     }
-
-
                 })
     }
 
@@ -253,16 +197,52 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
         loadData()
     }
 
-    override fun onChartGestureEnd(me: MotionEvent?,lastPerformedGesture: ChartTouchListener.ChartGesture?) {
+    private fun setData(xVal: ArrayList<String>, yVal: ArrayList<Entry>) {
+//        val xVals = setXAxisValues()
+//        val yVals = setYAxisValues()
+        val set1: LineDataSet
+        // create a dataset and give it a type
+        set1 = LineDataSet(yVal, "")
+        set1.fillAlpha = 50
+        // set1.setFillColor(Color.RED);
+// set the line to be drawn like this "- - - - - -"
+//   set1.enableDashedLine(10f, 5f, 0f);
+// set1.enableDashedHighlightLine(10f, 5f, 0f);
+        set1.color = Color.RED
+        set1.setCircleColor(Color.RED)
+        set1.lineWidth = 2f
+        set1.circleRadius = 5f
+        set1.setDrawCircleHole(true)
+        set1.valueTextSize = 9f
+        set1.setDrawFilled(false)
+        set1.label = ""
+        val dataSets = ArrayList<ILineDataSet>()
+        dataSets.add(set1) // add the datasets
+        // create a data object with the datasets
+        val data = LineData(xVal, dataSets)
+        // set data
+        mChart!!.data = data
     }
 
-    override fun onChartFling(me1: MotionEvent?,me2: MotionEvent?,velocityX: Float,velocityY: Float) {
+    override fun onChartGestureEnd(
+        me: MotionEvent?,
+        lastPerformedGesture: ChartTouchListener.ChartGesture?
+    ) {
+    }
+
+    override fun onChartFling(
+        me1: MotionEvent?, me2: MotionEvent?, velocityX: Float,
+        velocityY: Float
+    ) {
     }
 
     override fun onChartSingleTapped(me: MotionEvent?) {
     }
 
-    override fun onChartGestureStart(me: MotionEvent?,lastPerformedGesture: ChartTouchListener.ChartGesture?) {
+    override fun onChartGestureStart(
+        me: MotionEvent?,
+        lastPerformedGesture: ChartTouchListener.ChartGesture?
+    ) {
         Log.i("Gesture", "START, x: " + me!!.x + ", y: " + me.y);
     }
 
@@ -374,7 +354,8 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
         val datePickerDialog = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                dateTime = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
+                dateTime = year.toString() + "/" + (monthOfYear + 1) + "/" + dayOfMonth.toString()
+
                 if (timeFlag == 0) {
                     startFullDateTime = ("$year-${(monthOfYear + 1)}-$dayOfMonth")
                 } else {
@@ -403,11 +384,11 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
                 mHour = hourOfDay
                 mMinute = minute
                 if (timeFlag == 0) {
-                    edFromDate.setText("$dateTime | $hourOfDay:$minute")
+                    edFromDate.setText("$dateTime $hourOfDay:$minute")
                     startFullDateTime =
                         "$startFullDateTime-$hourOfDay-$minute-$mSecond-$mMilliSecond"
                 } else if (timeFlag == 1) {
-                    edToDate.setText("$dateTime | $hourOfDay:$minute")
+                    edToDate.setText("$dateTime $hourOfDay:$minute")
                     endFullDateTime = "$endFullDateTime-$hourOfDay-$minute-$mSecond-$mMilliSecond"
                 }
             }, mHour, mMinute, true
@@ -425,13 +406,13 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
         when (item.itemId) {
             R.id.action_chart -> {
                 if (linDate.visibility == View.VISIBLE) {
-                    linDate.visibility = View.GONE
+                    linDate.gone()
                 } else {
-                    linDate.visibility = View.VISIBLE
+                    linDate.visible()
                 }
             }
 
-            R.id.action_user ->{
+            R.id.action_user -> {
 
             }
         }
@@ -450,13 +431,38 @@ class ChartAct : BaseActivity(), OnChartGestureListener, OnChartValueSelectedLis
                 datePicker()
             }
 
-            R.id.imgExcel ->{
-
-            }
-            R.id.btnGo ->{
+            R.id.imgExcel -> {
 
             }
 
+            R.id.btnGo -> {
+                when {
+                    TextUtils.isEmpty(edFromDate.text) -> {
+                        showErrorToast("Please select From date&time.")
+                    }
+                    TextUtils.isEmpty(edToDate.text) -> {
+                        showErrorToast("Please select To date&time.")
+                    }
+                    else -> {
+                        val data =
+                            ViewModelProviders.of(this@ChartAct).get(ChartDataModel::class.java)
+                        data.chartData = null
+                        flag = true
+                        chartType = "calender"
+                        isCalender = "true"
+                        fromDate = edFromDate.text.toString()
+                        toDate = edToDate.text.toString()
+                        getChartData(
+                            trailerName,
+                            chartType,
+                            fromDate,
+                            toDate,
+                            gaugeType,
+                            isCalender
+                        )
+                    }
+                }
+            }
         }
     }
 }

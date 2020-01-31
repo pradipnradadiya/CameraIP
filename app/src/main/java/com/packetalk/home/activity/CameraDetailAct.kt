@@ -38,24 +38,16 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
     private lateinit var direction: String
     var zoomCount: Int = 0
     lateinit var dialog: Dialog
-
     private var startFullDateTime: String = ""
     private var endFullDateTime: String = ""
     private var fullUrlCalender: String = ""
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
-            /*R.id.linSelectDate -> {
-                timeFlag = 0
-                datePicker()
-            }
-            R.id.linToDate -> {
-                timeFlag = 1
-                datePicker()
-            }*/
-            R.id.linTrailer -> {
 
+            R.id.linTrailer -> {
+                HomeAct.currentMapTrailerFlag = 1
+                finish()
             }
 
             R.id.linCalender -> {
@@ -111,13 +103,19 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
                     this@CameraDetailAct
                 )
             }
-            R.id.imgAutoFocus -> {
 
+            R.id.linearAutoFocus -> {
+                AppLogger.e("${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=video&function=focus&focusvalue=0")
+                webHidden.load(
+                    "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/control/${cameraDetail?.cameraIDOnServer}/cmd=video&function=focus&focusvalue=0",
+                    this@CameraDetailAct
+                )
             }
+
         }
     }
 
-    private var cameraDetail: CameraDetailsFull? = null
+    var cameraDetail: CameraDetailsFull? = null
 
     override fun getLayoutResourceId(): Int {
         return R.layout.act_camera_detail
@@ -133,12 +131,18 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
     }
 
     override fun postInitView() {
-        val width = getDisplayWidth() - 16
+//        val width = getDisplayWidth() - 16
         val height = (getDisplayHeight() / 2) - 356
         AppLogger.e("height $height")
+        val configuration = resources.configuration
+        val screenWidthDp = configuration.screenWidthDp - 16
+        val screenHeightDp = (configuration.screenHeightDp / 2) - 44
         val url =
-            "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}${AppConstants.VIEW_PANEL}${cameraDetail?.cameraIDOnServer}${AppConstants.VIEW_PANEL_FIRSTSLASH}${AppConstants.AND_IMAGE_WIDTH}$width${AppConstants.AND_IMAGE_HEIGHT}$height"
-        webFull.load(url, this)
+            "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}${AppConstants.VIEW_PANEL}${cameraDetail?.cameraIDOnServer}${AppConstants.VIEW_PANEL_FIRSTSLASH}${AppConstants.AND_IMAGE_WIDTH}$screenWidthDp${AppConstants.AND_IMAGE_HEIGHT}$screenHeightDp"
+
+        AppLogger.e("url $url")
+        webFull.setBackgroundColor(Color.parseColor("#000000"))
+        webFull.load(url, this@CameraDetailAct)
         tvCameraName.text = cameraDetail?.cameraName ?: "null"
     }
 
@@ -151,7 +155,8 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
         imgBottom.setOnClickListener(this)
         imgLeft.setOnClickListener(this)
         imgRight.setOnClickListener(this)
-        imgAutoFocus.setOnClickListener(this)
+//        imgAutoFocus.setOnClickListener(this)
+        linearAutoFocus.setOnClickListener(this)
         seekBarZoom.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 zoomCount = progress
@@ -163,7 +168,6 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
             }
-
         })
     }
 
@@ -175,38 +179,36 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
         )
     }
 
+    @SuppressLint("CheckResult")
     override fun loadData() {
+//        postInitView()
+//        var url = "https://upload.wikimedia.org/wikipedia/en/e/ed/Nyan_cat_250px_frame.PNG"
+
 
     }
 
     private fun showDialog() {
-
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 //            dialog.setCancelable(false)
         dialog.setContentView(R.layout.dialog_calender_from_to_camera_list)
 //        val name = dialog.findViewById(R.id.edGroupNames) as TextInputEditText
 //        name.setText(title)
-
-
         dialog.constraintFromDate.setOnClickListener {
             timeFlag = 0
             datePicker()
         }
-
         dialog.constraintToDate.setOnClickListener {
             timeFlag = 1
             datePicker()
         }
         dialog.btnSubmit.setOnClickListener {
-            dialog.loader.visibility = View.VISIBLE
-
+            dialog.loader.visible()
             when {
                 dialog.tvFromDate.text.isNullOrBlank() -> {
-                    showErrorToast("Please select from date & time.")
-
+                    showErrorToast(getString(R.string.select_from_date_time))
                 }
                 dialog.tvToDate.text.isNullOrBlank() -> {
-                    showErrorToast("Please select to date & time.")
+                    showErrorToast(getString(R.string.select_to_date_time))
                 }
                 else -> {
                     dialog.loader.controller = setLoader()
@@ -218,13 +220,11 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
             dialog.tvFromDate.text = ""
             dialog.tvToDate.text = ""
         }
-
         dialog.window?.setLayout(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
         dialog.show()
     }
 
@@ -238,7 +238,9 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
         val datePickerDialog = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                dateTime = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
+                //                dateTime = dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year
+                dateTime = "${year}/${monthOfYear + 1}/$dayOfMonth"
+
                 if (timeFlag == 0) {
                     startFullDateTime = ("$year-${(monthOfYear + 1)}-$dayOfMonth")
                 } else {
@@ -259,23 +261,23 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
         mMinute = c.get(Calendar.MINUTE)
         mSecond = c.get(Calendar.SECOND)
         mMilliSecond = c.get(Calendar.MILLISECOND)
-
         // Launch Time Picker Dialog
         val timePickerDialog = TimePickerDialog(
             this,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 mHour = hourOfDay
                 mMinute = minute
-
                 if (timeFlag == 0) {
                     dialog.tvFromDate.text = "$dateTime | $hourOfDay:$minute"
                     startFullDateTime =
                         "$startFullDateTime-$hourOfDay-$minute-$mSecond-$mMilliSecond"
+
 //                    tvFromTime.text = "$hourOfDay:$minute"
 //                    tvFromDate.text = dateTime
                 } else if (timeFlag == 1) {
                     dialog.tvToDate.text = "$dateTime | $hourOfDay:$minute"
                     endFullDateTime = "$endFullDateTime-$hourOfDay-$minute-$mSecond-$mMilliSecond"
+
 //                    tvToTime.text = "$hourOfDay:$minute"
 //                    tvToDate.text = dateTime
                 }
@@ -286,11 +288,14 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun getDownloadVideo() {
-        dialog.tvCamNameDateTime.visibility = View.VISIBLE
+//        dialog.tvCamNameDateTime.visible()
+        dialog.relMain.visible()
+
         dialog.tvCamNameDateTime.text =
             "${cameraDetail?.cameraName} Time: ${dialog.tvFromDate.text} - ${dialog.tvToDate.text}"
         AppLogger.e(startFullDateTime)
         AppLogger.e(endFullDateTime)
+
         fullUrlCalender =
             "${AppConstants.HTTP_BIND}${cameraDetail?.serverURL}:${cameraDetail?.serverPort}/info/${cameraDetail?.cameraIDOnServer}/getvar&ivccacheinventory&snapshotfiles=false&starttime=$startFullDateTime&endtime=$endFullDateTime"
         AppLogger.e(fullUrlCalender)
@@ -300,34 +305,36 @@ class CameraDetailAct : BaseActivity(), View.OnClickListener {
 
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.storedVideo(map)
+
         callApi?.enqueue(object : Callback<StoredVideoItem> {
             override fun onResponse(
                 call: Call<StoredVideoItem>,
                 response: Response<StoredVideoItem>
             ) {
                 AppLogger.response(response.body().toString())
-                dialog.loader.visibility = View.INVISIBLE
+                dialog.loader.invisible()
                 if (response.isSuccessful) {
                     if (response.body()?.responseResult!!) {
                         val layoutManager = LinearLayoutManager(this@CameraDetailAct)
                         val divider = SimpleDividerItemDecoration(resources)
                         dialog.recycleViewStoredVideo.addItemDecoration(divider)
-
                         dialog.recycleViewStoredVideo.layoutManager = layoutManager
+
                         val adapter =
                             StoredVideoListAdapter(this@CameraDetailAct, response.body()?.objectX)
                         dialog.recycleViewStoredVideo.adapter = adapter
-
+                        dialog.recycleViewStoredVideo.visible()
                     }
                 }
-
             }
 
             override fun onFailure(call: Call<StoredVideoItem>, t: Throwable) {
-                dialog.loader.visibility = View.INVISIBLE
+                dialog.loader.invisible()
             }
 
         })
     }
 
+
 }
+

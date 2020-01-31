@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/sixteen_dp"
+    android:background="@android:color/transparent"
+    android:layout_height="match_parent">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/sixteen_dp"
-        android:layout_marginEnd="@dimen/sixteen_dp"
         android:background="@drawable/card_border"
         android:orientation="vertical"
-        android:padding="@dimen/sixteen_dp">
+        android:padding="@dimen/sixteen_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-
-    <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMapCamera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,8 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-    <RelativeLayout
+        <RelativeLayout
             android:id="@+id/relWeb"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -29,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerViewMapCamera">
 
-        <com.packetalk.utility.MyWebView
+            <com.packetalk.utility.MyWebView
                 android:id="@+id/webCamera"
                 android:layout_width="300dp"
                 android:layout_height="150dp"
@@ -37,7 +46,7 @@
                 android:clickable="false"
                 android:scrollbars="none" />
 
-        <ImageView
+            <ImageView
                 android:id="@+id/imgZoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,20 +56,29 @@
                 android:src="@drawable/ic_zoom"
                 tools:ignore="ContentDescription" />
 
-    </RelativeLayout>
+            <com.packetalk.utility.MyTextViewBold
+                android:id="@+id/tvCamNoFound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/no_camera_found"
+                android:textSize="@dimen/twenty_dp"
+                android:visibility="invisible"
+                tools:ignore="SpUsage" />
 
+        </RelativeLayout>
 
-    <com.packetalk.utility.MyTextViewBold
+        <com.packetalk.utility.MyTextViewBold
             android:id="@+id/myTextViewBold2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Trailer Name: "
+            android:text="@string/trailer_name_popup"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relWeb" />
 
-    <com.packetalk.utility.MyTextView
+        <com.packetalk.utility.MyTextView
             android:id="@+id/tvTrailerName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,16 +88,16 @@
             app:layout_constraintStart_toEndOf="@+id/myTextViewBold2"
             app:layout_constraintTop_toBottomOf="@+id/relWeb" />
 
-    <com.packetalk.utility.MyTextViewBold
+        <com.packetalk.utility.MyTextViewBold
             android:id="@+id/myTextViewBold3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Router Id: "
+            android:text="@string/router_id"
             app:layout_constraintStart_toStartOf="@+id/myTextViewBold2"
             app:layout_constraintTop_toBottomOf="@+id/myTextViewBold2" />
 
-    <com.packetalk.utility.MyTextView
+        <com.packetalk.utility.MyTextView
             android:id="@+id/tvRouterId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -88,16 +106,16 @@
             app:layout_constraintStart_toEndOf="@+id/myTextViewBold3"
             app:layout_constraintTop_toBottomOf="@+id/tvTrailerName" />
 
-    <com.packetalk.utility.MyTextViewBold
+        <com.packetalk.utility.MyTextViewBold
             android:id="@+id/myTextViewBold4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Latitude: "
+            android:text="@string/latitude"
             app:layout_constraintStart_toStartOf="@+id/myTextViewBold3"
             app:layout_constraintTop_toBottomOf="@+id/myTextViewBold3" />
 
-    <com.packetalk.utility.MyTextView
+        <com.packetalk.utility.MyTextView
             android:id="@+id/tvLat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -106,16 +124,16 @@
             app:layout_constraintStart_toEndOf="@+id/myTextViewBold4"
             app:layout_constraintTop_toBottomOf="@+id/tvRouterId" />
 
-    <com.packetalk.utility.MyTextViewBold
+        <com.packetalk.utility.MyTextViewBold
             android:id="@+id/myTextViewBold6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Last Updated: "
+            android:text="@string/last_updated"
             app:layout_constraintStart_toStartOf="@+id/myTextViewBold5"
             app:layout_constraintTop_toBottomOf="@+id/myTextViewBold5" />
 
-    <com.packetalk.utility.MyTextView
+        <com.packetalk.utility.MyTextView
             android:id="@+id/tvUpdated"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -124,16 +142,16 @@
             app:layout_constraintStart_toEndOf="@+id/myTextViewBold6"
             app:layout_constraintTop_toBottomOf="@+id/tvLng" />
 
-    <com.packetalk.utility.MyTextViewBold
+        <com.packetalk.utility.MyTextViewBold
             android:id="@+id/myTextViewBold5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Longitude: "
+            android:text="@string/longitude"
             app:layout_constraintStart_toStartOf="@+id/myTextViewBold4"
             app:layout_constraintTop_toBottomOf="@+id/myTextViewBold4" />
 
-    <com.packetalk.utility.MyTextView
+        <com.packetalk.utility.MyTextView
             android:id="@+id/tvLng"
             android:layout_width="0dp"
             android:layout_height="19dp"
@@ -141,4 +159,18 @@
             app:layout_constraintEnd_toEndOf="@+id/tvTrailerName"
             app:layout_constraintStart_toEndOf="@+id/myTextViewBold5"
             app:layout_constraintTop_toBottomOf="@+id/tvLat" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imgClosePopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/sixteen_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout16"
+        app:srcCompat="@drawable/ic_close_popups"
+        tools:ignore="ContentDescription" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

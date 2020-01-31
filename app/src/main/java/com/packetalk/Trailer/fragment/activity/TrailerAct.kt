@@ -8,7 +8,6 @@ import com.packetalk.BaseActivity
 import com.packetalk.R
 import com.packetalk.view_model.NoteViewModel
 
-
 class TrailerAct : BaseActivity() {
 
     lateinit var noteViewModel: NoteViewModel

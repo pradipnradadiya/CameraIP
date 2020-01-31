@@ -36,7 +36,12 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnSave -> {
-                saveAssignCamera()
+                if (userCameraList.isEmpty()){
+                    showWarningToast("No camera to add")
+                }else{
+                    saveAssignCamera()
+                }
+
             }
             R.id.btnCancel -> {
 
@@ -44,11 +49,14 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
             R.id.tvAddAllGroupCam -> {
                 showDialog()
             }
+            R.id.imgClose -> {
+                finish()
+            }
         }
     }
 
     lateinit var listAdapter: ExpandableGroupListAdapter
-    private lateinit var memberId: String
+    public lateinit var memberId: String
     private lateinit var memberName: String
     var layoutManager: LinearLayoutManager? = null
     var adapter: AssignCameraAdapter? = null
@@ -80,6 +88,7 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
 
     override fun addListener() {
         btnSave.setOnClickListener(this)
+        imgClose.setOnClickListener(this)
         btnCancel.setOnClickListener(this)
         tvAddAllGroupCam.setOnClickListener(this)
     }
@@ -173,6 +182,7 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<AssignCameraItem>, t: Throwable) {
+
             }
         })
     }
@@ -252,7 +262,6 @@ class AssignCameraAct : BaseActivity(), View.OnClickListener {
             camArray.clear()
             camArray.addAll(groupData.cameraDetailsFull)
             AppLogger.e("size------" + camArray.size)
-
         }
 
         dialog.window?.setLayout(

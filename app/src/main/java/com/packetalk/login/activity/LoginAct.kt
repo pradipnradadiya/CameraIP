@@ -1,5 +1,6 @@
 package com.packetalk.login.activity
 
+import android.annotation.SuppressLint
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.packetalk.BaseActivity
@@ -13,6 +14,8 @@ import kotlinx.android.synthetic.main.act_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class LoginAct : BaseActivity() {
@@ -25,7 +28,9 @@ class LoginAct : BaseActivity() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
+        tvCopyRight.text = "@${Calendar.getInstance().get(Calendar.YEAR)} Packetalk All rights Reserved."
     }
 
     override fun postInitView() {
@@ -79,13 +84,19 @@ class LoginAct : BaseActivity() {
                     startNewActivity(HomeAct::class.java)
                     finish()
                 } else {
-                    showInfoToast(user.status)
+                    if (user.status != null) {
+                        showInfoToast(user.status)
+                    }else{
+                        showInfoToast("Invalid.")
+                    }
                 }
 
                 /*  val d = JSONObject(response.body().toString())
                   val json = d.get("d")
                   val obj = JSONObject(json.toString())
                   AppLogger.e(obj.toString())*/
+
+                
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -94,5 +105,4 @@ class LoginAct : BaseActivity() {
         })
 
     }
-
 }

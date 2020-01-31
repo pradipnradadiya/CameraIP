@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,7 +46,6 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
     private var marker: Marker? = null
     var mapData: MapItem? = null
     private lateinit var dialog: Dialog
-
     var adapter: CameraViewListAdapter? = null
 
     override fun myFragmentView(
@@ -72,11 +72,10 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
 
     override fun addListener() {
         rootView.btnCameraView.setOnClickListener {
-
             if (rootView.linCamera.visibility == View.VISIBLE) {
-                rootView.linCamera.visibility = View.GONE
+                rootView.linCamera.gone()
             } else {
-                rootView.linCamera.visibility = View.VISIBLE
+                rootView.linCamera.visible()
             }
         }
 
@@ -88,8 +87,6 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
                 intent.putExtra(AppConstants.CAMERA_DETAIL_KEY, adapter?.itemArrayList)
                 startNewActivityWithIntent(intent)
             }
-
-
         }
     }
 
@@ -106,8 +103,8 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(gir))
         */
         mMap.setOnMarkerClickListener { marker ->
-
             if (rootView.linCamera.visibility == View.VISIBLE) {
+
                 val trailerData = marker.title.split("|")
                 val position: Int = trailerData[0].toInt()
                 val layoutManager = LinearLayoutManager(activity)
@@ -150,7 +147,7 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
                                     BitmapDescriptorFactory.fromResource(
                                         R.drawable.baseline_router_black_48
                                     )
-                                ).title("$i|${value.trailerNo.trim()}|${value.router.trim()}|${value.latitude}|${value.longitude}|${value.updatedAt.trim()}")
+                                ).title("$i|${value.trailerNo.trim()}|${value.router.trim()}|${value.latitude}|${value.longitude}|${value.receiveDate.trim()}")
                             )
                             if (onlyOnce) {
                                 val zoomLevel = 7.2f //This goes up to 21
@@ -174,11 +171,14 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
         val position: Int = trailerData[0].toInt()
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 //            dialog.setCancelable(false)
+
         dialog.setContentView(R.layout.dialog_map_camera_list)
         val tvTrailerName = dialog.findViewById(R.id.tvTrailerName) as TextView
         val tvRouterId = dialog.findViewById(R.id.tvRouterId) as TextView
         val tvLat = dialog.findViewById(R.id.tvLat) as TextView
+        val tvCamNoFound = dialog.findViewById(R.id.tvCamNoFound) as TextView
         val tvLng = dialog.findViewById(R.id.tvLng) as TextView
+        val imgClosePopup = dialog.findViewById(R.id.imgClosePopup) as ImageView
         val recyclerViewMapCamera = dialog.findViewById(R.id.recyclerViewMapCamera) as RecyclerView
 //        webCam = dialog.findViewById(R.id.webCamera) as MyWebView
 
@@ -188,6 +188,11 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
         tvLat.text = trailerData[3]
         tvLng.text = trailerData[4]
         tvUpdated.text = trailerData[5]
+
+        imgClosePopup.setOnClickListener {
+            dialog.dismiss()
+        }
+
 
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -218,6 +223,8 @@ class MapFrg : BaseFragment(), OnMapReadyCallback {
                 intent.putExtra(AppConstants.CAMERA_DETAIL_KEY, cameraItem)
                 activity?.startActivity(intent)
             }
+        }else{
+            tvCamNoFound.visible()
         }
 
         adapter.onItemClick = { cameraDetail ->

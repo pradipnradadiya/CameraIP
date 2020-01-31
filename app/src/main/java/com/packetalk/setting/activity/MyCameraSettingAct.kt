@@ -25,6 +25,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
+
+    var groupId: String = ""
+    var myGroupList: ArrayList<Groups>? = null
+    var myCameraList: ArrayList<CameraDetailsFull>? = null
+    var layoutManager: LinearLayoutManager? = null
+    var adapter: MyCameraSettingAdapter? = null
+    var groupPosition : Int = 0
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnDeleteGroup -> {
@@ -101,30 +108,31 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                 }
             }
             R.id.btnDeleteall -> {
-                val mBottomSheetDialog =
-                    BottomSheetMaterialDialog.Builder(this)
-                        .setTitle(getString(R.string.delete))
-                        .setMessage(getString(R.string.delete_msg))
-                        .setCancelable(false)
-                        .setPositiveButton(getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
-                            dialogInterface.dismiss()
-                            // continue with delete
-                            AppLogger.e(arrayAdminCameraIDPK.toString())
-                            if (arrayAdminCameraIDPK.isNullOrEmpty()) {
-                                showErrorToast("There are No camera selected.")
-                            } else {
+
+                if (arrayAdminCameraIDPK.isNullOrEmpty()) {
+                    showErrorToast("There are No camera selected.")
+                } else {
+
+                    val mBottomSheetDialog =
+                        BottomSheetMaterialDialog.Builder(this)
+                            .setTitle(getString(R.string.delete))
+                            .setMessage(getString(R.string.delete_msg))
+                            .setCancelable(false)
+                            .setPositiveButton(getString(R.string.ok),R.drawable.ic_delete_popup) { dialogInterface, which ->
+                                dialogInterface.dismiss()
+                                // continue with delete
+                                AppLogger.e(arrayAdminCameraIDPK.toString())
                                 AppLogger.e("delete all")
-                                deleteCameraSetting()
+                                 deleteCameraSetting()
+
                             }
-                        }
-                        .setNegativeButton(getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
-                            dialogInterface.dismiss()
-                        }
-                        .build()
-                // Show Dialog
-                mBottomSheetDialog.show()
-
-
+                            .setNegativeButton(getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
+                                dialogInterface.dismiss()
+                            }
+                            .build()
+                    // Show Dialog
+                    mBottomSheetDialog.show()
+                }
 
                 /*
                 IOSDialog.Builder(this@MyCameraSettingAct)
@@ -153,11 +161,6 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
             }
         }
     }
-    var groupId: String = ""
-    var myGroupList: ArrayList<Groups>? = null
-    var myCameraList: ArrayList<CameraDetailsFull>? = null
-    var layoutManager: LinearLayoutManager? = null
-    var adapter: MyCameraSettingAdapter? = null
 
     companion object {
         var arrayAdminCameraIDPK = ArrayList<Int>()
@@ -208,7 +211,7 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                 hideProgressDialog()
 
                 if (response.body()!!.responseResult) {
-                    loader.visibility = View.INVISIBLE
+                    loader.invisible()
                     myGroupList = response.body()?.groups
 
                     if (response.body()!!.groups.isEmpty()) {
@@ -236,20 +239,23 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                                 id: Long
                             ) {
                                 if (myGroupList?.get(position)?.cameraDetailsFull.isNullOrEmpty()) {
-                                    tvNoData.visibility = View.VISIBLE
-                                    recycleviewCameraSettingList.visibility = View.INVISIBLE
-                                    btnDeleteall.visibility = View.GONE
+                                    tvNoData.visible()
+                                    recycleviewCameraSettingList.invisible()
+                                    btnDeleteall.gone()
                                     groupId = myGroupList?.get(position)!!.groupID.toString()
                                 } else {
-                                    btnDeleteall.visibility = View.VISIBLE
-                                    tvNoData.visibility = View.INVISIBLE
-                                    recycleviewCameraSettingList.visibility = View.VISIBLE
+                                    btnDeleteall.visible()
+                                    tvNoData.invisible()
+                                    recycleviewCameraSettingList.visible()
                                     recycleviewCameraSettingList.layoutManager = layoutManager
+
                                     groupId = myGroupList?.get(position)!!.groupID.toString()
+                                    groupPosition = position
                                     adapter = MyCameraSettingAdapter(
                                         this@MyCameraSettingAct,
                                         myGroupList?.get(position)?.cameraDetailsFull
                                     )
+
                                     recycleviewCameraSettingList.adapter = adapter
                                 }
                             }
@@ -257,9 +263,9 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
 
                     myCameraList = myGroupList!![0].cameraDetailsFull
                     if (myGroupList!![0].cameraDetailsFull.isEmpty()) {
-                        btnDeleteall.visibility = View.GONE
+                        btnDeleteall.gone()
                     } else {
-                        btnDeleteall.visibility = View.VISIBLE
+                        btnDeleteall.visible()
                     }
                 }
             }
@@ -285,6 +291,7 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                 AppLogger.e(response.body().toString())
                 val data = parseJsonObject(response.body().toString())
                 if (data.getBoolean("ResponseResult")) {
+                    showSuccessToast("Deleted Successfully.")
                     loadData()
                 }
             }
@@ -314,6 +321,7 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                 AppLogger.e(response.body().toString())
                 val data = parseJsonObject(response.body().toString())
                 if (data.getBoolean("ResponseResult")) {
+                    showSuccessToast("Selected camera is deleted successfully.")
                     arrayAdminCameraIDPK.clear()
                     loadData()
                 }
@@ -345,5 +353,13 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                 hideProgressDialog()
             }
         })
+    }
+
+     fun refreshAdapter(position:Int){
+        AppLogger.e("position-----${position}")
+        AppLogger.e("group position-----${groupPosition}")
+        AppLogger.e("camera name-----${myGroupList?.get(groupPosition)?.cameraDetailsFull!![position].cameraName}")
+
+
     }
 }

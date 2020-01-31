@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MyApplication"
@@ -18,38 +20,64 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".chart.ChartAct"></activity>
-        <activity android:name=".Trailer.fragment.activity.HybridVitalAct" />
+
+        <activity
+            android:name=".chart.ChartAct"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Trailer.fragment.activity.HybridVitalAct"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".Trailer.fragment.activity.TrailerGaugeAct"
-            android:windowSoftInputMode="stateHidden"
-            tools:ignore="InnerclassSeparator" /> <!-- <activity android:name=".Trailer.fragment.activity.TrailerAct" /> -->
-        <activity android:name=".map.fragment.activity.MapCameraViewAct" />
-        <activity android:name=".setting.activity.AssignGroupToUserAct" />
+            android:screenOrientation="portrait"
+             /> <!-- <activity android:name=".Trailer.fragment.activity.TrailerAct" /> -->
+
+        <activity
+            android:name=".map.fragment.activity.MapCameraViewAct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".setting.activity.AssignGroupToUserAct"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".user.activity.AssignCameraAct"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".setting.activity.AddGroupAct"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".setting.activity.AddCameraAct"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".setting.activity.MyCameraSettingAct"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".setting.activity.ServerSettingAct"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
+
         <activity
             android:name=".setting.activity.ModemSettingAct"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".setting.activity.AddTrailerACt"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -67,7 +95,6 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".TestActi" />
         <activity
             android:name=".home.activity.HomeAct"
             android:screenOrientation="portrait" />
@@ -83,12 +110,18 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Trailer.fragment.activity.TrailerGaugeAct2" />
-        <activity android:name=".Trailer.fragment.activity.HybridVitalGaugeAct" />
+
+        <activity
+            android:name=".Trailer.fragment.activity.TrailerGaugeAct2"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Trailer.fragment.activity.HybridVitalGaugeAct"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

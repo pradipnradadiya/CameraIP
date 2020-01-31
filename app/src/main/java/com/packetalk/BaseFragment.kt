@@ -17,19 +17,19 @@ abstract class BaseFragment : Fragment(), BindingListener {
         super.onCreate(savedInstanceState)
     }
 
-   /* override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanseState: Bundle?): View? {
-        val view = myFragmentView(inflater, parent, savedInstanseState)
-        hud = KProgressHUD(activity!!)
+    /* override fun onCreateView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanseState: Bundle?): View? {
+         val view = myFragmentView(inflater, parent, savedInstanseState)
+         hud = KProgressHUD(activity!!)
 
-        return view
-    }*/
+         return view
+     }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return  myFragmentView(inflater, container, savedInstanceState)
+        return myFragmentView(inflater, container, savedInstanceState)
     }
 
 
@@ -42,7 +42,11 @@ abstract class BaseFragment : Fragment(), BindingListener {
         loadData()
     }
 
-    abstract fun myFragmentView(inflater: LayoutInflater, parent: ViewGroup?, savedInstanceState: Bundle?): View
+    abstract fun myFragmentView(
+        inflater: LayoutInflater,
+        parent: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View
 
     protected fun startNewActivity(activity: Class<out Activity>) {
         startActivity(Intent(getActivity(), activity))
@@ -58,17 +62,18 @@ abstract class BaseFragment : Fragment(), BindingListener {
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setLabel(title)
             .setDetailsLabel(message)
+            .setCancellable(false)
             .show()
     }
 
     protected fun hideProgressDialog() {
-        if (hud != null && hud!!.isShowing()) {
+        if (hud != null && hud!!.isShowing) {
             hud!!.dismiss()
             hud = null
         }
     }
 
-     fun selectContentFragment(fragmentToSelect: Fragment) {
+    fun selectContentFragment(fragmentToSelect: Fragment) {
         val fragmentTransaction = this.fragmentManager?.beginTransaction()
 
         if (this.fragmentManager?.fragments?.contains(fragmentToSelect)!!) {
@@ -87,11 +92,13 @@ abstract class BaseFragment : Fragment(), BindingListener {
         }
         fragmentTransaction?.commit()
     }
+
     fun replaceFragment(fragment: Fragment) {
         val fm = fragmentManager
         val fragmentTransaction = fm?.beginTransaction()
         fragmentTransaction?.replace(R.id.frameContainer, fragment)
-        fragmentTransaction?.addToBackStack(null);
+        fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
     }
+
 }

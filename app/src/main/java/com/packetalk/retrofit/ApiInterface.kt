@@ -17,6 +17,7 @@ import com.packetalk.setting.request.trailor.TrailerRequest
 import com.packetalk.setting.request.trailor.group.AssignUserToGroupRequest
 import com.packetalk.setting.request.trailor.my_camera_setting.MyCameraSettingDeleteRequest
 import com.packetalk.setting.request.trailor.my_camera_setting.MyCameraSettingPriorityRequest
+import com.packetalk.user.model.CommonItem
 import com.packetalk.user.model.assign_camera_user.AssignCameraItem
 import com.packetalk.user.model.assign_camera_user.PostAssignCamera
 import com.packetalk.user.model.log.LogItem
@@ -50,8 +51,8 @@ interface ApiInterface {
 
     //Getting cameras which already assigned to users
     @Headers("Content-Type: application/json")
-    @POST("api/User/GetCamerasForMember")
-    fun deleteAssignCamera(@Body body: Map<String, String>): Call<JsonObject>
+    @POST("api/User/DeleteMycameraUser")
+    fun deleteAssignCamera(@Body body: Map<String, String>): Call<CommonItem>
 
     //    Log List
     @GET("api/User/GetUsersLog")
@@ -62,9 +63,9 @@ interface ApiInterface {
     fun clearLog(): Call<JsonObject>
 
     //    Update Users
-    @Headers("Content-Type: application/json")
+//    @Headers("Content-Type: application/json")
     @GET("api/User/UpdateRelayUsers")
-    fun updateUsers(): Call<JsonObject>
+    fun updateUsers(): Call<CommonItem>
 
     //    assign camera
     @Headers("Content-Type: application/json")
@@ -169,6 +170,12 @@ interface ApiInterface {
     @Headers("Content-Type: application/json")
     @POST("api/SettingAdmin/AssignCamToGroup")
     fun assignCameraToGroup(@Body body: CamToGroupRequest): Call<JsonObject>
+
+    //Remove Camera Server
+    @Headers("Content-Type: application/json")
+    @POST("api/SettingAdmin/RemoveAllServerCam")
+    fun removeCameraServer(@Body body: Map<String, String>): Call<JsonObject>
+
 
 
     //************************************ MAP *******************************************

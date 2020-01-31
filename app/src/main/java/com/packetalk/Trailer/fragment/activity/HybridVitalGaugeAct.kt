@@ -1,5 +1,7 @@
 package com.packetalk.Trailer.fragment.activity
 
+import android.os.Handler
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.packetalk.BaseActivity
@@ -9,6 +11,9 @@ import com.packetalk.Trailer.fragment.model.trailer.TrailerGaugeItem
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.util.AppLogger
+import com.packetalk.util.invisible
+import com.packetalk.util.setLoader
+import com.packetalk.util.visible
 import kotlinx.android.synthetic.main.frg_trailer.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +57,8 @@ class HybridVitalGaugeAct : BaseActivity() {
     }
 
     private fun getHybridTrailerList(trailerName: String) {
-        showProgressDialog("Trailer","Please wait..")
+        loader.controller = setLoader()
+//        showProgressDialog("Trailer","Please wait..")
         val map = HashMap<String,String>()
         map["TrailerName"] = trailerName
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
@@ -65,11 +71,20 @@ class HybridVitalGaugeAct : BaseActivity() {
             ) {
                 AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
-                    hideProgressDialog()
+//                    hideProgressDialog()
                     if (response.body()?.responseResult!!) {
                         adapter =
                             TrailerGaugeAdapter(this@HybridVitalGaugeAct, response.body()?.objectX)
                         recycleViewTrailer.adapter = adapter
+
+                        val r = Runnable {
+                            loader.invisible()
+                            recycleViewTrailer.visible()
+                        }
+
+                        val h = Handler()
+                        h.postDelayed(r, 3000)
+
 //                        val divider = SimpleDividerItemDecoration(resources)
 //                        rootView.recycleViewTrailer.addItemDecoration(divider)
                     }

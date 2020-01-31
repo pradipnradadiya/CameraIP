@@ -190,7 +190,7 @@ class GroupCameraAdapter(
 
     private fun deleteCamera(adminCameraId: Int) {
         val dialog = ProgressDialog(activity)
-        dialog.setMessage("Camera move to default.")
+        dialog.setMessage("Camera is moving to Default Group.")
         dialog.setCancelable(false)
         dialog.show()
         val map = HashMap<String, Int>()

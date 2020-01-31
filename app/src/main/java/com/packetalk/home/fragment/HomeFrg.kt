@@ -21,11 +21,10 @@ import com.packetalk.home.model.group_camera_model.GroupCameraItem
 import com.packetalk.home.model.group_camera_model.Groups
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
-import com.packetalk.util.AppConstants
-import com.packetalk.util.AppLogger
-import com.packetalk.util.SharedPreferenceSession
-import com.packetalk.util.showInfoToast
+import com.packetalk.util.*
 import kotlinx.android.synthetic.main.frg_home.*
+import kotlinx.android.synthetic.main.frg_home.view.*
+import kotlinx.android.synthetic.main.frg_map.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,8 +38,8 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
     private var mBottomSheetDialog: BottomSheetDialog? = null
     private var mBottomSheetDialogCamera: BottomSheetDialog? = null
     private lateinit var rootView: View
-    var cameraAdapter : CameraListAdapter? = null
-    private var linearLayoutManager2 : LinearLayoutManager? = null
+    var cameraAdapter: CameraListAdapter? = null
+    private var linearLayoutManager2: LinearLayoutManager? = null
 
     @SuppressLint("InflateParams")
     override fun onClick(v: View?) {
@@ -54,18 +53,22 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
                 val linearLayoutManager = LinearLayoutManager(activity)
                 recyclerViewDialogGroup?.layoutManager = linearLayoutManager
                 AppLogger.e("myGroupList$myGroupList")
+
+
                 val adapter = GroupListAdapter(activity, HomeFrg(), myGroupList)
                 recyclerViewDialogGroup?.adapter = adapter
+                val divider = SimpleDividerItemDecoration(resources)
+                recyclerViewDialogGroup?.addItemDecoration(divider)
                 adapter.onItemClick = { groups ->
                     AppLogger.e(groups.groupName)
                     dismissDialog(groups.groupName)
                     myCameraList = groups.cameraDetailsFull
                     if (groups.cameraDetailsFull.isEmpty()) {
-                        tvNodata.visibility = View.VISIBLE
-                        recycleViewCameras.visibility = View.INVISIBLE
+                        tvNodata.visible()
+                        recycleViewCameras.invisible()
                     } else {
-                        tvNodata.visibility = View.INVISIBLE
-                        recycleViewCameras.visibility = View.VISIBLE
+                        tvNodata.invisible()
+                        recycleViewCameras.visible()
                         cameraAdapter =
                             CameraListAdapter(activity, HomeFrg(), groups.cameraDetailsFull)
                         recycleViewCameras?.adapter = cameraAdapter
@@ -73,6 +76,7 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
                 }
                 mBottomSheetDialog?.show()
             }
+
 
             R.id.tvSelectCamera -> {
                 mBottomSheetDialogCamera = activity?.let { BottomSheetDialog(it) }
@@ -142,7 +146,8 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
     }
 
     private fun getGroupList(memberType: String, memberId: String) {
-        showProgressDialog("Camera", "Please wait..")
+//        showProgressDialog("Camera", "Please wait..")
+        rootView.loader.controller = setLoader()
         val loginRaw = HashMap<String, String>()
         loginRaw["memberTypes"] = memberType
         loginRaw["MemberID"] = memberId
@@ -157,26 +162,31 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
                 response: Response<GroupCameraItem>
             ) {
                 AppLogger.e(response.body().toString())
-                hideProgressDialog()
+//                hideProgressDialog()
 
                 if (response.body()!!.responseResult) {
                     myGroupList = response.body()?.groups
                     tvSelectGroup!!.text = myGroupList?.get(0)!!.groupName.trim()
+                    myGroupList?.get(0)!!.isSelected = true
+
+
                     if (myGroupList!![0].cameraDetailsFull.isEmpty()) {
                         myCameraList = myGroupList!![0].cameraDetailsFull
-                        tvNodata.visibility = View.VISIBLE
-                        recycleViewCameras.visibility = View.INVISIBLE
+                        rootView.loader.invisible()
+                        tvNodata.visible()
+                        recycleViewCameras.invisible()
+                        rootView.constraintLayout.visible()
                     } else {
-                        tvNodata.visibility = View.INVISIBLE
-                        recycleViewCameras.visibility = View.VISIBLE
+                        tvNodata.invisible()
+                        recycleViewCameras.visible()
                         myCameraList = myGroupList!![0].cameraDetailsFull
                         cameraAdapter =
                             CameraListAdapter(activity, HomeFrg(), myCameraList)
                         recycleViewCameras?.adapter = cameraAdapter
+                        rootView.constraintLayout.visible()
+                        rootView.loader.invisible()
                     }
-
                 }
-
 
 //                AppLogger.e(myGroupList.toString())
 /*
@@ -194,7 +204,6 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
                 }.type
 
                 myGroupList = Gson().fromJson(json.toString(), listType)*/
-
 
             }
 

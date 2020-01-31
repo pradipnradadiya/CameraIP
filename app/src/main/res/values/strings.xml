@@ -10,19 +10,20 @@
     <string name="pls_enter_unm">Please enter username.</string>
     <string name="pls_enter_pwd">Please enter password.</string>
     <string name="pls_enter_dns">Please enter DNS.</string>
+    <string name="pls_enter_gnm">Group name can\'t be empty</string>
     <string name="pls_enter_tnm">Please enter trailer name.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="select_group">Select Group</string>
-    <string name="select_camera">Select Cameras</string>
-    <string name="_2019_packettalk_all_right_reserved">\u00A9 2019 Packetalk All Right Reserved</string>
+    <string name="select_camera">Select Camera</string>
+    <string name="_2019_packettalk_all_right_reserved">\u00A9 2020 Packetalk All Right Reserved</string>
     <string name="trailer">Trailer</string>
     <string name="auto_focus">Auto focus</string>
     <string name="title_activity_maps">Map</string>
     <string name="create_user">Create User</string>
-    <string name="user_log">User Log</string>
-    <string name="update_user">Update User</string>
+    <string name="user_log">Users Log</string>
+    <string name="update_user">Update Users</string>
     <string name="search">Search</string>
     <string name="trailer_name">Trailer Name</string>
     <string name="dns">DNS</string>
@@ -44,9 +45,9 @@
     <string name="select_all">SELECT ALL</string>
     <string name="default_group">Default Group</string>
     <string name="my_camera">My Camera</string>
-    <string name="no_camera_found">No Camera Found</string>
+    <string name="no_camera_found">No camera found!</string>
     <string name="are_you_sure_you_want_to_delete">Are you sure you want to logout?</string>
-    <string name="yes">yes</string>
+    <string name="yes">Yes</string>
     <string name="no">No</string>
 
     <string name="delete">DELETE</string>
@@ -73,8 +74,28 @@
     <string name="chart_type">Chart Type</string>
     <string name="update_camera">Update Camera</string>
     <string name="existing_url">Existing URL</string>
-    <string name="add_server_url">Add server URL</string>
+    <string name="add_server_url">Add Server URL</string>
     <string name="new_url">New URL</string>
+    <string name="fuel_level">FUEL LEVEL</string>
+    <string name="historical">Historical</string>
+    <string name="voltage">VOLTAGE</string>
+    <string name="engine_running">ENGINE RUNNING</string>
+    <string name="last_time_engine_run">LAST TIME ENGINE RUN</string>
+    <string name="total_run_time">TOTAL RUN TIME</string>
+    <string name="logout">Logout</string>
+    <string name="update_users">Update Users</string>
+    <string name="select_user">Select Users</string>
+    <string name="zoom">Zoom</string>
+    <string name="router_id">Router Id:</string>
+    <string name="trailer_name_popup">Trailer Name:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="last_updated">Last Updated:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="no_data_available">No data available</string>
+    <string name="select_from_date_time"><![CDATA[Please select from date & time.]]></string>
+    <string name="select_to_date_time"><![CDATA[Please select to date & time.]]></string>
+    <string name="all_digit">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_-!@#$%^*()</string>
+    <string name="please_wait">Please wait..</string>
 
     <string-array name="test_array">
         <item>1</item>

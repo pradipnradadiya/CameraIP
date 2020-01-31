@@ -24,9 +24,9 @@ object APIClientBasicAuth {
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(BasicAuthInterceptor("Admin", "1234"))
-        .connectTimeout(120, TimeUnit.SECONDS)
-        .writeTimeout(120, TimeUnit.SECONDS)
-        .readTimeout(120, TimeUnit.SECONDS)
+        .connectTimeout(220, TimeUnit.SECONDS)
+        .writeTimeout(220, TimeUnit.SECONDS)
+        .readTimeout(220, TimeUnit.SECONDS)
         .build()
 
 }

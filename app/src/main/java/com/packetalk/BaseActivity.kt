@@ -1,26 +1,30 @@
 package com.packetalk
 
+import android.Manifest
 import android.app.Activity
-import android.content.DialogInterface
+import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.kaopiz.kprogresshud.KProgressHUD
-import com.ligl.android.widget.iosdialog.IOSDialog
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.packetalk.login.activity.LoginAct
-import com.packetalk.util.LogoutDialogClass
 import com.packetalk.util.NetworkUtils
 import com.packetalk.util.SharedPreferenceSession
+import com.packetalk.util.toast
 import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.toolbar.*
-import java.util.*
 
 
 abstract class BaseActivity : AppCompatActivity(), BindingListener {
@@ -35,18 +39,48 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle(getString(R.string.no_internet))
             builder.setMessage(getString(R.string.internet_msg))
-            builder.setNegativeButton(getString(R.string.close),
-                { dialog, which -> dialog.dismiss() })
+            builder.setNegativeButton(
+                getString(R.string.close)
+            ) { dialog, which -> dialog.dismiss() }
             val alertDialog = builder.create()
             alertDialog.show()
         }
 
-        hud = KProgressHUD(this);
+        hud = KProgressHUD(this)
         init()
         initView()
         postInitView()
         addListener()
         loadData()
+
+        Dexter.withActivity(this@BaseActivity)
+            .withPermissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    report?.let {
+                        if (report.areAllPermissionsGranted()) {
+//                            toast("OK")
+                        }
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: MutableList<PermissionRequest>?,
+                    token: PermissionToken?
+                ) {
+                    // Remember to invoke this method when the custom rationale is closed
+                    // or just by default if you don't want to use any custom rationale.
+                    token?.continuePermissionRequest()
+                }
+            })
+            .withErrorListener {
+                toast(it.name)
+            }
+            .check()
+
     }
 
     override fun onStop() {
@@ -74,7 +108,7 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
     }
 
     protected fun hideProgressDialog() {
-        if (hud != null && hud!!.isShowing()) {
+        if (hud != null && hud!!.isShowing) {
             hud!!.dismiss()
             hud = null
         }
@@ -164,32 +198,12 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_user -> {
-               /* IOSDialog.Builder(this)
-                    .setTitle("Logout")
-                    .setMessage("Do you want to logout this application ?")
-                    .setPositiveButton(
-                        this.getString(R.string.ok)
-                    ) { dialog, _ ->
-                        dialog.dismiss()
-                        // continue with delete
-                        val session = SharedPreferenceSession(this)
-                        session.saveUserType("")
-                        dialog.cancel()
-                        startNewActivity(LoginAct::class.java)
-                        finishAffinity()
-
-                    }
-                    .setNegativeButton(
-                        this.getString(R.string.cancel)
-                    ) { dialog, _ -> dialog.dismiss() }.show()*/
-
-
                 val mBottomSheetDialog =
                     BottomSheetMaterialDialog.Builder(this)
                         .setTitle("LOGOUT")
                         .setMessage("Do you want to logout this application ?")
                         .setCancelable(false)
-                        .setPositiveButton("OK",R.drawable.ic_logout) { dialogInterface, which ->
+                        .setPositiveButton("OK", R.drawable.ic_logout) { dialogInterface, which ->
                             // continue with delete
                             val session = SharedPreferenceSession(this)
                             session.saveUserType("")
@@ -197,7 +211,10 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
                             finishAffinity()
                             dialogInterface.dismiss()
                         }
-                        .setNegativeButton("Cancel",R.drawable.ic_close) { dialogInterface, which ->
+                        .setNegativeButton(
+                            "Cancel",
+                            R.drawable.ic_close
+                        ) { dialogInterface, which ->
                             dialogInterface.dismiss()
                         }
                         .setAnimation("logout.json")
@@ -205,36 +222,18 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
                 // Show Dialog
                 mBottomSheetDialog.show()
 
-              /*
-                // Do something
-                val dialogBuilder = AlertDialog.Builder(this)
-                // set message of alert dialog
-                dialogBuilder.setMessage("Do you want to logout this application ?")
-                    // if the dialog is cancelable
-                    .setCancelable(false)
-                    // positive button text and action
-                    .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
-                        val session = SharedPreferenceSession(this)
-                        session.saveUserType("")
-                        dialog.cancel()
-                        startNewActivity(LoginAct::class.java)
-                        finishAffinity()
-                    })
-                    // negative button text and action
-                    .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
-                        dialog.cancel()
-                    })
-
-                // create dialog box
-                val alert = dialogBuilder.create()
-                // set title for alert dialog box
-                alert.setTitle("Logout")
-                // show alert dialog
-                alert.show()
-                return true*/
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    protected fun hideKeyboard() {
+        val view: View? = this.currentFocus
+        if (view != null) {
+            val imm: InputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
 }

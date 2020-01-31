@@ -16,8 +16,7 @@ import com.packetalk.Trailer.fragment.activity.TrailerGaugeAct2
 import com.packetalk.Trailer.fragment.model.trailer.Object
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
-import com.packetalk.util.AppLogger
-import com.packetalk.util.SharedPreferenceSession
+import com.packetalk.util.*
 import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.frg_trailer_item.view.*
 import retrofit2.Call
@@ -25,7 +24,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class TrailerGaugeAdapter(
+class
+TrailerGaugeAdapter(
     private val activity: FragmentActivity?,
     private var itemArrayList: ArrayList<Object>?
 ) :
@@ -57,49 +57,49 @@ class TrailerGaugeAdapter(
         @SuppressLint("DefaultLocale")
         fun setData(data: Object?) {
             itemView.tvTrailerGaugeName.text = data!!.trailerName
-            itemView.tvSolarType.text = data.type
+            itemView.tvSolarType.text = "${CommonUtils.upperCaseFirstLetter(data.type)} Vitals"
 
             //using for gauge resk status check
             when (data.risk) {
                 "Normal" -> {
-                    itemView.tubeSpeedometerYellow.visibility = View.INVISIBLE
-                    itemView.tubeSpeedometerRed.visibility = View.INVISIBLE
-                    itemView.tubeSpeedometer.visibility = View.VISIBLE
+                    itemView.tubeSpeedometerYellow.invisible()
+                    itemView.tubeSpeedometerRed.invisible()
+                    itemView.tubeSpeedometer.visible()
                     itemView.linMainBorder.setBackgroundResource(R.drawable.trailer_border)
                     itemView.linSubBorder.setBackgroundResource(R.drawable.trailer_border)
                 }
                 "Critical" -> {
-                    itemView.tubeSpeedometerYellow.visibility = View.INVISIBLE
-                    itemView.tubeSpeedometerRed.visibility = View.VISIBLE
-                    itemView.tubeSpeedometer.visibility = View.INVISIBLE
+                    itemView.tubeSpeedometerYellow.invisible()
+                    itemView.tubeSpeedometerRed.visible()
+                    itemView.tubeSpeedometer.invisible()
                     itemView.linMainBorder.setBackgroundResource(R.drawable.trailer_border_red)
                     itemView.linSubBorder.setBackgroundResource(R.drawable.trailer_border_red)
                 }
                 "Warning" -> {
-                    itemView.tubeSpeedometerYellow.visibility = View.VISIBLE
-                    itemView.tubeSpeedometerRed.visibility = View.INVISIBLE
-                    itemView.tubeSpeedometer.visibility = View.INVISIBLE
+                    itemView.tubeSpeedometerYellow.visible()
+                    itemView.tubeSpeedometerRed.invisible()
+                    itemView.tubeSpeedometer.invisible()
                     itemView.linMainBorder.setBackgroundResource(R.drawable.trailer_border_yellow)
                     itemView.linSubBorder.setBackgroundResource(R.drawable.trailer_border_yellow)
                 }
             }
 
             if (data.type == "solar") {
-                itemView.relContent1.visibility = View.VISIBLE
-                itemView.relContent2.visibility = View.GONE
+                itemView.relContent1.visible()
+                itemView.relContent2.gone()
 
                 if (data.engineStatus == "Not able to connect it.") {
 //                    itemView.imgRestart.isEnabled = false
                     itemView.switchTrailer.isEnabled = false
-                    itemView.tvEngineStatus.visibility = View.VISIBLE
-                    itemView.viewEngineStatus.visibility = View.VISIBLE
+                    itemView.tvEngineStatus.visible()
+                    itemView.viewEngineStatus.visible()
 
                 } else {
 //                    itemView.imgRestart.isEnabled = false
                     itemView.switchTrailer.isEnabled = true
                     itemView.switchTrailer.isChecked = data.isOn
-                    itemView.tvEngineStatus.visibility = View.INVISIBLE
-                    itemView.viewEngineStatus.visibility = View.INVISIBLE
+                    itemView.tvEngineStatus.invisible()
+                    itemView.viewEngineStatus.invisible()
                     if (data.engineStatus == "true") {
                         data.isOn = true
                         itemView.switchTrailer.isChecked = true
@@ -117,44 +117,46 @@ class TrailerGaugeAdapter(
 //                itemView.imgRestart.visibility = View.VISIBLE
 
             } else if (data.type == "diesel") {
-                itemView.relContent1.visibility = View.GONE
-                itemView.relContent2.visibility = View.VISIBLE
+                itemView.relContent1.gone()
+                itemView.relContent2.visible()
 
                 if (data.engineStatus.toLowerCase() == "running" || data.engineStatus.toLowerCase() == "run" || data.engineStatus.toLowerCase() == "auto") {
-                    itemView.tvEngineStatus.visibility = View.VISIBLE
-                    itemView.viewEngineStatus.visibility = View.VISIBLE
-                    itemView.tvEngineStatus.text = data.engineStatus
+                    itemView.tvEngineStatus.visible()
+                    itemView.viewEngineStatus.visible()
+                    itemView.tvEngineStatus.text = CommonUtils.upperCaseFirstLetter(data.engineStatus)
                     itemView.tvEngineStatus.setTextColor(activity?.resources!!.getColor(R.color.green))
                     itemView.viewEngineStatus.setBackgroundColor(activity.resources!!.getColor(R.color.green))
                 } else {
-                    itemView.tvEngineStatus.visibility = View.VISIBLE
-                    itemView.viewEngineStatus.visibility = View.VISIBLE
-                    itemView.tvEngineStatus.text = data.engineStatus
+                    itemView.tvEngineStatus.visible()
+                    itemView.viewEngineStatus.visible()
+                    itemView.tvEngineStatus.text = CommonUtils.upperCaseFirstLetter(data.engineStatus)
                     itemView.tvEngineStatus.setTextColor(activity?.resources!!.getColor(R.color.red))
                     itemView.viewEngineStatus.setBackgroundColor(activity.resources!!.getColor(R.color.red))
                 }
 
             } else {
-                itemView.relContent1.visibility = View.VISIBLE
-                itemView.relContent2.visibility = View.GONE
+                itemView.relContent1.visible()
+                itemView.relContent2.gone()
 
                 if (data.engineStatus == "Not able to connect it.") {
 //                    itemView.imgRestart.isEnabled = false
                     itemView.switchTrailer.isEnabled = false
-                    itemView.tvEngineStatus.visibility = View.VISIBLE
-                    itemView.viewEngineStatus.visibility = View.VISIBLE
+                    itemView.tvEngineStatus.visible()
+                    itemView.viewEngineStatus.visible()
 
                 } else {
 //                    itemView.imgRestart.isEnabled = false
                     itemView.switchTrailer.isEnabled = true
                     itemView.switchTrailer.isChecked = data.isOn
-                    itemView.tvEngineStatus.visibility = View.INVISIBLE
-                    itemView.viewEngineStatus.visibility = View.INVISIBLE
+                    itemView.tvEngineStatus.invisible()
+                    itemView.viewEngineStatus.invisible()
                     if (data.engineStatus == "true") {
                         data.isOn = true
+                        itemView.switchTrailer.isChecked = true
 //                        notifyItemChanged(adapterPosition)
                     } else {
                         data.isOn = false
+                        itemView.switchTrailer.isChecked = false
 //                        notifyItemChanged(adapterPosition)
                     }
                 }
@@ -203,9 +205,6 @@ class TrailerGaugeAdapter(
                         .build()
                 // Show Dialog
                 mBottomSheetDialog.show()
-
-
-
             }
 
             itemView.btnStart.setOnClickListener {
@@ -232,11 +231,19 @@ class TrailerGaugeAdapter(
                     intent.putExtra("vitalType", itemArrayList?.get(adapterPosition)?.type)
                     intent.putExtra("trailerName", itemArrayList?.get(adapterPosition)?.trailerName)
                     activity?.startActivity(intent)
-                } else if (itemArrayList?.get(adapterPosition)?.type == "hybrid") {
+                }else if (itemArrayList?.get(adapterPosition)?.type == "solar-12") {
+                    val intent = Intent(activity, TrailerGaugeAct2::class.java)
+                    intent.putExtra("vitalType", itemArrayList?.get(adapterPosition)?.type)
+                    intent.putExtra("trailerName", itemArrayList?.get(adapterPosition)?.trailerName)
+                    activity?.startActivity(intent)
+                }
+                else if (itemArrayList?.get(adapterPosition)?.type == "hybrid") {
                     val intent = Intent(activity, HybridVitalGaugeAct::class.java)
                     intent.putExtra("vitalType", itemArrayList?.get(adapterPosition)?.type)
                     intent.putExtra("trailerName", itemArrayList?.get(adapterPosition)?.trailerName)
                     activity?.startActivity(intent)
+                } else if (itemArrayList?.get(adapterPosition)?.type == "identifying trailer type"){
+
                 }
             }
         }
@@ -249,6 +256,7 @@ class TrailerGaugeAdapter(
         }
 
         private fun onOffTrailer(trailerName: String, status: String) {
+            activity?.showLoader("Please wait..","Trailer Update")
             val map = HashMap<String, String>()
             map["TailerName"] = trailerName
             map["Status"] = status
@@ -258,6 +266,7 @@ class TrailerGaugeAdapter(
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         AppLogger.response(response.body().toString())
+                        activity?.hideLoader()
                     }
                 }
 
@@ -316,8 +325,9 @@ class TrailerGaugeAdapter(
                         AppLogger.response(response.body().toString())
                     }
                 }
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    
                 }
             })
         }

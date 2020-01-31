@@ -9,5 +9,4 @@ data class CamToGroupRequest(
     val groupId: String,
     @SerializedName("Cameras")
     val objectX: ArrayList<CameraDetailsFull>
-
 )

@@ -2,6 +2,7 @@ package com.packetalk.home.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -52,13 +53,13 @@ class CameraListAdapter(
 
         fun setData(data: CameraDetailsFull?) {
             activity?.let {
-                val width = activity.getDisplayWidth() - 40
+                val width = activity.getDisplayWidth() - 48
                 var widths = itemView.fr.width
                 AppLogger.e(widths.toString())
                 AppLogger.e(width.toString())
 
                 val configuration = activity.getResources().getConfiguration()
-                val screenWidthDp = configuration.screenWidthDp - 40
+                val screenWidthDp = configuration.screenWidthDp - 48
                 val url: String =
                     "${AppConstants.HTTP_BIND}${data?.serverURL}:${data?.serverPort}/viewpanel/${data?.cameraIDOnServer}/viewpanel&imagewidth=$screenWidthDp&imageheight=200"
                 /* itemView.webCamera.load("http://willingboro1.packetalk.net:5350/viewpanel/4/viewpanel&imagewidth=$width&imageheight=200",
@@ -70,11 +71,9 @@ class CameraListAdapter(
 //                itemView.webCamera.setInitialScale(initialScale)
 
 
+                itemView.webCamera.setBackgroundColor(Color.parseColor("#000000"))
 
-                itemView.webCamera.load(
-                    url,
-                    it
-                )
+                itemView.webCamera.load(url,it)
             }
             itemView.tvCameraName.text = data!!.cameraName
         }
@@ -110,8 +109,6 @@ class CameraListAdapter(
                 return 100
             }
         }
-
-
     }
 
 }

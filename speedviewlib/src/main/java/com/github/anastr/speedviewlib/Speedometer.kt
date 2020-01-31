@@ -72,7 +72,7 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
                 return
             updateBackgroundBitmap()
             invalidate()
-    }
+        }
 
     private var startDegree = 135
     private var endDegree = 135 + 270
@@ -188,13 +188,13 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
     /**
      *
      */
-     var _maxGaugeValue : Float = 0f;
+    var _maxGaugeValue : Float = 0f
 
     var maxGaugeValue : Float
-        get()  = this._maxGaugeValue;
+        get()  = this._maxGaugeValue
         set(maxGaugeValue){
-            this._maxGaugeValue = maxGaugeValue;
-       }
+            this._maxGaugeValue = maxGaugeValue
+        }
     /**
      * number of tick points of speed value's label.
      *
@@ -710,14 +710,14 @@ abstract class Speedometer @JvmOverloads constructor(context: Context, attrs: At
                 if (tick == null)
                     tick = if (tickTextFormat == FLOAT_FORMAT.toInt())
                         "%.1f".format(locale, ticks[i])
-    //                    String.format(locale, "%.1f", ticks[i])
+                    //                    String.format(locale, "%.1f", ticks[i])
                     else
                         "%d".format(locale, ticks[i].toInt())
-    //                    String.format(locale, "%d", ticks[i].toInt())
+                //                    String.format(locale, "%d", ticks[i].toInt())
 
                 c.translate(0f, initTickPadding + padding.toFloat() + tickPadding.toFloat())
                 StaticLayout(tick, textPaint, size, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, true)
-                        .draw(c)
+                    .draw(c)
 
                 c.restore()
             }

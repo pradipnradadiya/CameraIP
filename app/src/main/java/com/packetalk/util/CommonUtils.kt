@@ -33,6 +33,7 @@ import java.util.*
 object CommonUtils {
     @SuppressLint("SimpleDateFormat")
     private val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    private val sdf1 = SimpleDateFormat("MM-dd-yyyy HH:mm:ss aa")
 
     private val ALLOWED_CHARACTERS = AppConstants.RANDOM_STR
 
@@ -113,6 +114,16 @@ object CommonUtils {
     fun giveDate(time: String): String {
         val cal = Calendar.getInstance()
         return sdf.format(cal.time)
+    }
+
+    fun getDate(fullDate: String): String {
+//        val dateFormat =
+//            SimpleDateFormat("MM/dd/yyyy  hh:mm:ss  aa")
+
+        var date = giveDate(fullDate)
+
+        val d = sdf1.parse(date)
+        return d.toString()
     }
 
     fun getRandomString(sizeOfRandomString: Int): String {

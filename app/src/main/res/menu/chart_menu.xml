@@ -5,13 +5,12 @@
     <item
         android:id="@+id/action_chart"
         android:title="Add Trailer"
-        android:icon="@drawable/ic_calendar"
-        android:iconTint="@color/white"
+        android:icon="@drawable/ic_date_to"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_user"
-        android:title="Logout"
+        android:title="@string/logout"
         android:icon="@drawable/ic_logout"
         app:showAsAction="ifRoom"/>
 </menu>

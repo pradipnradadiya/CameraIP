@@ -40,19 +40,16 @@ class ExpandableGroupListAdapter(
         isLastChild: Boolean, convertView: View?, parent: ViewGroup
     ): View {
         var convertView = convertView
-
         val childText = getChild(groupPosition, childPosition) as String
-
         if (convertView == null) {
             val infalInflater = this._context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             convertView = infalInflater.inflate(R.layout.list_item_assign_camera, null)
         }
-
         convertView!!.expandedListItem.text = childText
 
-        /*val txtListChild = convertView!!
-                .findViewById(R.id.lblListItem) as TextView
+        /*
+        val txtListChild = convertView!!.findViewById(R.id.lblListItem) as TextView
         txtListChild.text = childText
         */
         return convertView

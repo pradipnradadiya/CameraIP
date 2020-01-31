@@ -81,6 +81,7 @@ class TrailerAdapter(
                             deleteTrailer()
                             removeAt(adapterPosition)
                             dialogInterface.dismiss()
+                            activity?.showSuccessToast("Trailer delete successfully")
                         }
                         .setNegativeButton("NO",R.drawable.ic_close) { dialogInterface, which ->
                             dialogInterface.dismiss()
@@ -128,7 +129,7 @@ class TrailerAdapter(
                     AppLogger.e(response.body().toString())
                     val json = parseJsonObject(response.body().toString())
                     if (json.getBoolean("ResponseResult")) {
-                        activity?.showSuccessToast("Trailer delete successfully")
+//                        activity?.showSuccessToast("Trailer delete successfully")
                     }
                 }
 

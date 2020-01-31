@@ -67,6 +67,7 @@ class MyWebView : WebView {
         }
 
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+//            view.setBackgroundColor(Color.BLACK)
             view.loadUrl(url)
             return true
         }

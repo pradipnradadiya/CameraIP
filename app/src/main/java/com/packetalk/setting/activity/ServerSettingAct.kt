@@ -10,6 +10,7 @@ import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.adapter.ServerSettingAdapter
 import com.packetalk.setting.model.server_setting.ServerItem
 import com.packetalk.util.AppLogger
+import com.packetalk.util.invisible
 import com.packetalk.util.setLoader
 import kotlinx.android.synthetic.main.act_server_setting.*
 import retrofit2.Call
@@ -51,7 +52,7 @@ class ServerSettingAct : BaseActivity() {
                 AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
                     if (response.body()?.responseResult!!) {
-                        loader.visibility = View.INVISIBLE
+                        loader.invisible()
                         recycleViewServer.layoutManager = layoutManager
                         adapter =
                             ServerSettingAdapter(this@ServerSettingAct, response.body()!!.objectX)

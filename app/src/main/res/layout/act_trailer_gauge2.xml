@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -32,9 +31,11 @@
             app:layout_constraintTop_toBottomOf="@+id/include9">
 
             <LinearLayout
+                android:id="@+id/linContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="invisible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -62,7 +63,7 @@
                             android:id="@+id/myTextView32"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="FUEL LEVEL"
+                            android:text="SOLAR VOLTAGE"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +90,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view15">
 
-                        <include layout="@layout/gauge_fuel_level" />
+                        <include layout="@layout/gauge_solar_voltage" />
 
                         <!--            app:sv_tickTextFormat="INTEGER"-->
 
@@ -98,7 +99,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="Willing Boro"
                             android:textSize="@dimen/twenty_dp" />
 
                     </RelativeLayout>
@@ -200,6 +200,306 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout18"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/fifty_dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.packetalk.utility.MyTextView
+                            android:id="@+id/myTextView40"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SOLAR CURRENT"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view20"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/one_dp"
+                        android:background="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout18" />
+
+                    <RelativeLayout
+                        android:id="@+id/relGaugeSolarCurrent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view20">
+
+                        <include layout="@layout/gauge_solar_current" />
+
+                        <!--            app:sv_tickTextFormat="INTEGER"-->
+
+                        <com.packetalk.utility.MyTextView
+                            android:id="@+id/tvSolarCurrent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textSize="@dimen/twenty_dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/sixteen_dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/relGaugeSolarCurrent">
+
+                        <LinearLayout
+                            android:id="@+id/linMainBorderSolarCurrent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/sixteen_dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="@dimen/sixteen_dp"
+                            android:background="@drawable/green_border"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/sixteen_dp"
+                            android:paddingTop="40dp"
+                            android:paddingEnd="@dimen/sixteen_dp"
+                            android:paddingBottom="@dimen/sixteen_dp">
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/red" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/critical" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/yellow" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/warning" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/green" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/normal" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linSubBorderSolarCurrent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/green_border"
+                            android:padding="@dimen/ten_dp">
+
+                            <com.packetalk.utility.MyTextView
+                                android:id="@+id/tvSolarType10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Historical"
+                                android:textAllCaps="true" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/trailer_gauge_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout13"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/fifty_dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.packetalk.utility.MyTextView
+                            android:id="@+id/myTextView34"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SOLAR POWER"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view17"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/one_dp"
+                        android:background="@color/colorPrimaryDark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout13" />
+
+                    <RelativeLayout
+                        android:id="@+id/relGauge3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view17">
+
+                        <include layout="@layout/gauge_solar_power" />
+
+                        <!--app:sv_tickTextFormat="INTEGER"-->
+
+                        <com.packetalk.utility.MyTextView
+                            android:id="@+id/tvSolarPower"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text=""
+                            android:textSize="@dimen/twenty_dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/sixteen_dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/relGauge3">
+
+                        <LinearLayout
+                            android:id="@+id/linMainBorder3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/sixteen_dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="@dimen/sixteen_dp"
+                            android:background="@drawable/green_border"
+                            android:orientation="horizontal"
+                            android:paddingStart="@dimen/sixteen_dp"
+                            android:paddingTop="40dp"
+                            android:paddingEnd="@dimen/sixteen_dp"
+                            android:paddingBottom="@dimen/sixteen_dp">
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/red" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/critical" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/yellow" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/warning" />
+
+                            <View
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
+                                android:background="@color/green" />
+
+                            <com.packetalk.utility.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/eight_dp"
+                                android:layout_weight="1"
+                                android:text="@string/normal" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linSubBorder3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/green_border"
+                            android:padding="@dimen/ten_dp">
+
+                            <com.packetalk.utility.MyTextView
+                                android:id="@+id/tvSolarType3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Historical"
+                                android:textAllCaps="true" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/trailer_gauge_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout12"
@@ -213,7 +513,7 @@
                             android:id="@+id/myTextView33"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="VOLTAGE"
+                            android:text="BATTERY VOLTAGE"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -243,10 +543,10 @@
 
                         <!--app:sv_tickTextFormat="INTEGER"-->
 
-                        <include layout="@layout/gauge_voltage" />
+                        <include layout="@layout/gauge_solar_battery_voltage" />
 
                         <com.packetalk.utility.MyTextView
-                            android:id="@+id/tvVoltage"
+                            android:id="@+id/tvBatteryVoltage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -354,7 +654,7 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout13"
+                        android:id="@+id/constraintLayout15"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/fifty_dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -362,10 +662,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.packetalk.utility.MyTextView
-                            android:id="@+id/myTextView34"
+                            android:id="@+id/myTextView36"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ENGINE RUNNING"
+                            android:text="TEMPERATURE"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -374,137 +674,13 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <View
-                        android:id="@+id/view17"
+                        android:id="@+id/view19"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/one_dp"
                         android:background="@color/colorPrimaryDark"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout13" />
-
-                    <RelativeLayout
-                        android:id="@+id/relGauge3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view17">
-
-                        <include layout="@layout/gauge_engine_running" />
-
-                        <!--app:sv_tickTextFormat="INTEGER"-->
-
-                        <com.packetalk.utility.MyTextView
-                            android:id="@+id/tvEnginRunning"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="Willing Boro"
-                            android:textSize="@dimen/twenty_dp" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/relativeLayout3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/sixteen_dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/relGauge3">
-
-                        <LinearLayout
-                            android:id="@+id/linMainBorder3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/sixteen_dp"
-                            android:layout_marginTop="18dp"
-                            android:layout_marginEnd="@dimen/sixteen_dp"
-                            android:background="@drawable/green_border"
-                            android:orientation="horizontal"
-                            android:paddingStart="@dimen/sixteen_dp"
-                            android:paddingTop="40dp"
-                            android:paddingEnd="@dimen/sixteen_dp"
-                            android:paddingBottom="@dimen/sixteen_dp">
-
-                            <View
-                                android:layout_width="@dimen/twenty_dp"
-                                android:layout_height="@dimen/twenty_dp"
-                                android:background="@color/red" />
-
-                            <com.packetalk.utility.MyTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/eight_dp"
-                                android:layout_weight="1"
-                                android:text="@string/critical" />
-
-                            <View
-                                android:layout_width="@dimen/twenty_dp"
-                                android:layout_height="@dimen/twenty_dp"
-                                android:background="@color/yellow" />
-
-                            <com.packetalk.utility.MyTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/eight_dp"
-                                android:layout_weight="1"
-                                android:text="@string/warning" />
-
-                            <View
-                                android:layout_width="@dimen/twenty_dp"
-                                android:layout_height="@dimen/twenty_dp"
-                                android:background="@color/green" />
-
-                            <com.packetalk.utility.MyTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/eight_dp"
-                                android:layout_weight="1"
-                                android:text="@string/normal" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/linSubBorder3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:background="@drawable/green_border"
-                            android:padding="@dimen/ten_dp">
-
-                            <com.packetalk.utility.MyTextView
-                                android:id="@+id/tvSolarType3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Historical"
-                                android:textAllCaps="true" />
-
-                        </LinearLayout>
-
-                    </RelativeLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/trailer_gauge_back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0">
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout15" />
 
                     <RelativeLayout
                         android:id="@+id/relGauge5"
@@ -515,10 +691,10 @@
                         android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="@id/view19">
 
 
-                        <include layout="@layout/gauge_total_run_time" />
+                        <include layout="@layout/gauge_temperature" />
 
                         <!--app:sv_tickTextFormat="INTEGER"-->
 
@@ -630,6 +806,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include9" />
 
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/loader"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -642,6 +827,7 @@
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_map" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

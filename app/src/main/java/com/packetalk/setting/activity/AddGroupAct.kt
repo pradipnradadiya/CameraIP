@@ -17,6 +17,7 @@ import retrofit2.Response
 class AddGroupAct : BaseActivity() {
 
     var session: SharedPreferenceSession? = null
+
     override fun getLayoutResourceId(): Int {
         return R.layout.act_add_group
     }
@@ -24,7 +25,6 @@ class AddGroupAct : BaseActivity() {
     override fun init() {
         bindToolBarBack("Add Group")
     }
-
 
     override fun initView() {
         session = SharedPreferenceSession(this@AddGroupAct)
@@ -48,7 +48,7 @@ class AddGroupAct : BaseActivity() {
     }
 
     private fun getGroupList(memberType: String, memberId: String) {
-        showProgressDialog("Camera", "Please wait..")
+        showProgressDialog("", "Please wait..")
         val loginRaw = HashMap<String, String>()
         loginRaw["memberTypes"] = memberType
         loginRaw["MemberID"] = memberId
@@ -80,9 +80,8 @@ class AddGroupAct : BaseActivity() {
 
     }
 
-
     private fun addGroup(groupName: String) {
-        showProgressDialog("Camera", "Please wait..")
+        showProgressDialog("", getString(R.string.please_wait))
         val map = HashMap<String, String>()
         map["Groupname"] = groupName
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
@@ -98,6 +97,7 @@ class AddGroupAct : BaseActivity() {
                     val jsonObject = parseJsonObject(response.body().toString())
                     if (jsonObject.getBoolean("ResponseResult")) {
                         showSuccessToast("Group added successfully")
+                        edGroupName.setText("")
                         getGroupList(session?.memberType.toString(), session?.memberId.toString())
                     }
                 }
@@ -110,7 +110,7 @@ class AddGroupAct : BaseActivity() {
     }
 
     private fun validateGroup(): Boolean {
-        if (!Validator.checkEmptyInputText(edGroupName, getString(R.string.pls_enter_dns))) {
+        if (!Validator.checkEmptyInputText(edGroupName, getString(R.string.pls_enter_gnm))) {
             return false
         }
         return true

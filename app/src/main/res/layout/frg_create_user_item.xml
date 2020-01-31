@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/eight_dp">
+
+    <com.packetalk.utility.MyTextView
+        android:id="@+id/tvUserName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="@dimen/eight_dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvAssignCamera"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="@dimen/eight_dp"
+        android:paddingBottom="@dimen/eight_dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.packetalk.utility.MyTextView
-            android:id="@+id/tvUserName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvAssignCamera"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <com.packetalk.utility.MyTextView
-            android:id="@+id/tvAssignCamera"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/assign_camera"
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorPrimaryDark"
-            app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvUserName"
-            app:layout_constraintTop_toTopOf="@+id/tvUserName" />
-
-    <View
-            android:id="@+id/view5"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/one_dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/ripple_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+        android:id="@+id/tvAssignCamera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/assign_camera"
+        android:textAlignment="textEnd"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:paddingTop="@dimen/eight_dp"
+        android:paddingBottom="@dimen/eight_dp"
+        app:layout_constraintStart_toEndOf="@+id/tvUserName"
+        app:layout_constraintTop_toTopOf="@+id/tvUserName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

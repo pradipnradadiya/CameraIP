@@ -15,6 +15,7 @@ import com.packetalk.setting.activity.AddCameraAct
 import com.packetalk.setting.activity.AddCameraAct.Companion.groupPosition
 import com.packetalk.setting.activity.AddCameraAct.Companion.myGroupList
 import com.packetalk.util.AppLogger
+import com.packetalk.util.invisible
 import com.packetalk.util.showErrorToast
 import kotlinx.android.synthetic.main.act_assign_camera_item.view.*
 import retrofit2.Call
@@ -53,6 +54,7 @@ class DefaultGroupAdapter(
         @SuppressLint("SetTextI18n")
 
         fun setData(data: CameraDetailsFull?) {
+            itemView.imageView10.invisible()
             itemView.tvCamName.text = data?.cameraName ?: "null"
             AppLogger.e("choice ${data!!.choice}")
 
@@ -109,7 +111,7 @@ class DefaultGroupAdapter(
 
     }
 
-    private fun deleteCamera(id: String, adminCameraId: String) {
+    /*private fun deleteCamera(id: String, adminCameraId: String) {
         val map = HashMap<String, String>()
         map["MemberID"] = id
         map["MemberID"] = adminCameraId
@@ -124,7 +126,7 @@ class DefaultGroupAdapter(
             }
 
         })
-    }
+    }*/
 
 
 }

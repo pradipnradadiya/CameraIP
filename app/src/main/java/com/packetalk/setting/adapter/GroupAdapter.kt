@@ -23,8 +23,9 @@ import com.packetalk.home.model.group_camera_model.Groups
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
 import com.packetalk.setting.activity.AssignGroupToUserAct
+import com.packetalk.util.*
 import com.packetalk.util.AppConstants.GROUP_ID
-import com.packetalk.util.AppLogger
+import com.packetalk.util.AppConstants.GROUP_NAME
 import com.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 import kotlinx.android.synthetic.main.act_add_group_item.view.*
 import retrofit2.Call
@@ -64,11 +65,11 @@ class GroupAdapter(
 
         fun setData(data: Groups?) {
             if (adapterPosition == 0) {
-                itemView.btnMore.visibility = View.INVISIBLE
+                itemView.btnMore.invisible()
             } else {
-                itemView.btnMore.visibility = View.VISIBLE
+                itemView.btnMore.visible()
             }
-            itemView.tvGroupName.text = data!!.groupName
+            itemView.tvGroupName.text = data!!.groupName.trim()
         }
 
         init {
@@ -84,11 +85,10 @@ class GroupAdapter(
                             showDialog(itemArrayList?.get(adapterPosition)?.groupName.toString().trim())
                         }
                         R.id.action_delete -> {
-
                             val mBottomSheetDialog =
                                 BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
                                     .setTitle("DELETE?")
-                                    .setMessage(activity.getString(R.string.delete_msg))
+                                    .setMessage("This Group contains ${itemArrayList!![adapterPosition].cameraDetailsFull.size} camera/s. \nAre you sure delete this Groups?")
                                     .setCancelable(false)
                                     .setPositiveButton("YES",R.drawable.ic_delete_popup) { dialogInterface, which ->
                                         AppLogger.e(itemArrayList?.get(adapterPosition)?.groupID.toString())
@@ -126,6 +126,7 @@ class GroupAdapter(
                             val intent = Intent(activity, AssignGroupToUserAct::class.java)
                             AppLogger.e( itemArrayList?.get(adapterPosition)?.groupID.toString())
                             intent.putExtra(GROUP_ID, itemArrayList?.get(adapterPosition)?.groupID.toString())
+                            intent.putExtra(GROUP_NAME, itemArrayList?.get(adapterPosition)?.groupName.toString())
                             activity?.startActivity(intent)
                         }
                     }
@@ -143,6 +144,7 @@ class GroupAdapter(
         }
 
         private fun editGroup(groupId: String, groupName: String) {
+            activity?.showPDialog("Edit","Please wait..")
             val map = HashMap<String, String>()
             map["GroupID"] = groupId
             map["Groupname"] = groupName
@@ -152,6 +154,8 @@ class GroupAdapter(
             callApi!!.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     AppLogger.e(response.body().toString())
+                    activity?.hidePDialog()
+                    activity?.showSuccessToast("Group updated successfully.")
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -204,5 +208,7 @@ class GroupAdapter(
 
             dialog.show()
         }
+
+
     }
 }

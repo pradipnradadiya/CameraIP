@@ -1,6 +1,5 @@
 package com.packetalk.user.fragment
 
-
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
@@ -18,11 +17,8 @@ import com.packetalk.retrofit.ApiInterface
 import com.packetalk.user.adapter.UserAdapter
 import com.packetalk.user.model.users.Object
 import com.packetalk.user.model.users.UserListItem
-import com.packetalk.util.AppLogger
-import com.packetalk.util.setLoader
-import kotlinx.android.synthetic.main.act_modem_setting.*
+import com.packetalk.util.*
 import kotlinx.android.synthetic.main.frg_create_user.*
-import kotlinx.android.synthetic.main.frg_create_user.loader
 import kotlinx.android.synthetic.main.frg_create_user.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -85,11 +81,21 @@ class CreateUserFrg : BaseFragment(), Filterable {
                 AppLogger.e(response.body().toString())
                 if (response.isSuccessful) {
                     if (response.body()?.responseResult!!) {
-                        rootView.loader.visibility = View.INVISIBLE
+                        rootView.loader.invisible()
                         userArr = response.body()?.objectX
                         rootView.recycleViewCreateUser.layoutManager = layoutManager
-                        adapter = UserAdapter(activity, response.body()?.objectX)
-                        rootView.recycleViewCreateUser.adapter = adapter
+                        if (response.body()?.objectX?.isEmpty()!!){
+                            rootView.tvNoData.visible()
+                            rootView.recycleViewCreateUser.invisible()
+                        }else {
+                            rootView.tvNoData.invisible()
+                            rootView.recycleViewCreateUser.visible()
+                            adapter = UserAdapter(activity, response.body()?.objectX)
+                            rootView.recycleViewCreateUser.adapter = adapter
+                            val divider = SimpleDividerItemDecoration(resources)
+                            rootView.recycleViewCreateUser.addItemDecoration(divider)
+
+                        }
                     }
                 }
             }

@@ -58,11 +58,31 @@ class ExistingUrlAdapter(private var itemArrayList: ArrayList<ObjectX>?) :
         }
 
         override fun onClick(v: View) {
-            AppLogger.e("on click")
+//            removeServerUrl(itemArrayList?.get(adapterPosition)!!.uri,itemArrayList!![adapterPosition].isDeleted as String)
         }
 
         override fun onLongClick(v: View): Boolean {
             return false
+        }
+
+        private fun removeServerUrl(serverUrl: String, isDeleted: String) {
+            var map = HashMap<String, String>()
+            map["ServerURL"] = serverUrl
+            map["IsDeleted"] = isDeleted
+            val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
+            val callApi = apiInterface?.removeCameraServer(map)
+            callApi?.enqueue(object : Callback<JsonObject> {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+                }
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+
+                    }
+                }
+
+            })
         }
 
     }
