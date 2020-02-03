@@ -66,7 +66,8 @@ class ExistingUrlAdapter(private var itemArrayList: ArrayList<ObjectX>?) :
         }
 
         private fun removeServerUrl(serverUrl: String, isDeleted: String) {
-            var map = HashMap<String, String>()
+
+            val map = HashMap<String, String>()
             map["ServerURL"] = serverUrl
             map["IsDeleted"] = isDeleted
             val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)

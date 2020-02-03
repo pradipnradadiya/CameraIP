@@ -1,6 +1,7 @@
 package com.packetalk.Trailer.fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,6 @@ import com.packetalk.util.AppLogger
 import com.packetalk.util.invisible
 import com.packetalk.util.setLoader
 import com.packetalk.util.visible
-import kotlinx.android.synthetic.main.frg_trailer.*
 import kotlinx.android.synthetic.main.frg_trailer.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +52,7 @@ class TrailerFrg : BaseFragment() {
     }
 
     override fun postInitView() {
-
+        rootView.loader.controller = setLoader()
     }
 
     override fun addListener() {
@@ -60,11 +60,12 @@ class TrailerFrg : BaseFragment() {
     }
 
     override fun loadData() {
+
         getTrailerList()
     }
 
     private fun getTrailerList() {
-        rootView.loader.controller = setLoader()
+
 //        showProgressDialog("Trailer", "Please wait..")
         val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
         val callApi = apiInterface?.getTrailerGaugeList()
@@ -81,6 +82,7 @@ class TrailerFrg : BaseFragment() {
                         val r = Runnable {
                             rootView.loader.invisible()
                             rootView.recycleViewTrailer.visible()
+                            repeatCall()
                         }
                         val h = Handler()
                         h.postDelayed(r, 5000)
@@ -113,5 +115,18 @@ class TrailerFrg : BaseFragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun repeatCall() {
+        object : CountDownTimer(120000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+                loadData()
+                repeatCall()//again call your method
+            }
+        }.start()
     }
 }
