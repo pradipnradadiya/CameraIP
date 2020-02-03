@@ -67,7 +67,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
             R.id.tvSelectAll -> {
 
                 if (myGroupList?.get(groupPosition)!!.cameraDetailsFull.isNullOrEmpty()) {
-                    for ((pos, data) in defaultCameraList?.withIndex()!!) {
+                    for ((_, data) in defaultCameraList?.withIndex()!!) {
                         data.choice = true
                         myGroupList?.get(groupPosition)?.cameraDetailsFull?.add(data)
                     }
@@ -75,7 +75,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                     AppLogger.e(defaultCameraList!!.size.toString())
                     AppLogger.e(myGroupList?.get(groupPosition)!!.cameraDetailsFull.size.toString())
 
-                    for ((j, defaultList) in defaultCameraList?.withIndex()!!) {
+                    for ((_, defaultList) in defaultCameraList?.withIndex()!!) {
                         defaultList.choice = true
                         myGroupList?.get(groupPosition)?.cameraDetailsFull?.add(defaultList)
                     }
@@ -310,14 +310,14 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
         for (data in myGroupList?.get(groupPosition)?.cameraDetailsFull!!) {
             if (data.choice) {
                 AppLogger.e(data.toString())
-                saveCamList?.add(data)
+                saveCamList.add(data)
             }
         }
-        if (saveCamList?.isEmpty()!!) {
+        if (saveCamList.isEmpty()) {
             showInfoToast("There are no new camera for submit!")
         } else {
             showProgressDialog("Assign Camera", "Please wait..")
-            val req = CamToGroupRequest(groupId, saveCamList!!)
+            val req = CamToGroupRequest(groupId, saveCamList)
             val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
             val callApi = apiInterface?.assignCameraToGroup(req)
             callApi?.enqueue(object : Callback<JsonObject> {
@@ -336,10 +336,8 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                         }
                     }
                 }
-
             })
         }
-
     }
 
     private fun isValid(urlString: String): Boolean {
@@ -438,7 +436,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
                 if (response.isSuccessful) {
                     if (response.body()?.responseResult!!) {
                         existingUrlList = response.body()!!.objectX
-                        existingUrlAdapter = ExistingUrlAdapter(existingUrlList)
+                        existingUrlAdapter = ExistingUrlAdapter(this@AddCameraAct,existingUrlList)
                     }
                 }
             }

@@ -42,6 +42,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/five_dp"
                 android:src="@drawable/ic_close"
+                android:tint="@color/black"
                 tools:ignore="ContentDescription" />
         </RelativeLayout>
 

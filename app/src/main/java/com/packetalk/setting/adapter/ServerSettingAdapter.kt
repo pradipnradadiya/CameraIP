@@ -57,12 +57,20 @@ class ServerSettingAdapter(
         init {
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
-            itemView.switchServer.setOnCheckedChangeListener { _, isChecked ->
-                itemArrayList?.get(adapterPosition)!!.routerStatus = isChecked
-                disableServerRouter(
-                    itemArrayList!![adapterPosition].uri,
-                    itemArrayList!![adapterPosition].isDeleted.toString()
-                )
+            itemView.switchServer.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (buttonView?.isPressed!!) {
+                   // itemArrayList?.get(adapterPosition)!!.routerStatus = isChecked
+                    if (itemArrayList?.get(adapterPosition)!!.isDeleted == 0) {
+                        itemArrayList?.get(adapterPosition)!!.isDeleted = 1
+                    } else {
+                        itemArrayList?.get(adapterPosition)!!.isDeleted = 0
+                    }
+                    disableServerRouter(
+                        itemArrayList!![adapterPosition].uri+":"+itemArrayList!![adapterPosition].port,
+                        itemArrayList!![adapterPosition].isDeleted
+                    )
+                }
+
             }
         }
 
@@ -76,11 +84,12 @@ class ServerSettingAdapter(
             return false
         }
 
-        private fun disableServerRouter(serverUrl: String, isDeleted: String) {
-            val map = HashMap<String, String>()
+        private fun disableServerRouter(serverUrl: String, isDeleted: Int) {
+            val map = HashMap<String, Any?>()
             map["ServerURL"] = serverUrl
-            map["isDeleted"] = isDeleted
+            map["IsDeleted"] = isDeleted
 
+            AppLogger.e("map-------$map")
             val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
             val callApi = apiInterface?.disableServerRouter(map)
             callApi!!.enqueue(object : Callback<JsonObject> {

@@ -49,7 +49,7 @@ class ModemSettingAct : BaseActivity() {
         val callApi = apiInterface?.modemList()
         callApi!!.enqueue(object : Callback<ModemItem> {
             override fun onResponse(call: Call<ModemItem>, response: Response<ModemItem>) {
-//                AppLogger.response(response.body().toString())
+                AppLogger.response(response.body().toString())
                 if (response.isSuccessful) {
                     if (response.body()?.responseResult!!) {
                         loader.invisible()

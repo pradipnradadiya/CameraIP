@@ -59,13 +59,12 @@ class AssignGroupToUserAct : BaseActivity(), View.OnClickListener {
     }
 
     private var userIdList = ArrayList<Int>()
-    private var groupId: String? = null
+    var groupId: String? = null
     private var groupName: String? = null
     var layoutManagerUser: LinearLayoutManager? = null
     var layoutManagerUserGroup: LinearLayoutManager? = null
     var adapterUser: UserListAdapter? = null
     var adapterGroupUser: UserGroupSelectedListAdapter? = null
-
     var groupsUserList: ArrayList<Object>? = null
 
     override fun getLayoutResourceId(): Int {

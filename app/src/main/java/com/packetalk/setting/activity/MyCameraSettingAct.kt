@@ -85,7 +85,8 @@ class MyCameraSettingAct : BaseActivity(), View.OnClickListener {
                                     )!!.priority
                                 )!!
                             ) {
-                                showErrorToast("Repeated priority ${i + 1},${j + 1} It should be unique for each camera.")
+//                                showErrorToast("Repeated priority ${i + 1},${j + 1} It should be unique for each camera.")
+                                showErrorToast("Repeated priority ${i + 1}. It should be unique for each camera.")
                                 flag = true
                             }
                             j++

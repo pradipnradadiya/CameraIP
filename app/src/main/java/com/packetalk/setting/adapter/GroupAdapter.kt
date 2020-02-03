@@ -61,15 +61,15 @@ class GroupAdapter(
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener, View.OnLongClickListener {
-        @SuppressLint("SetTextI18n", "RestrictedApi")
+        @SuppressLint("SetTextI18n", "RestrictedApi", "DefaultLocale")
 
         fun setData(data: Groups?) {
-            if (adapterPosition == 0) {
+            if (data?.groupName!!.toLowerCase().trim().contentEquals("public")) {
                 itemView.btnMore.invisible()
             } else {
                 itemView.btnMore.visible()
             }
-            itemView.tvGroupName.text = data!!.groupName.trim()
+            itemView.tvGroupName.text = data.groupName.trim()
         }
 
         init {
@@ -84,6 +84,7 @@ class GroupAdapter(
                         R.id.action_edit -> {
                             showDialog(itemArrayList?.get(adapterPosition)?.groupName.toString().trim())
                         }
+
                         R.id.action_delete -> {
                             val mBottomSheetDialog =
                                 BottomSheetMaterialDialog.Builder(activity as AppCompatActivity)
@@ -179,7 +180,6 @@ class GroupAdapter(
                 }
             })
         }
-
 
         private fun showDialog(title: String) {
             val dialog = activity?.let { Dialog(it) }

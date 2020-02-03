@@ -52,6 +52,7 @@ class ModemSettingAdapter(
         fun setData(data: Object?) {
             itemView.tvName.text = data!!.uri
             itemView.switchModem.isChecked = data.isDeleted == 1
+
             if (data.routerStatus) {
                 itemView.tvStatus.setBackgroundResource(R.drawable.bg_green_circle)
             } else if (!data.routerStatus) {
@@ -64,12 +65,18 @@ class ModemSettingAdapter(
             itemView.setOnLongClickListener(this)
 
             itemView.switchModem.setOnCheckedChangeListener { buttonView, isChecked ->
-                if(buttonView?.isPressed!!){
-                    itemArrayList?.get(adapterPosition)!!.routerStatus = isChecked
+                if (buttonView?.isPressed!!) {
+                   // itemArrayList?.get(adapterPosition)!!.routerStatus = isChecked
+                    if (itemArrayList?.get(adapterPosition)!!.isDeleted == 0) {
+                        itemArrayList?.get(adapterPosition)!!.isDeleted = 1
+                    } else {
+                        itemArrayList?.get(adapterPosition)!!.isDeleted = 0
+                    }
                     disableModemRouter(
                         itemArrayList!![adapterPosition].trailerID.toString(),
-                        itemArrayList!![adapterPosition].isDeleted.toString()
+                        itemArrayList!![adapterPosition].isDeleted
                     )
+
                 }
             }
         }
@@ -84,12 +91,12 @@ class ModemSettingAdapter(
             return false
         }
 
-        private fun disableModemRouter(routerId: String, isDeleted: String) {
-            val map = HashMap<String, String>()
+        private fun disableModemRouter(routerId: String, isDeleted: Int) {
+            val map = HashMap<String, Any?>()
             map["RouterID"] = routerId
             map["isDeleted"] = isDeleted
 
-            AppLogger.e(""+map)
+            AppLogger.e("" + map)
             val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
             val callApi = apiInterface?.disableModemRouter(map)
             callApi!!.enqueue(object : Callback<JsonObject> {

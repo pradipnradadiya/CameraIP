@@ -12,11 +12,13 @@ import com.packetalk.util.SharedPreferenceSession
 class SplashACt : AppCompatActivity() {
     private var mDelayHandler: Handler? = null
     private val splashDelay: Long = 5000 //3 seconds
+    lateinit var session : SharedPreferenceSession
 
     private val mRunnable: Runnable = Runnable {
         if (!isFinishing) {
             val session = SharedPreferenceSession(this)
-            if (session.userType==""){
+
+            if (session.userType.isNullOrBlank()){
                 val intent = Intent(applicationContext, LoginAct::class.java)
                 startActivity(intent)
                 finish()
@@ -32,6 +34,7 @@ class SplashACt : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.act_splash)
         //Initialize the Handler
+        session = SharedPreferenceSession(this)
         mDelayHandler = Handler()
         //Navigate with delay
         mDelayHandler!!.postDelayed(mRunnable, splashDelay)

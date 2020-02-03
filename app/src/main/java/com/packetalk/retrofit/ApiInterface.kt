@@ -95,7 +95,7 @@ interface ApiInterface {
     //modem switch change action
     @Headers("Content-Type: application/json")
     @POST("api/SettingAdmin/DeactiveRouter")
-    fun disableModemRouter(@Body body: Map<String, String>): Call<JsonObject>
+    fun disableModemRouter(@Body body: Map<String,@JvmSuppressWildcards Any?>): Call<JsonObject>
 
     //Server setting list
     @Headers("Content-Type: application/json")
@@ -104,8 +104,8 @@ interface ApiInterface {
 
     //server switch change action
     @Headers("Content-Type: application/json")
-    @POST("api/SettingAdmin/UpdateGroup")
-    fun disableServerRouter(@Body body: Map<String, String>): Call<JsonObject>
+    @POST("api/SettingAdmin/RemoveAllServerCam")
+    fun disableServerRouter(@Body body: Map<String,@JvmSuppressWildcards Any?>): Call<JsonObject>
 
     //delete group camera
     @Headers("Content-Type: application/json")
@@ -173,10 +173,8 @@ interface ApiInterface {
 
     //Remove Camera Server
     @Headers("Content-Type: application/json")
-    @POST("api/SettingAdmin/RemoveAllServerCam")
-    fun removeCameraServer(@Body body: Map<String, String>): Call<JsonObject>
-
-
+    @POST("api/SettingAdmin/RemoveAllServerWise")
+    fun removeCameraServer(@Body body: Map<String,@JvmSuppressWildcards Any?>): Call<JsonObject>
 
     //************************************ MAP *******************************************
     @Headers("Content-Type: application/json")

@@ -7,7 +7,7 @@ data class Object(
     @SerializedName("Cameraname")
     val cameraname: Any,
     @SerializedName("IsDeleted")
-    val isDeleted: Int,
+    var isDeleted: Int,
     @SerializedName("Port")
     val port: String,
     @SerializedName("RouterStatus")

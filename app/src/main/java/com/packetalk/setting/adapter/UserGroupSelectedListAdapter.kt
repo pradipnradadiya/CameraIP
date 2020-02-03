@@ -14,6 +14,7 @@ import com.packetalk.R
 import com.packetalk.home.activity.HomeAct.Companion.userId
 import com.packetalk.retrofit.APIClientBasicAuth
 import com.packetalk.retrofit.ApiInterface
+import com.packetalk.setting.activity.AssignGroupToUserAct
 import com.packetalk.user.model.users.Object
 import com.packetalk.util.AppLogger
 import com.packetalk.util.parseJsonObject
@@ -130,7 +131,7 @@ class UserGroupSelectedListAdapter(
                             dialogInterface.dismiss()
                             // continue with delete
                             AppLogger.e(itemArrayList!![adapterPosition].iD)
-                            deleteUserOnGroup(itemArrayList!![adapterPosition].iD, userId)
+                            deleteUserOnGroup((activity as AssignGroupToUserAct).groupId.toString(),itemArrayList!![adapterPosition].iD)
                             removeAt(adapterPosition)
                         }
                         .setNegativeButton(activity.getString(R.string.cancel),R.drawable.ic_close) { dialogInterface, which ->
