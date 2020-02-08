@@ -1,6 +1,4 @@
 package com.packetalk.login.model
-
-
 import com.google.gson.annotations.SerializedName
 
 data class LoginItem(

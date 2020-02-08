@@ -6,7 +6,8 @@ import com.packetalk.home.model.group_camera_model.CameraDetailsFull
 
 data class CamToGroupRequest(
     @SerializedName("GroupID")
-    val groupId: String,
+    val groupId: Int,
     @SerializedName("Cameras")
     val objectX: ArrayList<CameraDetailsFull>
+
 )

@@ -73,5 +73,7 @@ data class CameraDetailsFull(
     @SerializedName("userid")
     val userid: Any,
     var choice: Boolean = false,
-    var isSelected: Boolean = false
+    var isSelected: Boolean = false,
+    @SerializedName("IsNewCamera")
+    var IsNewCamera: Boolean = true
 ) : Serializable

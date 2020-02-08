@@ -305,11 +305,11 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
     }
 
     private fun saveCam() {
-
         saveCamList.clear()
         for (data in myGroupList?.get(groupPosition)?.cameraDetailsFull!!) {
             if (data.choice) {
                 AppLogger.e(data.toString())
+                data.IsNewCamera = true
                 saveCamList.add(data)
             }
         }
@@ -317,7 +317,7 @@ class AddCameraAct : BaseActivity(), View.OnClickListener {
             showInfoToast("There are no new camera for submit!")
         } else {
             showProgressDialog("Assign Camera", "Please wait..")
-            val req = CamToGroupRequest(groupId, saveCamList)
+            val req = CamToGroupRequest(groupId.toInt(), saveCamList)
             val apiInterface = APIClientBasicAuth.client?.create(ApiInterface::class.java)
             val callApi = apiInterface?.assignCameraToGroup(req)
             callApi?.enqueue(object : Callback<JsonObject> {

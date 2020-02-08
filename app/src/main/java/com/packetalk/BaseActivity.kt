@@ -200,8 +200,8 @@ abstract class BaseActivity : AppCompatActivity(), BindingListener {
             R.id.action_user -> {
                 val mBottomSheetDialog =
                     BottomSheetMaterialDialog.Builder(this)
-                        .setTitle("LOGOUT")
-                        .setMessage("Do you want to logout this application ?")
+                        .setTitle(getString(R.string.sign_out))
+                        .setMessage(getString(R.string.sign_out_confirm_message))
                         .setCancelable(false)
                         .setPositiveButton("OK", R.drawable.ic_logout) { dialogInterface, which ->
                             // continue with delete

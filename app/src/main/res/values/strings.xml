@@ -96,6 +96,8 @@
     <string name="select_to_date_time"><![CDATA[Please select to date & time.]]></string>
     <string name="all_digit">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_-!@#$%^*()</string>
     <string name="please_wait">Please wait..</string>
+    <string name="sign_out">LOGOUT</string>
+    <string name="sign_out_confirm_message">Do you want to logout this application ?</string>
 
     <string-array name="test_array">
         <item>1</item>

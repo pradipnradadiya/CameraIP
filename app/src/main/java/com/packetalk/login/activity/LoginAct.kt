@@ -17,7 +17,6 @@ import retrofit2.Response
 import java.util.*
 import kotlin.collections.HashMap
 
-
 class LoginAct : BaseActivity() {
 
     override fun getLayoutResourceId(): Int {
@@ -30,7 +29,8 @@ class LoginAct : BaseActivity() {
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
-        tvCopyRight.text = "@${Calendar.getInstance().get(Calendar.YEAR)} Packetalk All rights Reserved."
+        tvCopyRight.text =
+            "@${Calendar.getInstance().get(Calendar.YEAR)} Packetalk All rights Reserved."
     }
 
     override fun postInitView() {
@@ -86,7 +86,7 @@ class LoginAct : BaseActivity() {
                 } else {
                     if (user.status != null) {
                         showInfoToast(user.status)
-                    }else{
+                    } else {
                         showInfoToast("Invalid.")
                     }
                 }
@@ -96,7 +96,7 @@ class LoginAct : BaseActivity() {
                   val obj = JSONObject(json.toString())
                   AppLogger.e(obj.toString())*/
 
-                
+
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -105,4 +105,5 @@ class LoginAct : BaseActivity() {
         })
 
     }
+
 }
