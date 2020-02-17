@@ -123,7 +123,6 @@ class HomeFrg : BaseFragment(), View.OnClickListener {
     }
 
     override fun initView() {
-
     }
 
     override fun postInitView() {

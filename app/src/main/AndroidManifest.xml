@@ -123,6 +123,7 @@
             android:name=".Trailer.fragment.activity.HybridVitalGaugeAct"
             android:screenOrientation="portrait" />
 
+
     </application>
 
 </manifest>

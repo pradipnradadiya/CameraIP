@@ -7,5 +7,8 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         Fresco.initialize(this)
+//        Crashlytics.getInstance()
+//        FirebaseCrashlytics.getInstance()
+
     }
 }
